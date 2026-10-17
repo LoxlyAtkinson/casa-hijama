@@ -1,0 +1,16 @@
+[
+  {
+    "route": "/",
+    "state": "live-mobile-hero-broken",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:28:33.256007+00:00",
+    "action": "Opened deployed home at 390px, waited for network idle, inspected selected picture source and HTTP response",
+    "expected": "Single dominant cup image renders from deployed subpath in mobile opening",
+    "actual": "Browser selected https://loxlyatkinson.github.io/assets/hero-cup-macro-mobile.png; HTTP 404; naturalWidth 0; broken-image icon and empty hero field",
+    "result": "FAIL",
+    "screenshot": "live-mobile-hero-recheck"
+  }
+]

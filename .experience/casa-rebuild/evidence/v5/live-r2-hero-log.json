@@ -1,0 +1,58 @@
+[
+  {
+    "route": "/",
+    "state": "live-r2-desktop-hero-start",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T12:31:51.327Z",
+    "action": "Loaded deployed home and waited for hero image",
+    "expected": "Correct cup asset visibly renders with no failed requests",
+    "actual": "{\"img\":{\"src\":\"https://loxlyatkinson.github.io/casa-hijama/assets/hero-cup-macro-desktop.png\",\"complete\":true,\"width\":1672},\"failures\":[]}",
+    "result": "PASS",
+    "screenshot": "live-r2-desktop-hero-start"
+  },
+  {
+    "route": "/",
+    "state": "live-r2-desktop-hero-room",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T12:31:53.846Z",
+    "action": "Scrolled deployed hero to room frame",
+    "expected": "Private room image and headline visible",
+    "actual": "{\"opacity\":\"1\",\"imgLoaded\":true}",
+    "result": "PASS",
+    "screenshot": "live-r2-desktop-hero-room"
+  },
+  {
+    "route": "/",
+    "state": "live-r2-mobile-hero-start",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:32:05.542Z",
+    "action": "Loaded deployed home and waited for hero image",
+    "expected": "Correct cup asset visibly renders with no failed requests",
+    "actual": "{\"img\":{\"src\":\"https://loxlyatkinson.github.io/casa-hijama/assets/hero-cup-macro-mobile.png\",\"complete\":true,\"width\":941},\"failures\":[]}",
+    "result": "PASS",
+    "screenshot": "live-r2-mobile-hero-start"
+  },
+  {
+    "route": "/",
+    "state": "live-r2-mobile-hero-room",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:32:07.147Z",
+    "action": "Scrolled deployed hero to room frame",
+    "expected": "Private room image and headline visible",
+    "actual": "{\"opacity\":\"1\",\"imgLoaded\":true}",
+    "result": "PASS",
+    "screenshot": "live-r2-mobile-hero-room"
+  }
+]

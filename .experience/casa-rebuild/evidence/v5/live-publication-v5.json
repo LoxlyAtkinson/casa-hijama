@@ -1,0 +1,67 @@
+{
+  "reviewer": "Codex independent acceptance judge (/root/v5_final_acceptance)",
+  "timestamp": "2026-10-17T12:26:42.420048+00:00",
+  "repository": {
+    "url": "https://github.com/LoxlyAtkinson/casa-hijama",
+    "public": true,
+    "default_branch": "main",
+    "local_head": "be943c2ad0881fd258caaea45365731a0e9dded1"
+  },
+  "deployment": {
+    "head_sha": "be943c2ad0881fd258caaea45365731a0e9dded1",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/LoxlyAtkinson/casa-hijama/actions/runs/39032319222"
+  },
+  "probes": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 5506,
+      "content_type": "text/html; charset=utf-8",
+      "sha256": "d2e21c81f5105c371c64d9803b6fb982feb63aabcb54d548e049adfe64aff4aa"
+    },
+    {
+      "path": "/cupping-therapy/",
+      "status": 200,
+      "bytes": 5506,
+      "content_type": "text/html; charset=utf-8",
+      "sha256": "d2e21c81f5105c371c64d9803b6fb982feb63aabcb54d548e049adfe64aff4aa"
+    },
+    {
+      "path": "/products/",
+      "status": 200,
+      "bytes": 5506,
+      "content_type": "text/html; charset=utf-8",
+      "sha256": "d2e21c81f5105c371c64d9803b6fb982feb63aabcb54d548e049adfe64aff4aa"
+    },
+    {
+      "path": "/more-information/",
+      "status": 200,
+      "bytes": 5506,
+      "content_type": "text/html; charset=utf-8",
+      "sha256": "d2e21c81f5105c371c64d9803b6fb982feb63aabcb54d548e049adfe64aff4aa"
+    },
+    {
+      "path": "/assets/hero-cup-macro-desktop.png",
+      "status": 200,
+      "bytes": 1995851,
+      "content_type": "image/png",
+      "sha256": "ca790d2154698f1f873260f65dca56f639eaa607f6b6c33dce2608952bd2efc2"
+    },
+    {
+      "path": "/assets/hero-cup-macro-mobile.png",
+      "status": 200,
+      "bytes": 1790830,
+      "content_type": "image/png",
+      "sha256": "e19ee12dc525ade1a735bfc2ec882028482f91e5a44fa89156865b9b39e5cf9e"
+    },
+    {
+      "path": "/assets/private-room.png",
+      "status": 200,
+      "bytes": 2337766,
+      "content_type": "image/png",
+      "sha256": "666e8c8b67d43c6686159e33dc3454e84baacbed3386030f37b59de4a702a561"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+[
+  {
+    "route": "/",
+    "state": "live-desktop-home",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T12:31:37.133Z",
+    "action": "Opened deployed home route at desktop viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/; macro asset and WebGL body loaded",
+    "result": "PASS",
+    "screenshot": "live-desktop-home"
+  },
+  {
+    "route": "/cupping-therapy/",
+    "state": "live-desktop-treatments",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T12:31:38.833Z",
+    "action": "Opened deployed treatments route at desktop viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/cupping-therapy/; main visible",
+    "result": "PASS",
+    "screenshot": "live-desktop-treatments"
+  },
+  {
+    "route": "/products/",
+    "state": "live-desktop-products",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T12:31:41.108Z",
+    "action": "Opened deployed products route at desktop viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/products/; 30 products",
+    "result": "PASS",
+    "screenshot": "live-desktop-products"
+  },
+  {
+    "route": "/more-information/",
+    "state": "live-desktop-information",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T12:31:41.859Z",
+    "action": "Opened deployed information route at desktop viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/more-information/; main visible",
+    "result": "PASS",
+    "screenshot": "live-desktop-information"
+  },
+  {
+    "route": "/",
+    "state": "live-mobile-home",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:31:48.356Z",
+    "action": "Opened deployed home route at mobile viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/; macro asset and WebGL body loaded",
+    "result": "PASS",
+    "screenshot": "live-mobile-home"
+  },
+  {
+    "route": "/cupping-therapy/",
+    "state": "live-mobile-treatments",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:31:49.835Z",
+    "action": "Opened deployed treatments route at mobile viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/cupping-therapy/; main visible",
+    "result": "PASS",
+    "screenshot": "live-mobile-treatments"
+  },
+  {
+    "route": "/products/",
+    "state": "live-mobile-products",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:31:51.464Z",
+    "action": "Opened deployed products route at mobile viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/products/; 30 products",
+    "result": "PASS",
+    "screenshot": "live-mobile-products"
+  },
+  {
+    "route": "/more-information/",
+    "state": "live-mobile-information",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:31:52.527Z",
+    "action": "Opened deployed information route at mobile viewport",
+    "expected": "HTTP 200, page content and current revision loaded without overflow",
+    "actual": "HTTP 200; path /casa-hijama/more-information/; main visible",
+    "result": "PASS",
+    "screenshot": "live-mobile-information"
+  }
+]

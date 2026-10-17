@@ -1,0 +1,21 @@
+{
+  "reviewer": "Codex independent acceptance judge (/root/v5_final_acceptance)",
+  "timestamp": "2026-10-17T12:34:47.382138+00:00",
+  "repository": {
+    "url": "https://github.com/LoxlyAtkinson/casa-hijama",
+    "public": true,
+    "local_head": "f65fa0577cf053b8ba9c5c8945b09f3d7de76f5e"
+  },
+  "deployment": {
+    "run_id": 39032686456,
+    "head_sha": "f65fa0577cf053b8ba9c5c8945b09f3d7de76f5e",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/LoxlyAtkinson/casa-hijama/actions/runs/39032686456"
+  },
+  "browser_evidence": [
+    "live-browser-log.json",
+    "live-r2-products-loaded-log.json",
+    "live-r2-hero-log.json"
+  ]
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "route": "/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "status": 200,
+    "title": "Casa Hijama — Cupping & Wellness in Cape Town",
+    "heading": "Feel at home.",
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "assetLoaded": false,
+    "result": "PASS"
+  },
+  {
+    "route": "/",
+    "state": "live-body-desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "canvas": 1,
+    "result": "PASS"
+  },
+  {
+    "route": "/cupping-therapy/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "status": 200,
+    "title": "Cupping Therapy — Casa Hijama",
+    "heading": "Care with\ndeep roots.",
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "result": "PASS"
+  },
+  {
+    "route": "/products/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "status": 200,
+    "title": "Products — Casa Hijama",
+    "heading": "Wellbeing,\nbeyond the studio.",
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "result": "PASS"
+  },
+  {
+    "route": "/more-information/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "status": 200,
+    "title": "More Information — Casa Hijama",
+    "heading": "Curiosity is\npart of care.",
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "result": "PASS"
+  },
+  {
+    "route": "/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "status": 200,
+    "title": "Casa Hijama — Cupping & Wellness in Cape Town",
+    "heading": "Feel at home.",
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "assetLoaded": false,
+    "result": "PASS"
+  },
+  {
+    "route": "/",
+    "state": "live-body-mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "canvas": 1,
+    "result": "PASS"
+  },
+  {
+    "route": "/cupping-therapy/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "status": 200,
+    "title": "Cupping Therapy — Casa Hijama",
+    "heading": "Care with\ndeep roots.",
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "result": "PASS"
+  },
+  {
+    "route": "/products/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "status": 200,
+    "title": "Products — Casa Hijama",
+    "heading": "Wellbeing,\nbeyond the studio.",
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "result": "PASS"
+  },
+  {
+    "route": "/more-information/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "status": 200,
+    "title": "More Information — Casa Hijama",
+    "heading": "Curiosity is\npart of care.",
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "result": "PASS"
+  }
+]

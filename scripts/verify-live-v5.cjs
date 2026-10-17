@@ -23,9 +23,11 @@ const routes = [
         if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)) throw new Error(`${size} ${name}: overflow`);
         if (name === 'products' && await page.locator('.product-card').count() !== 30) throw new Error(`${size}: catalog count`);
         if (name === 'home') {
+          await page.waitForFunction(() => { const img = document.querySelector('.home-hero-stage .hero-media img'); return img && img.complete && img.naturalWidth > 0; }, { timeout: 20000 });
           const image = await page.locator('.home-hero-stage .hero-media img').evaluate(img => ({ src: img.currentSrc, loaded: img.complete && img.naturalWidth > 0 }));
           const expected = size === 'mobile' ? 'hero-cup-macro-mobile.png' : 'hero-cup-macro-desktop.png';
           if (!image.loaded || !image.src.includes(expected)) throw new Error(`${size}: opening image ${JSON.stringify(image)}`);
+          await page.screenshot({ path: path.join(out, `live-${size}-hero-fixed.png`), animations: 'disabled' });
           await page.locator('.bj-scroll').scrollIntoViewIfNeeded();
           await page.locator('.bj--webgl canvas').waitFor({ timeout: 20000 });
           await page.locator('.bj-region-button').nth(2).click();

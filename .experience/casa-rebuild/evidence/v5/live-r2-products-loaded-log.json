@@ -1,0 +1,30 @@
+[
+  {
+    "route": "/products/",
+    "state": "live-r2-desktop-products-loaded",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T12:33:38.747Z",
+    "action": "Opened each of 30 horizontally and vertically arranged product cards in deployed shop",
+    "expected": "Every product image loads when its card enters the viewport",
+    "actual": "{\"count\":30,\"failed\":[]}",
+    "result": "PASS",
+    "screenshot": "live-r2-desktop-products-loaded"
+  },
+  {
+    "route": "/products/",
+    "state": "live-r2-mobile-products-loaded",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T12:33:44.871Z",
+    "action": "Opened each of 30 horizontally and vertically arranged product cards in deployed shop",
+    "expected": "Every product image loads when its card enters the viewport",
+    "actual": "{\"count\":30,\"failed\":[]}",
+    "result": "PASS",
+    "screenshot": "live-r2-mobile-products-loaded"
+  }
+]
