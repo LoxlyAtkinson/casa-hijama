@@ -49,7 +49,7 @@ export function bodyJourney() {
             </div>
           </div>
         </div>
-        <div class="bj-view-controls"><span class="bj-view-label">FRONT VIEW</span><button class="bj-rotate" type="button" aria-label="Show back view">Turn figure <span aria-hidden="true">↻</span></button></div>
+        <div class="bj-view-controls"><span class="bj-view-label">FRONT VIEW</span><span class="bj-drag-hint">Drag the body to look around</span><button class="bj-rotate" type="button" aria-label="Show back view">Turn figure <span aria-hidden="true">↻</span></button></div>
       </div>
       <div class="bj-content">
         <div class="bj-counter"><span class="bj-current">01</span><span class="bj-counter-line"></span><span>03</span></div>
@@ -59,7 +59,7 @@ export function bodyJourney() {
         <a class="bj-treatment-link" href="${import.meta.env.BASE_URL}cupping-therapy">Explore treatments <span aria-hidden="true">↗</span></a>
       </div>
     </div></div></div>
-    <div class="bj-care wrap"><div><span class="bj-care-label">The evidence &amp; your safety</span><p>Cupping may reduce pain, but the evidence is not strong. Temporary skin marks are common; burns, scars and infection can occur. Speak with a clinician about persistent or worsening pain, and tell your therapist about your health before treatment.</p></div><a href="https://www.nccih.nih.gov/health/cupping" target="_blank" rel="noopener noreferrer">Read the NIH cupping guide <span aria-hidden="true">↗</span></a></div>
+    <div class="bj-care wrap"><div><span class="bj-care-label">The evidence &amp; your safety</span><p>Cupping may reduce pain, but the evidence is not strong. Temporary skin marks are common; burns, scars and infection can occur. Speak with a clinician about persistent or worsening pain, and tell your therapist about your health before treatment.</p><a class="bj-model-credit" href="https://hubmapconsortium.github.io/ccf/pages/ccf-3d-reference-library.html" target="_blank" rel="noopener noreferrer">3D body: HuBMAP CCF · CC BY 4.0 ↗</a></div><a href="https://www.nccih.nih.gov/health/cupping" target="_blank" rel="noopener noreferrer">Read the NIH cupping guide <span aria-hidden="true">↗</span></a></div>
     <dialog class="bj-dialog" aria-labelledby="bj-dialog-title"><div class="bj-dialog-inner"><button class="bj-dialog-close" type="button" aria-label="Close body area check-in">×</button><span class="bj-dialog-eyebrow">PRIVATE, ON-PAGE CHECK-IN · <span class="bj-dialog-region">NECK &amp; SHOULDERS</span></span><h3 id="bj-dialog-title">Prepare for a conversation.</h3><p class="bj-dialog-intro">Four short questions can help you describe what you want to discuss. Answers stay on this page and are not used to diagnose or recommend treatment.</p>
       <form class="bj-intake-form">
         ${question('duration', '01 / How long have you been noticing this?', [['Under a week','Under a week'],['1–4 weeks','1–4 weeks'],['Longer than a month','Longer than a month'],['Prefer not to say','Prefer not to say']])}
@@ -73,8 +73,23 @@ export function bodyJourney() {
   </section>`;
 }
 
-async function createMannequin(section, onHotspot) {
+async function createMannequin(section, onHotspot, onOrbit) {
   const THREE = await import('three');
+  const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+  // Fetch only when the guide approaches the viewport. The still remains visible
+  // until both the geometry and its first WebGL frame are ready.
+  let gltf;
+  try {
+    gltf = await new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}assets/body-hubmap-skin.glb`);
+  } catch {
+    return null;
+  }
+  // The companion sacrum shares the exterior's coordinate system. A failed
+  // detail fetch must never prevent the main figure or its controls loading.
+  let pelvis;
+  try {
+    pelvis = await new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}assets/body-hubmap-pelvis.glb`);
+  } catch { /* Exterior remains the complete fallback. */ }
   const host = section.querySelector('.bj-webgl-host');
   let renderer;
   try {
@@ -86,17 +101,17 @@ async function createMannequin(section, onHotspot) {
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.35;
+  renderer.toneMappingExposure = 1.2;
   renderer.domElement.setAttribute('aria-hidden', 'true');
   host.append(renderer.domElement);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(32, 1, .1, 50);
-  scene.add(new THREE.HemisphereLight(0x9cefff, 0x063b5d, 1.35));
+  scene.add(new THREE.HemisphereLight(0x9cefff, 0x05283f, 1.5));
   const key = new THREE.DirectionalLight(0x68dfff, 2.2);
   key.position.set(-3, 5, 6);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0x55cfff, 3.6);
+  const rim = new THREE.DirectionalLight(0x55cfff, 3.0);
   rim.position.set(3, 2, -5);
   scene.add(rim);
 
@@ -104,242 +119,141 @@ async function createMannequin(section, onHotspot) {
   scene.add(body);
   const skin = new THREE.ShaderMaterial({
     uniforms: { uRegion: { value: new THREE.Vector3(.42,1.29,.28) }, uFocus: { value: 0 } },
-    transparent: true, depthWrite: false, side: THREE.DoubleSide,
-    vertexShader: `varying vec3 vNormal; varying vec3 vPosition; varying vec3 vEye;
-      void main() { vNormal = normalize(normalMatrix * normal); vPosition = position;
+    transparent: true, depthWrite: true, side: THREE.FrontSide,
+    vertexShader: `varying vec3 vNormal; varying vec3 vObjectNormal; varying vec3 vPosition; varying vec3 vEye;
+      void main() { vNormal = normalize(normalMatrix * normal); vObjectNormal = normal; vPosition = position;
         vec4 view = modelViewMatrix * vec4(position, 1.0); vEye = normalize(-view.xyz);
         gl_Position = projectionMatrix * view; }`,
-    fragmentShader: `varying vec3 vNormal; varying vec3 vPosition; varying vec3 vEye;
+    fragmentShader: `varying vec3 vNormal; varying vec3 vObjectNormal; varying vec3 vPosition; varying vec3 vEye;
       uniform vec3 uRegion; uniform float uFocus;
       void main() {
         float facing = abs(dot(normalize(vNormal), normalize(vEye)));
-        float rim = pow(1.0 - facing, 2.2);
-        float core = 0.17 + 0.11 * smoothstep(-2.8, 0.5, vPosition.y);
-        float shade = 0.52 + 0.48 * max(0.0, dot(normalize(vNormal), normalize(vec3(-0.5,0.7,0.8))));
-        vec3 blue = mix(vec3(0.02,0.39,0.56), vec3(0.17,0.85,0.94), shade);
-        vec3 colour = mix(blue, vec3(0.62,0.98,1.0), rim * 0.84);
+        float rim = pow(1.0 - facing, 2.35);
+        float diffuse = max(0.0, dot(normalize(vNormal), normalize(vec3(-0.55,0.7,0.7))));
+        float coolDepth = 0.46 + 0.54 * diffuse;
+        float breath = 0.5 + 0.5 * sin(vPosition.y * 2.6 + vPosition.x * 4.0);
+        vec3 blue = mix(vec3(0.37,0.76,0.70), vec3(0.65,0.96,0.81), coolDepth);
+        blue += vec3(0.018,0.034,0.034) * breath;
+        vec3 colour = mix(blue, vec3(0.91,1.0,0.82), rim * 0.92);
+        // Fine scan contours follow the actual 3D surface through rotation.
+        float alongX = pow(1.0 - abs(sin(vPosition.x * 12.0)), 44.0);
+        float alongZ = pow(1.0 - abs(sin(vPosition.z * 12.0)), 44.0);
+        float across = pow(1.0 - abs(sin(vPosition.y * 12.0)), 44.0);
+        float grid = max(mix(alongX, alongZ, abs(vObjectNormal.x)), across);
+        float gridMask = smoothstep(-1.5,-.95,vPosition.y) * (1.0 - smoothstep(1.55,1.76,vPosition.y));
+        colour = mix(colour, vec3(0.94,1.0,0.83), grid * gridMask * .42);
         vec3 fromFocus = (vPosition - uRegion) / vec3(0.28,0.28,0.35);
         float warmth = exp(-dot(fromFocus,fromFocus) * 1.35);
-        colour = mix(colour, vec3(1.0,0.25,0.42), warmth * (0.34 + 0.36*uFocus));
-        gl_FragColor = vec4(colour, min(0.93, core + rim * 0.62 + warmth * 0.16));
+         colour = mix(colour, vec3(1.0,0.27,0.43), warmth * (0.22 + 0.32*uFocus));
+         // A broad, feathered pelvic shadow keeps the scan comfortable at every angle.
+         vec3 pelvic = (vPosition - vec3(0.0,-0.48,0.10)) / vec3(0.38,0.45,0.48);
+         float veil = exp(-dot(pelvic,pelvic) * 1.25);
+         colour = mix(colour, vec3(0.19,0.52,0.49), veil * 0.76);
+         float alpha = 0.72 + 0.11 * diffuse + rim * 0.13 + warmth * 0.05;
+         gl_FragColor = vec4(colour, min(0.94, alpha));
       }`
   });
-  // A single implicit surface blends torso, limbs and head into one clinical silhouette.
-  const ellipsoid = (x,y,z,cx,cy,cz,sx,sy,sz) => (Math.hypot((x-cx)/sx,(y-cy)/sy,(z-cz)/sz)-1)*Math.min(sx,sy,sz);
-  function capsule(x,y,z,ax,ay,az,bx,by,bz,ra,rb) {
-    const vx=bx-ax,vy=by-ay,vz=bz-az;
-    const t=Math.max(0,Math.min(1,((x-ax)*vx+(y-ay)*vy+(z-az)*vz)/(vx*vx+vy*vy+vz*vz)));
-    return Math.hypot(x-ax-vx*t,y-ay-vy*t,z-az-vz*t)-(ra+(rb-ra)*t);
+  // HuBMAP v1.2 Visible Human male skin. Its original metre-scale Y-up mesh is
+  // baked into this guide's established marker/camera coordinates.
+  let sourceMesh;
+  gltf.scene.updateMatrixWorld(true);
+  gltf.scene.traverse(object => { if (object.isMesh && !sourceMesh) sourceMesh = object; });
+  if (!sourceMesh) { renderer.dispose(); renderer.domElement.remove(); return null; }
+  const bodyGeometry = sourceMesh.geometry.clone();
+  bodyGeometry.applyMatrix4(sourceMesh.matrixWorld);
+  bodyGeometry.scale(2.75, 2.75, 2.75);
+  bodyGeometry.translate(0, -.23, 0);
+  // Smooth the source's explicit anterior pelvic detail into a neutral scan
+  // silhouette. The same geometry remains a continuous, draggable 3D mesh.
+  const positions = bodyGeometry.getAttribute('position');
+  const smooth = (a, b, x) => { const t = THREE.MathUtils.clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  for (let i = 0; i < positions.count; i++) {
+    const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i);
+    const center = 1 - smooth(.07, .16, Math.abs(x));
+    const vertical = smooth(-.78, -.66, y) * (1 - smooth(-.35, -.27, y));
+    const flatten = center * vertical;
+    if (flatten > 0 && z > .22) positions.setZ(i, z - Math.max(0, z - .22) * flatten * .96);
   }
-  function blend(a,b,k) { const h=Math.max(k-Math.abs(a-b),0)/k; return Math.min(a,b)-h*h*k*.25; }
-  function field(x,y,z) {
-    let d=ellipsoid(x,y,z,0,.79,0,.42,.79,.285);
-    d=blend(d,ellipsoid(x,y,z,0,1.17,0,.52,.38,.31),.17);
-    d=blend(d,ellipsoid(x,y,z,0,.2,0,.36,.43,.26),.18);
-    d=blend(d,ellipsoid(x,y,z,0,-.18,0,.36,.23,.275),.14);
-    d=blend(d,capsule(x,y,z,0,1.44,0,0,1.75,0,.17,.135),.12);
-    d=blend(d,ellipsoid(x,y,z,0,2.02,0,.255,.34,.235),.055);
-    d=blend(d,ellipsoid(x,y,z,0,1.83,.13,.19,.16,.16),.035);
-    for(const side of [-1,1]) {
-      d=blend(d,ellipsoid(x,y,z,side*.258,2.01,0,.045,.10,.07),.035);
-      d=blend(d,capsule(x,y,z,side*.46,1.28,0,side*.68,.52,0,.18,.137),.19);
-      d=blend(d,capsule(x,y,z,side*.68,.52,0,side*.83,-.77,0,.137,.085),.12);
-      d=blend(d,ellipsoid(x,y,z,side*.85,-.9,.01,.091,.18,.072),.095);
-      d=blend(d,capsule(x,y,z,side*.89,-1.02,.015,side*.91,-1.19,.025,.033,.025),.025);
-      d=blend(d,capsule(x,y,z,side*.85,-1.02,.02,side*.85,-1.22,.03,.028,.02),.023);
-      d=blend(d,capsule(x,y,z,side*.82,-1.0,.02,side*.79,-1.18,.03,.025,.018),.02);
-      d=blend(d,capsule(x,y,z,side*.79,-.88,.055,side*.72,-1.07,.085,.04,.025),.045);
-      d=blend(d,capsule(x,y,z,side*.19,-.21,0,side*.27,-1.37,0,.22,.18),.15);
-      d=blend(d,capsule(x,y,z,side*.27,-1.37,0,side*.3,-2.6,0,.18,.097),.1);
-      d=blend(d,ellipsoid(x,y,z,side*.3,-2.71,.16,.135,.09,.27),.08);
-      for(let toe=0;toe<3;toe++) d=blend(d,ellipsoid(x,y,z,side*(.23+toe*.07),-2.73,.39-toe*.027,.043,.055,.075),.035);
-    }
-    return d;
-  }
-  const bounds={x:[-1.18,1.18],y:[-2.92,2.46],z:[-.62,.67]};
-  const steps={x:48,y:110,z:26};
-  const nx=steps.x+1,ny=steps.y+1,nz=steps.z+1;
-  const dx=(bounds.x[1]-bounds.x[0])/steps.x,dy=(bounds.y[1]-bounds.y[0])/steps.y,dz=(bounds.z[1]-bounds.z[0])/steps.z;
-  const grid=new Float32Array(nx*ny*nz);
-  const gridIndex=(i,j,k)=>(i*ny+j)*nz+k;
-  for(let i=0;i<nx;i++) for(let j=0;j<ny;j++) for(let k=0;k<nz;k++) grid[gridIndex(i,j,k)]=field(bounds.x[0]+i*dx,bounds.y[0]+j*dy,bounds.z[0]+k*dz);
-  const cube=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
-  const tetrahedra=[[0,5,1,6],[0,1,2,6],[0,2,3,6],[0,3,7,6],[0,7,4,6],[0,4,5,6]];
-  const positions=[],faces=[],cache=new Map();
-  for(let i=0;i<steps.x;i++) for(let j=0;j<steps.y;j++) for(let k=0;k<steps.z;k++) {
-    const points=cube.map(([a,b,c])=>[i+a,j+b,k+c]);
-    const corners=points.map(p=>gridIndex(...p));
-    const values=corners.map(index=>grid[index]);
-    if(values.every(v=>v>=0)||values.every(v=>v<0)) continue;
-    function edge(a,b) {
-      const ai=corners[a],bi=corners[b],key=ai<bi?`${ai}:${bi}`:`${bi}:${ai}`;
-      let index=cache.get(key);
-      if(index===undefined) {
-        const t=values[a]/(values[a]-values[b]),p=points[a],q=points[b];
-        index=positions.length/3;
-        positions.push(bounds.x[0]+(p[0]+(q[0]-p[0])*t)*dx,bounds.y[0]+(p[1]+(q[1]-p[1])*t)*dy,bounds.z[0]+(p[2]+(q[2]-p[2])*t)*dz);
-        cache.set(key,index);
-      }
-      return index;
-    }
-    for(const tetra of tetrahedra) {
-      const inside=tetra.filter(c=>values[c]<0),outside=tetra.filter(c=>values[c]>=0);
-      if(inside.length===1) faces.push(edge(inside[0],outside[0]),edge(inside[0],outside[1]),edge(inside[0],outside[2]));
-      else if(inside.length===3) faces.push(edge(outside[0],inside[0]),edge(outside[0],inside[1]),edge(outside[0],inside[2]));
-      else if(inside.length===2) {
-        const a=edge(inside[0],outside[0]),b=edge(inside[0],outside[1]),c=edge(inside[1],outside[1]),d=edge(inside[1],outside[0]);
-        faces.push(a,b,c,a,c,d);
-      }
-    }
-  }
-  const normals=[],sample=.006;
-  for(let n=0;n<positions.length;n+=3) {
-    const x=positions[n],y=positions[n+1],z=positions[n+2];
-    const normal=new THREE.Vector3(field(x+sample,y,z)-field(x-sample,y,z),field(x,y+sample,z)-field(x,y-sample,z),field(x,y,z+sample)-field(x,y,z-sample)).normalize();
-    normals.push(normal.x,normal.y,normal.z);
-  }
-  for(let n=0;n<faces.length;n+=3) {
-    const a=faces[n]*3,b=faces[n+1]*3,c=faces[n+2]*3;
-    const ab=new THREE.Vector3(positions[b]-positions[a],positions[b+1]-positions[a+1],positions[b+2]-positions[a+2]);
-    const ac=new THREE.Vector3(positions[c]-positions[a],positions[c+1]-positions[a+1],positions[c+2]-positions[a+2]);
-    if(ab.cross(ac).dot(new THREE.Vector3(normals[a],normals[a+1],normals[a+2]))<0) [faces[n+1],faces[n+2]]=[faces[n+2],faces[n+1]];
-  }
-  const bodyGeometry=new THREE.BufferGeometry();
-  bodyGeometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
-  bodyGeometry.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));
-  bodyGeometry.setIndex(faces);
-  body.add(new THREE.Mesh(bodyGeometry,skin));
-  // The second, continuously rendered surface gives the model the luminous
-  // edge and quiet scan texture of a clinical body map at every rotation.
+  positions.needsUpdate = true;
+  bodyGeometry.computeVertexNormals();
+  body.add(new THREE.Mesh(bodyGeometry, skin));
+  // A restrained edge pass gives the realistic source a synthetic scan reading.
   const clinicalLayer = new THREE.ShaderMaterial({
     uniforms: { uDetail: { value: 0 } },
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     vertexShader: `varying vec3 vNormal; varying vec3 vPosition;
       void main() { vNormal = normalize(normalMatrix * normal); vPosition = position;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position * 1.008, 1.0); }`,
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position * 1.006, 1.0); }`,
     fragmentShader: `varying vec3 vNormal; varying vec3 vPosition; uniform float uDetail;
       void main() {
-        float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0,0.0,1.0))), 2.7);
-        float scan = pow(max(0.0, sin(vPosition.y * 71.0)), 27.0) * (0.017 + uDetail * 0.028);
-        float axial = exp(-pow(vPosition.x * 13.0, 2.0)) * step(-1.5, vPosition.y) * step(vPosition.y, 1.45) * 0.02;
-        float alpha = min(0.55, edge * 0.46 + scan + axial);
+        float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0,0.0,1.0))), 3.2);
+        float scan = pow(max(0.0, sin(vPosition.y * 48.0)), 48.0) * (0.003 + uDetail * 0.006);
+        float alpha = min(0.24, edge * 0.17 + scan);
         gl_FragColor = vec4(0.29, 0.86, 1.0, alpha);
       }`
   });
   body.add(new THREE.Mesh(bodyGeometry, clinicalLayer));
-  function surfaceZ(x,y,side) {
-    let low=0,high=.65;
-    for(let n=0;n<18;n++) {
-      const mid=(low+high)/2;
-      if(field(x,y,side*mid)<0) low=mid;
-      else high=mid;
-    }
-    return side*(low+.008);
-  }
-  const contours=[];
-  function contour(points,side,opacity) {
-    const vertices=points.map(([x,y])=>new THREE.Vector3(x,y,surfaceZ(x,y,side)));
-    const geometry=new THREE.BufferGeometry().setFromPoints(vertices);
-    const material=new THREE.LineBasicMaterial({color:0x69d5f2,transparent:true,opacity:Math.min(.42,opacity*.55),depthWrite:false,depthTest:false});
-    const line = new THREE.Line(geometry,material);
-    line.userData.side=side;
-    body.add(line);
-    contours.push(line);
-    return line;
-  }
-  contour([[-.41,1.32],[-.3,1.37],[-.17,1.32],[0,1.26],[.17,1.32],[.3,1.37],[.41,1.32]],1,.51);
-  for (const side of [-1,1]) {
-    contour([[side*.035,2.095],[side*.075,2.115],[side*.13,2.105],[side*.16,2.08]],1,.48);
-    contour([[side*.04,2.0],[side*.085,1.97],[side*.13,1.98]],1,.22);
-  }
-  contour([[-.045,1.905],[0,1.895],[.045,1.905]],1,.37);
-  contour(Array.from({length:20},(_,i)=>[0,1.31-i*.105]),1,.22);
-  contour(Array.from({length:27},(_,i)=>[0,1.49-i*.09]),-1,.53);
-  for (const side of [-1,1]) {
-    contour(Array.from({length:11},(_,i)=>[side*(.05+i*.035),1.2-Math.sin(i/10*Math.PI)*.1]),1,.3);
-    contour(Array.from({length:13},(_,i)=>[side*(.06+i*.029),1.13-i*.048]),-1,.31);
-    for (let row=0; row<5; row++) {
-      const y=1.02-row*.18;
-      contour(Array.from({length:10},(_,i)=>[side*(.045+i*.038),y-.05*Math.sin(i/9*Math.PI)]),1,.22);
-      contour(Array.from({length:10},(_,i)=>[side*(.045+i*.038),y-.035*Math.sin(i/9*Math.PI)]),-1,.2);
-    }
-    contour(Array.from({length:17},(_,i)=>[side*(.09+i*.018),-.05-i*.046]),1,.19);
-    contour(Array.from({length:21},(_,i)=>[side*(.25+i*.003),-.39-i*.075]),1,.16);
-  }
+  const contours = [];
   const zoomDetails = [];
-  for (const side of [-1,1]) {
-    for (const y of [1.05,.84,.63,.42,.21]) {
-      const upperBack = contour(Array.from({length:15},(_,i)=>[side*(.09+i*.022),y-.055*Math.sin(i/14*Math.PI)]),-1,0);
-      zoomDetails.push(upperBack);
-    }
-    for (const y of [.41,.27,.13,-.01]) {
-      const lowerBack = contour(Array.from({length:14},(_,i)=>[side*(.06+i*.022),y-.045*Math.sin(i/13*Math.PI)]),-1,0);
-      zoomDetails.push(lowerBack);
-    }
-    zoomDetails.push(contour(Array.from({length:20},(_,i)=>[side*(.1+i*.016),1.32-.12*Math.sin(i/19*Math.PI)]),1,0));
-  }
-  // Abstract inner structures stay behind the skin and provide depth during rotation.
+  // Quiet depth cues, kept behind the real exterior and intentionally restrained.
   const anatomy = new THREE.Group();
   body.add(anatomy);
-  const innerLineMaterial = new THREE.LineBasicMaterial({color:0x8ceeff,transparent:true,opacity:.32,depthWrite:false});
-  const innerSurfaceMaterial = new THREE.MeshBasicMaterial({color:0x168da9,transparent:true,opacity:.16,depthWrite:false,side:THREE.DoubleSide});
-  for (const side of [-1, 1]) {
-    const thorax = new THREE.Mesh(new THREE.SphereGeometry(1,20,14), innerSurfaceMaterial);
-    thorax.position.set(side*.19,.98,0); thorax.scale.set(.21,.39,.17); anatomy.add(thorax);
-    for (let row=0; row<8; row++) {
-      const y=1.31-row*.16;
-      const points=Array.from({length:15},(_,i)=>{
-        const t=i/14, x=side*(.045+t*.31);
-        return new THREE.Vector3(x,y-.07*Math.sin(t*Math.PI),-.13-.09*Math.sin(t*Math.PI));
-      });
-      anatomy.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),innerLineMaterial));
-    }
-  }
-  anatomy.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({length:38},(_,i)=>new THREE.Vector3(0,1.61-i*.064,-.04-.018*Math.sin(i*.22)))),innerLineMaterial));
-  const vertebraMaterial = new THREE.MeshBasicMaterial({color:0x93eaff,transparent:true,opacity:.27,depthWrite:false});
-  for(let i=0;i<18;i++) {
-    const vertebra = new THREE.Mesh(new THREE.SphereGeometry(1,10,8),vertebraMaterial);
-    vertebra.position.set(0,1.45-i*.095,-.11);
-    vertebra.scale.set(.075,.038,.055);
-    anatomy.add(vertebra);
-  }
-  // Small curved volumes sit inside the continuous surface. Front and back
-  // sets alternate with the same rotation as the visitor's chosen view.
-  const anatomyViews = {front:new THREE.Group(),back:new THREE.Group()};
-  body.add(anatomyViews.front,anatomyViews.back);
-  const strandMaterial = new THREE.MeshBasicMaterial({color:0x83eaff,transparent:true,opacity:.37,depthWrite:false});
-  const deepMaterial = new THREE.MeshBasicMaterial({color:0x2eb4d3,transparent:true,opacity:.19,depthWrite:false});
-  function strand(view,points,radius=.008,material=strandMaterial) {
-    const path=new THREE.CatmullRomCurve3(points.map(point=>new THREE.Vector3(...point)));
-    const mesh=new THREE.Mesh(new THREE.TubeGeometry(path,Math.max(12,points.length*4),radius,5,false),material);
+  const anatomyViews = { front: new THREE.Group(), back: new THREE.Group() };
+  anatomy.add(anatomyViews.front, anatomyViews.back);
+  const regionalDetails = [];
+  function anatomyCurve(view, region, points, radius = .012) {
+    const material = new THREE.MeshBasicMaterial({ color: 0x9cebf6, transparent: true, opacity: .1, depthWrite: false, depthTest: false });
+    const path = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)));
+    const mesh = new THREE.Mesh(new THREE.TubeGeometry(path, 32, radius, 7, false), material);
+    mesh.renderOrder = 4;
     anatomyViews[view].add(mesh);
+    regionalDetails.push({ material, region });
   }
-  function volume(view,x,y,z,sx,sy,sz,material=deepMaterial) {
-    const mesh=new THREE.Mesh(new THREE.SphereGeometry(1,16,12),material);
-    mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);anatomyViews[view].add(mesh);
+  for (const side of [-1, 1]) {
+    anatomyCurve('front', 0, [[0,1.36,.25],[side*.15,1.40,.32],[side*.34,1.34,.34],[side*.48,1.20,.29]], .015);
+    anatomyCurve('front', 0, [[side*.48,1.33,.25],[side*.55,1.27,.26],[side*.55,1.14,.27],[side*.46,1.10,.29]], .012);
+    anatomyCurve('back', 1, [[side*.14,1.23,-.29],[side*.40,1.23,-.32],[side*.52,1.05,-.28],[side*.32,.72,-.27],[side*.14,1.23,-.29]], .01);
+    anatomyCurve('back', 1, [[side*.1,.49,-.27],[side*.20,.47,-.28],[side*.24,.39,-.26]], .006);
   }
-  for(const side of [-1,1]) {
-    strand('front',[[0,1.45,.14],[side*.16,1.42,.18],[side*.34,1.32,.13],[side*.48,1.19,.05]],.013);
-    volume('front',side*.20,1.08,.10,.21,.33,.14);
-    volume('front',side*.32,.17,.10,.105,.31,.09);
-    volume('front',side*.23,-.82,.05,.13,.50,.115);
-    strand('front',[[side*.06,.12,.18],[side*.19,.08,.18],[side*.31,-.04,.13],[side*.34,-.2,.04]],.011);
-    for(let row=0;row<7;row++) {
-      const y=1.23-row*.15;
-      strand('front',[[side*.04,y,.17],[side*.14,y+.035,.23],[side*.27,y-.02,.20],[side*.38,y-.09,.11]],.007);
+  anatomyCurve('back', 2, [[0,.53,-.29],[.01,.36,-.32],[0,.19,-.33],[0,.03,-.33],[0,-.11,-.31]], .009);
+  if (pelvis) {
+    pelvis.scene.updateMatrixWorld(true);
+    let sacrum;
+    pelvis.scene.traverse(object => { if (object.isMesh && /sacrum/i.test(object.name)) sacrum = object; });
+    if (sacrum) {
+      const geometry = sacrum.geometry.clone();
+      geometry.applyMatrix4(sacrum.matrixWorld);
+      geometry.scale(2.75, 2.75, 2.75);
+      geometry.translate(0, -.23, 0);
+      const material = new THREE.MeshBasicMaterial({ color: 0x93e4f2, transparent: true, opacity: .06, depthWrite: false, depthTest: false, side: THREE.FrontSide });
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.renderOrder = 4;
+      anatomyViews.back.add(mesh);
+      regionalDetails.push({ material, region: 2 });
     }
-    strand('back',[[0,1.43,-.17],[side*.20,1.39,-.21],[side*.37,1.28,-.15],[side*.47,1.13,-.04]],.012);
-    strand('back',[[side*.16,1.25,-.18],[side*.38,1.10,-.19],[side*.31,.76,-.21],[side*.12,.58,-.20],[side*.16,1.25,-.18]],.009);
-    volume('back',side*.23,.93,-.11,.16,.36,.12);
-    volume('back',side*.27,.18,-.10,.15,.26,.11);
-    strand('back',[[side*.04,.27,-.23],[side*.18,.23,-.22],[side*.34,.12,-.14],[side*.37,-.07,-.02]],.012);
-    for(let row=0;row<7;row++) {
-      const y=1.22-row*.15;
-      strand('back',[[side*.045,y,-.18],[side*.16,y+.025,-.23],[side*.29,y-.03,-.20],[side*.38,y-.09,-.10]],.007);
+  }
+  const innerLineMaterial = new THREE.LineBasicMaterial({
+    color: 0x88d8e9, transparent: true, opacity: .075, depthWrite: false, depthTest: false
+  });
+  function strand(view, points) {
+    const path = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)));
+    const line = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(path.getPoints(28)), innerLineMaterial
+    );
+    anatomyViews[view].add(line);
+  }
+  for (const [view, sign] of [['front', 1], ['back', -1]]) {
+    strand(view, Array.from({ length: 14 }, (_, i) =>
+      [.009 * Math.sin(i * .4), 1.48 - i * .105, sign * .10]));
+    for (const side of [-1, 1]) {
+      for (let row = 0; row < 5; row++) {
+        const y = 1.22 - row * .13;
+        strand(view, [[side * .025,y,sign * .10],
+          [side * .18,y + .015,sign * .16],
+          [side * .34,y - .04,sign * .13]]);
+      }
     }
   }
-  strand('back',Array.from({length:15},(_,i)=>[0,1.48-i*.117,-.235+.02*Math.sin(i*.45)]),.009);
-  strand('front',Array.from({length:13},(_,i)=>[0,1.38-i*.117,.185-.035*Math.sin(i*.35)]),.007);
   const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x40b7d6, transparent: true, opacity: .17, depthWrite: false });
   for (const radius of [1.0, 1.35]) {
     const orbit = new THREE.Mesh(new THREE.TorusGeometry(radius, .006, 6, 72), orbitMaterial);
@@ -349,17 +263,17 @@ async function createMannequin(section, onHotspot) {
   }
 
   const markers = [
-    new THREE.Vector3(.42, 1.29, .28),
-    new THREE.Vector3(.03, .95, -.35),
-    new THREE.Vector3(.03, .18, -.3)
+    new THREE.Vector3(.43, 1.27, .37),
+    new THREE.Vector3(.03, .93, -.39),
+    new THREE.Vector3(.03, .16, -.37)
   ];
   const markerGroups = [];
   const pickMeshes = [];
   markers.forEach((point, index) => {
     const group = new THREE.Group();
     group.position.copy(point);
-    const halo = new THREE.Mesh(new THREE.SphereGeometry(.13, 20, 16), new THREE.MeshBasicMaterial({
-      color: 0xff486e, transparent: true, opacity: .09, depthWrite: false, blending: THREE.AdditiveBlending
+    const halo = new THREE.Mesh(new THREE.SphereGeometry(.055, 20, 16), new THREE.MeshBasicMaterial({
+      color: 0xff486e, transparent: true, opacity: .035, depthWrite: false, blending: THREE.AdditiveBlending
     }));
     const core = new THREE.Mesh(new THREE.SphereGeometry(.027, 16, 12), new THREE.MeshBasicMaterial({ color: 0xff7894 }));
     const glowCanvas = document.createElement('canvas');
@@ -371,7 +285,7 @@ async function createMannequin(section, onHotspot) {
     glow.addColorStop(1,'rgba(255,67,110,0)');
     glowContext.fillStyle=glow; glowContext.fillRect(0,0,128,128);
     const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(glowCanvas),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
-    sprite.scale.set(.92,.92,1);
+    sprite.scale.set(.58,.58,1);
     const pick = new THREE.Mesh(new THREE.SphereGeometry(.29, 12, 8), new THREE.MeshBasicMaterial({
       transparent: true, opacity: 0, depthWrite: false
     }));
@@ -389,51 +303,79 @@ async function createMannequin(section, onHotspot) {
   let latestProgress = 0;
   let latestRegion = 0;
   let zoom = 1;
+  let orbitYaw = 0;
+  let orbitPitch = 0;
   function ease(a, b, x) {
     const t = THREE.MathUtils.clamp((x - a) / (b - a), 0, 1);
     return t * t * (3 - 2 * t);
   }
   function render(progress = latestProgress, region = latestRegion) {
     latestProgress = progress;
-    latestRegion = region;
+    const turning = ease(.22, .49, progress);
+    const angle = Math.PI * turning + orbitYaw;
+    const wrapped = ((angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+    const visibleSide = wrapped > Math.PI / 2 && wrapped < Math.PI * 1.5 ? 'back' : 'front';
+    const visualRegion = visibleSide === 'front' ? 0 : region === 2 ? 2 : 1;
+    latestRegion = visualRegion;
+    if (visualRegion !== region) onOrbit(visualRegion, false);
     const detail = THREE.MathUtils.clamp((zoom - 1) / .5, 0, 1);
     clinicalLayer.uniforms.uDetail.value = detail;
-    skin.uniforms.uRegion.value.copy(markers[region]);
+    skin.uniforms.uRegion.value.copy(markers[visualRegion]);
     skin.uniforms.uFocus.value = detail;
-    zoomDetails.forEach(line => { line.material.opacity = detail * .32; });
-    const turning = ease(.22, .49, progress);
+    zoomDetails.forEach(line => { line.material.opacity = detail * .12; });
+    regionalDetails.forEach(({ material, region: detailRegion }) => {
+      material.opacity = detailRegion === visualRegion ? .07 + detail * .15 : .025;
+    });
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
-    body.rotation.y = Math.PI * turning;
+    body.rotation.y = angle;
+    body.rotation.x = orbitPitch;
     const mobileFrame = host.clientWidth < 330;
     const framingDistance = mobileFrame ? 10.2 : 10.1;
     const baseFocus = -.08 * upper - .12 * lower - (mobileFrame ? .14 : 0);
-    const focusY = [1.26,.92,.2][region];
+    const focusY = [1.26,.92,.2][visualRegion];
     const verticalFocus = THREE.MathUtils.lerp(baseFocus, focusY, detail);
     body.scale.x = mobileFrame ? 1.13 : 1.08;
     camera.position.set(0, verticalFocus, (framingDistance - .45 * upper + .05 * lower) / zoom);
     camera.lookAt(0, verticalFocus, 0);
-    const visibleSide = progress < .38 ? 'front' : 'back';
     anatomyViews.front.visible = visibleSide === 'front';
     anatomyViews.back.visible = visibleSide === 'back';
     contours.forEach(line => { line.visible = line.userData.side === (visibleSide === 'front' ? 1 : -1); });
     markerGroups.forEach((group, i) => {
       group.visible = regions[i].side === visibleSide;
-      group.scale.setScalar(i === region ? (mobileFrame ? 1.58 : 1.18) : .72);
+      group.scale.setScalar(i === visualRegion ? (mobileFrame ? 1.58 : 1.18) : .72);
       const sprite = group.children[0];
       const halo = group.children[1];
-      sprite.material.opacity = i === region ? 1 : .2;
-      halo.material.opacity = i === region ? .14 : .025;
+      const glowSize = .58 - detail * .11;
+      sprite.scale.set(glowSize, glowSize, 1);
+      sprite.material.opacity = i === visualRegion ? 1 : .2;
+      halo.material.opacity = i === visualRegion ? .035 : .01;
     });
     body.updateMatrixWorld(true);
     camera.updateMatrixWorld(true);
+    const rail = section.querySelector('.bj-zoom-controls');
+    const railTop = rail.offsetTop;
+    const railWidth = rail.offsetWidth;
     tags.forEach((tag, i) => {
       tag.hidden = !markerGroups[i].visible;
+      tag.classList.toggle('is-active', i === visualRegion);
       if (tag.hidden) return;
       markerGroups[i].getWorldPosition(projected).project(camera);
-      tag.style.left = `${(projected.x + 1) * 50}%`;
-      tag.style.top = `${(1 - projected.y) * 50}%`;
-      tag.classList.toggle('is-active', i === region);
+      const x = (projected.x + 1) * host.clientWidth / 2;
+      const y = (1 - projected.y) * host.clientHeight / 2;
+      tag.dataset.markerX = String(x);
+      tag.dataset.markerY = String(y);
+      const labelWidth = tag.offsetWidth;
+      const labelHeight = tag.offsetHeight;
+      const nearRail = y + labelHeight / 2 >= railTop - 8;
+      const rightLimit = host.clientWidth - (nearRail ? railWidth + 10 : 8);
+      const labelOnLeft = x + labelWidth + 14 > rightLimit;
+      const safeX = labelOnLeft
+        ? Math.max(labelWidth + 18, Math.min(host.clientWidth - 8, x))
+        : Math.min(rightLimit - labelWidth - 14, Math.max(8, x));
+      tag.style.left = `${safeX}px`;
+      tag.style.top = `${Math.max(labelHeight / 2 + 8, Math.min(host.clientHeight - labelHeight / 2 - 8, y))}px`;
+      tag.style.transform = labelOnLeft ? 'translate(calc(-100% - 10px), -50%)' : 'translate(10px, -50%)';
     });
     renderer.render(scene, camera);
   }
@@ -449,19 +391,76 @@ async function createMannequin(section, onHotspot) {
     const box = renderer.domElement.getBoundingClientRect();
     pointer.set(((event.clientX - box.left) / box.width) * 2 - 1, -((event.clientY - box.top) / box.height) * 2 + 1);
     raycaster.setFromCamera(pointer, camera);
-    return raycaster.intersectObjects(pickMeshes, false).find(hit => hit.object.parent.visible)?.object.userData.region;
+    const hit = raycaster.intersectObjects(pickMeshes, false).find(item => item.object.parent.visible);
+    if (hit) return hit.object.userData.region;
+    // The luminous pin is a screen-space target too. At an oblique angle its
+    // ray sphere can sit behind the skin, so accept a nearby visible pin.
+    let nearest = null;
+    markerGroups.forEach((group, index) => {
+      if (!group.visible) return;
+      group.getWorldPosition(projected).project(camera);
+      const x = box.left + (projected.x + 1) * box.width / 2;
+      const y = box.top + (1 - projected.y) * box.height / 2;
+      const distance = Math.hypot(event.clientX - x, event.clientY - y);
+      if (distance < 34 && (!nearest || distance < nearest.distance)) nearest = { index, distance };
+    });
+    return nearest?.index;
+  }
+  let drag = null;
+  let suppressClickUntil = 0;
+  function pointerDown(event) {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    drag = { id: event.pointerId, startX: event.clientX, startY: event.clientY, lastX: event.clientX, lastY: event.clientY, moved: false };
+    renderer.domElement.setPointerCapture(event.pointerId);
+  }
+  function pointerMove(event) {
+    if (!drag || drag.id !== event.pointerId) return;
+    if (Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) > 5) drag.moved = true;
+    if (drag.moved) {
+      orbitYaw += (event.clientX - drag.lastX) * .015;
+      orbitPitch = THREE.MathUtils.clamp(orbitPitch + (event.clientY - drag.lastY) * .006, -.3, .3);
+      renderer.domElement.style.cursor = 'grabbing';
+      render();
+      onOrbit(latestRegion, false);
+      event.preventDefault();
+    }
+    drag.lastX = event.clientX;
+    drag.lastY = event.clientY;
+  }
+  function pointerEnd(event) {
+    if (!drag || drag.id !== event.pointerId) return;
+    if (drag.moved) {
+      suppressClickUntil = performance.now() + 250;
+      const target = latestRegion;
+      const targetProgress = (target + .5) / 3;
+      const angle = Math.PI * ease(.22, .49, latestProgress) + orbitYaw;
+      orbitYaw = angle - Math.PI * ease(.22, .49, targetProgress);
+      latestProgress = targetProgress;
+      onOrbit(target, true);
+      render(targetProgress, target);
+    }
+    if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
+    drag = null;
+    renderer.domElement.style.cursor = 'grab';
   }
   function click(event) {
+    if (performance.now() < suppressClickUntil) return;
     const index = pick(event);
     if (index !== undefined) onHotspot(index, renderer.domElement);
   }
-  function hover(event) { renderer.domElement.style.cursor = pick(event) === undefined ? 'default' : 'pointer'; }
+  function hover(event) {
+    if (drag?.id === event.pointerId) { pointerMove(event); return; }
+    renderer.domElement.style.cursor = pick(event) === undefined ? 'grab' : 'pointer';
+  }
   function contextLost(event) {
     event.preventDefault();
     section.classList.remove('bj--webgl');
   }
   renderer.domElement.addEventListener('click', click);
+  renderer.domElement.addEventListener('pointerdown', pointerDown);
   renderer.domElement.addEventListener('pointermove', hover);
+  renderer.domElement.addEventListener('pointerup', pointerEnd);
+  renderer.domElement.addEventListener('pointercancel', pointerEnd);
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
   const observer = new ResizeObserver(resize);
   observer.observe(host);
@@ -473,7 +472,10 @@ async function createMannequin(section, onHotspot) {
     dispose() {
       observer.disconnect();
       renderer.domElement.removeEventListener('click', click);
+      renderer.domElement.removeEventListener('pointerdown', pointerDown);
       renderer.domElement.removeEventListener('pointermove', hover);
+      renderer.domElement.removeEventListener('pointerup', pointerEnd);
+      renderer.domElement.removeEventListener('pointercancel', pointerEnd);
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       scene.traverse(object => {
         object.geometry?.dispose();
@@ -511,16 +513,24 @@ export function initBodyJourney() {
   let trigger = null;
   let scene3d = null;
   let sceneLoad = null;
+  let sceneUnavailable = false;
   let disposed = false;
   let currentVisualProgress = 0;
   let motionToken = 0;
   let motionActive = false;
   let zoomLevel = 1;
+  const sceneObserver = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting) && !reduce.matches) {
+      sceneObserver.unobserve(section);
+      ensureScene();
+    }
+  }, { rootMargin: '100% 0px' });
   section.classList.add('bj--ready');
 
   function updateZoom(value) {
     zoomLevel = Math.max(1, Math.min(2, Math.round(value * 100) / 100));
     zoomOutput.textContent = `${Math.round(zoomLevel * 100)}%`;
+    section.classList.toggle('bj--zoomed', zoomLevel > 1.05);
     section.style.setProperty('--bj-fallback-zoom', String(zoomLevel));
     zoomButtons.forEach(button => {
       button.disabled = button.dataset.zoom === 'in' ? zoomLevel >= 2 : button.dataset.zoom === 'out' ? zoomLevel <= 1 : zoomLevel === 1;
@@ -529,13 +539,19 @@ export function initBodyJourney() {
   }
 
   async function ensureScene() {
-    if (scene3d || sceneLoad) return;
-    sceneLoad = createMannequin(section, openCheckIn);
+    if (scene3d || sceneLoad || sceneUnavailable) return;
+    sceneLoad = createMannequin(section, openCheckIn, (index, commit) => {
+      if (motionActive) return;
+      if (commit) jumpTo(index);
+      else setActive(index);
+    });
     try {
       const created = await sceneLoad;
       if (disposed || reduce.matches) created?.dispose();
-      else { scene3d = created; scene3d?.setZoom(zoomLevel); schedule(); }
+       else if (created) { scene3d = created; scene3d.setZoom(zoomLevel); schedule(); }
+       else sceneUnavailable = true;
     } catch {
+      sceneUnavailable = true;
       section.classList.remove('bj--webgl');
     } finally {
       sceneLoad = null;
@@ -654,13 +670,14 @@ export function initBodyJourney() {
     section.classList.toggle('bj--enhanced', !reduce.matches);
     panels.forEach(panel => panel.removeAttribute('aria-hidden'));
     if (reduce.matches) {
+      sceneObserver.unobserve(section);
       motionToken++;
       motionActive = false;
       scene3d?.dispose();
       scene3d = null;
       setActive(0, true);
     } else {
-      ensureScene();
+      sceneObserver.observe(section);
       active = -1;
       schedule();
     }
@@ -720,6 +737,7 @@ export function initBodyJourney() {
     disposed = true;
     cancelAnimationFrame(frame);
     scene3d?.dispose();
+    sceneObserver.disconnect();
     reduce.removeEventListener('change', onPreferenceChange);
     removeEventListener('scroll', schedule);
     removeEventListener('resize', schedule);

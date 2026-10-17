@@ -153,3 +153,23 @@
 @media(max-width:680px) and (prefers-reduced-motion:reduce){
   .bj-panels,.bj--enhanced .bj-panels{height:auto}
 }
+
+/* Keep the zoom rail away from the active shoulder label in the close view. */
+@media(max-width:680px){.bj-zoom-controls{left:0;right:auto}}
+
+.bj-intro h2 em{color:#62b9bd}
+.bj-model-credit{display:inline-flex;align-items:center;max-width:100%;margin-top:11px;color:#9ccad0;font-size:.64rem;line-height:1.4;text-decoration:underline;text-decoration-color:#77b8bf88;text-underline-offset:4px}
+.bj-model-credit:hover,.bj-model-credit:focus-visible{color:#d4eff0;text-decoration-color:currentColor}
+.bj-model-credit:focus-visible{outline:2px solid #7bd1d4;outline-offset:4px}
+.bj-drag-hint{color:#94bdc3;font-size:.61rem;font-weight:700;letter-spacing:.06em;text-transform:none}
+.bj--webgl .bj-webgl-host canvas{cursor:grab;touch-action:pan-y}
+.bj--webgl.bj--zoomed .bj-webgl-host canvas{-webkit-mask-image:radial-gradient(ellipse 67% 57% at 50% 50%,#000 45%,transparent 100%);mask-image:radial-gradient(ellipse 67% 57% at 50% 50%,#000 45%,transparent 100%)}
+.bj-figure{opacity:1;transition:opacity .65s ease}
+.bj-webgl-host canvas{opacity:0;transition:opacity .65s ease}
+.bj--webgl .bj-figure{opacity:0;visibility:hidden;transition:opacity .65s ease,visibility 0s .65s}
+.bj--webgl .bj-webgl-host canvas{opacity:1}
+@media(prefers-reduced-motion:reduce){.bj-figure,.bj-webgl-host canvas,.bj--webgl .bj-figure{transition:none}}
+@media(max-width:680px){.bj-drag-hint{display:none}}
+.bj-3d-tags span{font-size:.62rem;letter-spacing:.075em;color:#c7ebef}
+.bj-3d-tags span.is-active{color:#ffd1dc}
+@media(max-width:680px){.bj-3d-tags span{font-size:.57rem;letter-spacing:.035em}.bj-region-button{font-size:.64rem}.bj-region-button:not(.is-active){color:#b7d8d3}}

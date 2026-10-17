@@ -178,7 +178,7 @@
   .home-hero-stage .hero-media img { object-position:center center; transform:scale(calc(1 + var(--sc-p, 0) * .08)); filter:none; }
   .home-hero-stage .hero-shade { background:linear-gradient(0deg,rgba(4,23,27,.9),transparent 48%); }
   .home-hero-stage .hero-copy h1 { font-size:clamp(3.6rem,14vw,5.5rem); }
-  .home-hero-stage .hero-copy .eyebrow { display:none; }
+  .home-hero-stage .hero-copy .eyebrow { display:inline-flex; font-size:.62rem; letter-spacing:.14em; padding:5px 16px 5px 0; background:linear-gradient(90deg,#061a1dd9,#061a1d88 75%,transparent); text-shadow:0 1px 5px #061a1d; }
 }
 
 /* The room settles as a separate editorial frame: readable copy on the dark
