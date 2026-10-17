@@ -1,0 +1,10 @@
+# Design Loop v5, round 4 — brief critic
+
+Scope: goal completeness for the changed home hero and interactive body only, against `contract-v5.md` C22–C25. I inspected `browser-log-v5.json`, the final `v5-*` hero/body captures (including desktop/mobile, zoom, reverse scroll, keyboard, reduced motion and WebGL fallback), and `C:/Users/loxly/Desktop/3d human body.jpg`. I did not inspect implementation source or replay the live site. The evidence and runtime are shared with the builder, so this is independent judgment of supplied rendered evidence, not independent capture provenance. C25 publication and direct-route verification are outside this brief critic's scope.
+
+## Binary verdicts
+
+- **Home: PASS.** At 1440×900 and 390×844, the start, room and exit captures show distinct cupping and private-room subjects with concise editorial copy and usable booking/treatment actions. The scroll sequence materially changes the visual subject while preserving Casa's identity and path forward (C22).
+- **Body: FAIL.** The normal-motion captures show a synthetic translucent cyan body, localized pink markers, front/back region changes, a substantial 200% focus view, cautious guidance, reverse scroll, and visible reduced-motion/WebGL fallback states. However, the final desktop keyboard captures for **upper back** and **lower back** show a check-in panel with only its region label and close button; its promised four questions and next action are blank. This contradicts the browser log's `PASS` entries for those two keyboard actions and leaves the required keyboard-to-intake journey unverified/broken (C24). The neck/shoulders desktop capture and mobile keyboard captures do show the questions.
+
+**Single biggest gap to repair:** Make the four-question check-in render reliably after keyboard selection of upper and lower back on desktop, then recapture both states after the panel settles and verify the questions and next action are visible. The current final captures cannot pass C24. Dark-mode body evidence is also absent from this supplied v5 set, so C24's light/dark clause remains unverified here.

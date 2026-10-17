@@ -111,3 +111,45 @@
 @media(max-width:680px){.bj-view-controls{position:absolute;left:0;right:0;bottom:8px;z-index:8;margin:0}.bj-visual-wrap{margin-bottom:7px}}
 @media(max-width:680px) and (prefers-reduced-motion:reduce){.bj-scroll{height:auto}.bj-stage{position:relative;top:auto;min-height:0}.bj-shell{min-height:0}.bj-visual-wrap{margin:0 auto 20px}.bj-panels,.bj--enhanced .bj-panels{height:auto;min-height:0}.bj-panel,.bj--enhanced .bj-panel{position:relative;inset:auto;display:block;opacity:1;visibility:visible;transform:none;transition:none;margin:0 0 20px;padding:0 0 20px;border-bottom:1px solid #6e8b7a51}.bj-content{display:flex;flex-direction:column;gap:0}.bj-checkin-trigger,.bj--ready .bj-checkin-trigger{margin:8px 0 0}}
 @media(prefers-reduced-motion:reduce){.bj-webgl-host,.bj-3d-tags{display:none}}
+
+/* Cyan clinical scan: the warm light belongs only to the selected discussion area. */
+.bj{background:radial-gradient(ellipse 58% 42% at 50% 43%,#10354a 0%,#0c222c 45%,#0c1a20 100%)}
+.bj--webgl .bj-visual:before{background:radial-gradient(ellipse at center,#147aa04d 0%,#0a52662a 34%,transparent 70%);filter:blur(19px)}
+.bj--webgl .bj-visual:after{background:linear-gradient(#4fb5d018 1px,transparent 1px),linear-gradient(90deg,#4fb5d018 1px,transparent 1px);background-size:34px 34px;opacity:.44}
+.bj-3d-tags span{color:#a6dce6;text-shadow:0 1px 8px #071720}
+.bj-3d-tags span.is-active{color:#ffc0ce}
+.bj-view-controls{color:#95bbc5}
+.bj-current{color:#9ce6eb}
+.bj-button-index{color:#71c5d1}
+.bj-region-button.is-active{color:#e9fbfa}
+.bj-checkin-trigger,.bj-review{background:#71cbd1;color:#082a31;border-color:#71cbd1}
+.bj-checkin-trigger:hover,.bj-checkin-trigger:focus-visible,.bj-review:hover,.bj-review:focus-visible{background:#a4e6e7}
+.bj-zoom-controls{background:#0b2934e8;border-color:#67b9ca7c}
+.bj-zoom-controls button{background:#174354;border-color:#70bfd083;color:#d7f8fa}
+.bj-zoom-controls button:hover:not(:disabled),.bj-zoom-controls button:focus-visible{background:#75d4dd;color:#082a31}
+@media(prefers-reduced-motion:reduce){.bj{background:#0d2028}}
+@media(max-width:680px){
+  .bj-visual-wrap{width:min(68vw,265px)}
+  .bj-panels,.bj--enhanced .bj-panels{height:136px}
+  .bj-panel p{line-height:1.43}
+  .bj-checkin-trigger,.bj--ready .bj-checkin-trigger{margin-top:7px}
+}
+@media(max-width:680px) and (max-height:860px){
+  .bj-shell,.bj--enhanced .bj-shell{padding-top:14px}
+  .bj-visual-wrap{width:min(71vw,274px)}
+  .bj-panels,.bj--enhanced .bj-panels{height:116px;margin-top:5px}
+  .bj-region-controls{margin-top:5px}
+  .bj-region-button{padding-top:5px;padding-bottom:5px}
+  .bj-checkin-trigger,.bj--ready .bj-checkin-trigger{margin-top:4px}
+}
+
+/* The still path follows the same scan palette when motion or WebGL is unavailable. */
+.bj:not(.bj--webgl) .bj-face img{filter:hue-rotate(76deg) saturate(1.3) brightness(.8) contrast(1.12)}
+.bj:not(.bj--webgl) .bj-focus{background:#ff54732b;box-shadow:0 0 38px 14px #ff426e2b}
+.bj:not(.bj--webgl) .bj-hotspot{border-color:#ff9bb57d;background:#ff526d32}
+.bj:not(.bj--webgl) .bj-hotspot i{background:#ffa5bb}
+.bj:not(.bj--webgl) .bj-hotspot.is-active{background:#ff66886b;box-shadow:0 0 0 9px #ff709335,0 0 35px 13px #ff5b897a}
+.bj:not(.bj--webgl) .bj-locator{display:none}
+@media(max-width:680px) and (prefers-reduced-motion:reduce){
+  .bj-panels,.bj--enhanced .bj-panels{height:auto}
+}

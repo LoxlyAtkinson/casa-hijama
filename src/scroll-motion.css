@@ -94,3 +94,107 @@
   .treatment-grid[data-sc-stagger] > *,.intro [data-sc-in] { opacity:1!important; transform:none!important; transition:none!important; }
   .hero-progress,.film-progress { display:none; }
 }
+
+/* A two-frame opening: the broad cupping still resolves into the private room
+   while Scroll Craft drives the pinned scene's progress in either direction. */
+.home-motion-hero { background:#101c1d; }
+.home-hero-stage { height:100svh; min-height:650px; background:#101c1d; color:#fff; }
+.home-hero-stage .hero-media { inset:0; width:100%; height:100%; overflow:hidden; }
+.home-hero-stage .hero-media img { object-position:70% 55%; transform:scale(calc(1.05 + var(--sc-p, 0) * .36)) translate3d(calc(var(--sc-p, 0) * -2%),0,0); transform-origin:74% 56%; filter:brightness(.74) saturate(.83); }
+.home-hero-stage .hero-detail-media { position:absolute; inset:0; z-index:0; opacity:clamp(0,calc((var(--sc-p, 0) - .43) * 3.7),1); overflow:hidden; pointer-events:none; }
+.home-hero-stage .hero-detail-media img { width:100%; height:100%; object-fit:cover; object-position:65% center; transform:scale(calc(1.18 - var(--sc-p, 0) * .16)); filter:brightness(.66) saturate(.78); }
+.home-hero-stage .hero-shade { z-index:1; background:linear-gradient(90deg,rgba(7,27,29,.82) 0%,rgba(7,27,29,.4) 43%,transparent 72%),linear-gradient(0deg,rgba(7,27,29,.74),transparent 43%); }
+.home-hero-stage::after { z-index:1; background:radial-gradient(circle at 77% 53%,rgba(97,198,199,.16),transparent 28%); mix-blend-mode:screen; }
+.home-hero-stage .hero-inner { align-items:flex-end; padding:0 0 clamp(108px,13vh,170px); }
+.home-hero-stage .hero-copy { color:#f7fbf7; max-width:940px; }
+.home-hero-stage .hero-copy .eyebrow,.home-hero-stage .hero-second .eyebrow { color:#9bd5d1; }
+.home-hero-stage .hero-copy h1 { font-size:clamp(5rem,8.6vw,9rem); line-height:.98; letter-spacing:-.075em; margin:19px 0 22px; color:#fff; white-space:nowrap; }
+.home-hero-stage .hero-copy > p { color:#edf4ed; max-width:430px; font-size:1.05rem; line-height:1.6; }
+.home-hero-stage .hero-actions { margin-top:27px; }
+.home-hero-stage .text-link { color:#f4f9f5; }
+.home-hero-stage .hero-second { top:auto; bottom:clamp(118px,14vh,180px); color:#fff; max-width:900px; }
+.home-hero-stage .hero-second h2 { color:#fff; font-size:clamp(4.5rem,7.8vw,8rem); line-height:1.01; letter-spacing:-.07em; margin:16px 0 20px; }
+.home-hero-stage .hero-second h2 em { color:#a5d9d2; }
+.home-hero-stage .hero-second p { color:#ecf3ed; max-width:440px; margin-bottom:22px; }
+.home-hero-stage .hero-caption { color:#e9f3ed; z-index:3; }
+.home-hero-stage .hero-progress { z-index:3; }
+
+/* Let the room and the body own the immersive beats; services are an editorial
+   introduction with one larger lead photograph and restrained secondary images. */
+.treatments .section-heading { display:grid; grid-template-columns:1fr 1fr; align-items:end; column-gap:6vw; }
+.treatments .section-heading .eyebrow { grid-column:1 / -1; }
+.treatments .section-heading h2 { margin-bottom:0; }
+.treatments .section-heading p { margin:0 0 8px; max-width:370px; }
+.treatment-grid { grid-template-columns:1.35fr 1fr 1fr; gap:10px; }
+.treatment-card { min-height:540px; padding:19px; }
+.treatment-art { margin:14px -19px; }
+.treatment-card:first-child .treatment-art { background-position:center 52%; }
+.treatment-bottom h3 { font-size:clamp(1.6rem,2vw,2.3rem); }
+
+.quote-section { padding-block:clamp(120px,14vw,210px); }
+.quote-wrap { max-width:940px; }
+.quote-wrap blockquote { font-size:clamp(2.5rem,4.1vw,5rem); line-height:1.18; }
+
+@media(max-width:800px) {
+  .home-hero-stage { min-height:700px; }
+  .home-hero-stage .hero-inner { padding-bottom:122px; }
+  .home-hero-stage .hero-copy h1 { font-size:clamp(4.1rem,10vw,6rem); white-space:normal; }
+  .home-hero-stage .hero-second h2 { font-size:clamp(3.5rem,8vw,5.5rem); }
+  .treatments .section-heading { display:block; }
+  .treatments .section-heading p { margin-top:15px; }
+  .treatment-grid { grid-template-columns:1fr 1fr; }
+  .treatment-card:last-child { grid-column:span 2; }
+}
+@media(max-width:560px) {
+  .home-hero-stage { min-height:720px; }
+  .home-hero-stage .hero-media img { object-position:75% center; filter:brightness(.62) saturate(.85); }
+  .home-hero-stage .hero-detail-media img { object-position:58% center; }
+  .home-hero-stage .hero-shade { background:linear-gradient(0deg,rgba(7,27,29,.94) 0%,rgba(7,27,29,.6) 37%,rgba(7,27,29,.12) 78%); }
+  .home-hero-stage .hero-inner { padding:0 0 104px; }
+  .home-hero-stage .hero-copy h1 { font-size:clamp(3.6rem,14vw,5.5rem); line-height:1.01; }
+  .home-hero-stage .hero-copy > p { max-width:320px; font-size:.94rem; }
+  .home-hero-stage .hero-actions { gap:15px; }
+  .home-hero-stage .hero-second { bottom:105px; max-width:100%; }
+  .home-hero-stage .hero-second h2 { font-size:clamp(3.1rem,11.5vw,4.5rem); }
+  .home-hero-stage .hero-second p { max-width:300px; font-size:.91rem; line-height:1.5; }
+  .home-hero-stage .hero-caption { font-size:.5rem; }
+  .treatment-grid { grid-template-columns:1fr; gap:15px; }
+  .treatment-card,.treatment-card:last-child { grid-column:auto; min-height:390px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .home-hero-stage .hero-media img { transform:none!important; }
+  .home-hero-stage .hero-detail-media { display:none; }
+  .home-hero-stage .hero-copy { opacity:1!important; transform:none!important; }
+}
+
+/* The opening still has one recognisable vessel and its own quiet copy field. */
+.home-hero-stage .hero-media picture { display:block; width:100%; height:100%; }
+.home-hero-stage .hero-media img { object-position:center center; transform:scale(calc(1.01 + var(--sc-p, 0) * .24)); transform-origin:65% 44%; filter:none; }
+.home-hero-stage .hero-detail-media { opacity:clamp(0,calc((var(--sc-p, 0) - .35) * 4),1); }
+.home-hero-stage .hero-shade { background:linear-gradient(90deg,rgba(5,24,27,.42),transparent 52%),linear-gradient(0deg,rgba(5,24,27,.72),transparent 37%); }
+.home-hero-stage .hero-copy h1 { font-size:clamp(4.7rem,7.5vw,7.25rem); }
+.home-hero-stage .text-link { border-bottom:1px solid currentColor; padding-bottom:8px; }
+@media(max-width:560px) {
+  .home-hero-stage .hero-media img { object-position:center center; transform:scale(calc(1 + var(--sc-p, 0) * .08)); filter:none; }
+  .home-hero-stage .hero-shade { background:linear-gradient(0deg,rgba(4,23,27,.9),transparent 48%); }
+  .home-hero-stage .hero-copy h1 { font-size:clamp(3.6rem,14vw,5.5rem); }
+  .home-hero-stage .hero-copy .eyebrow { display:none; }
+}
+
+/* The room settles as a separate editorial frame: readable copy on the dark
+   wall, the complete bed in its own image field. */
+.home-hero-stage .hero-detail-media { background:#071b1d; }
+.home-hero-stage .hero-detail-media img { transform:none; object-position:center center; filter:brightness(.82) saturate(.85); }
+.home-hero-stage .hero-second { width:min(42vw,570px); bottom:clamp(94px,10vh,130px); }
+.home-hero-stage .hero-second h2 { font-size:clamp(4rem,5.5vw,5.4rem); line-height:1.02; }
+.home-hero-stage .hero-second h2 em { color:#a8dcd5; }
+@media(max-width:800px) {
+  .home-hero-stage .hero-second { width:min(100%,570px); }
+}
+@media(max-width:560px) {
+  .home-hero-stage .hero-detail-media img { height:48%; object-position:65% center; filter:brightness(.88) saturate(.85); }
+  .home-hero-stage .hero-shade { background:linear-gradient(0deg,#071b1d 0%,rgba(7,27,29,.8) 36%,transparent 53%); }
+  .home-hero-stage .hero-second { top:49%; bottom:auto; width:100%; }
+  .home-hero-stage .hero-second h2 { font-size:clamp(2.9rem,11vw,4rem); line-height:1.02; margin:12px 0 16px; }
+  .home-hero-stage .hero-second p { line-height:1.45; margin-bottom:14px; }
+}

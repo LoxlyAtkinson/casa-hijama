@@ -4,7 +4,7 @@ const path = require('path');
 const crypto = require('crypto');
 
 const base = 'http://127.0.0.1:4173';
-const out = path.resolve(__dirname, '../.experience/casa-rebuild/evidence/final');
+const out = path.resolve(__dirname, '../.experience/casa-rebuild/evidence/v5');
 fs.mkdirSync(out, { recursive: true });
 const observations = [];
 const sourceRevision = crypto.createHash('sha256').update(['index.html','src/main.js','src/styles.css','src/scroll-motion.js','src/scroll-motion.css','scrollcraft/builds/casa-hijama/scrollcraft.js','scrollcraft/builds/casa-hijama/scrollcraft.css','src/shop.js','src/shop.css','src/shop-crops.json','src/body-journey.js','src/body-journey.css','products.json'].map(file => fs.readFileSync(path.resolve(__dirname, '..', file))).join('\n')).digest('hex');
@@ -18,7 +18,12 @@ function stamp() { return new Date().toISOString(); }
 async function record(page, name, route, state, action, expected, actual, fullPage = false) {
   const viewport = page.viewportSize();
   const file = `${name}.png`;
-  await page.screenshot({ path: path.join(out, file), fullPage, animations: 'disabled', type: 'png' });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    await page.waitForTimeout(attempt ? 650 : 180);
+    await page.screenshot({ path: path.join(out, file), fullPage, animations: 'disabled', type: 'png' });
+    if (fs.statSync(path.join(out, file)).size > 12000) break;
+  }
+  assert(fs.statSync(path.join(out, file)).size > 12000, `Blank or incomplete screenshot: ${name}`);
   observations.push({ route, state, viewport, timestamp: stamp(), sourceRevision, action, expected, actual, result: 'PASS', screenshot: name });
   console.log(`PASS ${name}: ${actual}`);
 }
@@ -164,8 +169,8 @@ async function open(context, route, viewport) {
     await bodyArea.scrollIntoViewIfNeeded();
     assert(await media.locator('.bj--webgl canvas').count() === 1, 'Continuous 3D body canvas did not render');
     await media.locator('.bj-zoom-controls button[data-zoom="in"]').click();
-    assert((await media.locator('.bj-zoom-level').innerText()) === '115%', 'Body zoom control did not change level');
-    await record(media, 'desktop-light-body-zoom', '/', 'body-zoom', 'Zoomed the rendered clinical body', 'Camera moves closer and zoom level displays 115%', 'Continuous WebGL canvas; zoom level 115%');
+    assert((await media.locator('.bj-zoom-level').innerText()) === '200%', 'Body zoom control did not change level');
+    await record(media, 'desktop-light-body-zoom', '/', 'body-zoom', 'Focused the rendered clinical body on the selected area', 'Camera reveals selected anatomy and zoom level displays 200%', 'Continuous WebGL canvas; zoom level 200%');
     await media.locator('.bj-zoom-controls button[data-zoom="reset"]').click();
     assert((await media.locator('.bj-zoom-level').innerText()) === '100%', 'Body zoom reset failed');
     const regionButtons = media.locator('.bj-region-button');

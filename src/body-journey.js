@@ -92,21 +92,37 @@ async function createMannequin(section, onHotspot) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(32, 1, .1, 50);
-  scene.add(new THREE.HemisphereLight(0xd9f7e8, 0x203d39, 1.55));
-  const key = new THREE.DirectionalLight(0xb9e5ce, 2.15);
+  scene.add(new THREE.HemisphereLight(0x9cefff, 0x063b5d, 1.35));
+  const key = new THREE.DirectionalLight(0x68dfff, 2.2);
   key.position.set(-3, 5, 6);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0xb1ffd7, 3.45);
+  const rim = new THREE.DirectionalLight(0x55cfff, 3.6);
   rim.position.set(3, 2, -5);
   scene.add(rim);
 
   const body = new THREE.Group();
   scene.add(body);
-  const skin = new THREE.MeshPhysicalMaterial({
-    color: 0x91a995, metalness: .04, roughness: .55,
-    clearcoat: .3, clearcoatRoughness: .43,
-    emissive: 0x719d7e, emissiveIntensity: .11,
-    transparent: true, opacity: .56, depthWrite: false, side: THREE.DoubleSide
+  const skin = new THREE.ShaderMaterial({
+    uniforms: { uRegion: { value: new THREE.Vector3(.42,1.29,.28) }, uFocus: { value: 0 } },
+    transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    vertexShader: `varying vec3 vNormal; varying vec3 vPosition; varying vec3 vEye;
+      void main() { vNormal = normalize(normalMatrix * normal); vPosition = position;
+        vec4 view = modelViewMatrix * vec4(position, 1.0); vEye = normalize(-view.xyz);
+        gl_Position = projectionMatrix * view; }`,
+    fragmentShader: `varying vec3 vNormal; varying vec3 vPosition; varying vec3 vEye;
+      uniform vec3 uRegion; uniform float uFocus;
+      void main() {
+        float facing = abs(dot(normalize(vNormal), normalize(vEye)));
+        float rim = pow(1.0 - facing, 2.2);
+        float core = 0.17 + 0.11 * smoothstep(-2.8, 0.5, vPosition.y);
+        float shade = 0.52 + 0.48 * max(0.0, dot(normalize(vNormal), normalize(vec3(-0.5,0.7,0.8))));
+        vec3 blue = mix(vec3(0.02,0.39,0.56), vec3(0.17,0.85,0.94), shade);
+        vec3 colour = mix(blue, vec3(0.62,0.98,1.0), rim * 0.84);
+        vec3 fromFocus = (vPosition - uRegion) / vec3(0.28,0.28,0.35);
+        float warmth = exp(-dot(fromFocus,fromFocus) * 1.35);
+        colour = mix(colour, vec3(1.0,0.25,0.42), warmth * (0.34 + 0.36*uFocus));
+        gl_FragColor = vec4(colour, min(0.93, core + rim * 0.62 + warmth * 0.16));
+      }`
   });
   // A single implicit surface blends torso, limbs and head into one clinical silhouette.
   const ellipsoid = (x,y,z,cx,cy,cz,sx,sy,sz) => (Math.hypot((x-cx)/sx,(y-cy)/sy,(z-cz)/sz)-1)*Math.min(sx,sy,sz);
@@ -122,14 +138,21 @@ async function createMannequin(section, onHotspot) {
     d=blend(d,ellipsoid(x,y,z,0,.2,0,.36,.43,.26),.18);
     d=blend(d,ellipsoid(x,y,z,0,-.18,0,.36,.23,.275),.14);
     d=blend(d,capsule(x,y,z,0,1.44,0,0,1.75,0,.17,.135),.12);
-    d=blend(d,ellipsoid(x,y,z,0,2.02,0,.26,.34,.235),.055);
+    d=blend(d,ellipsoid(x,y,z,0,2.02,0,.255,.34,.235),.055);
+    d=blend(d,ellipsoid(x,y,z,0,1.83,.13,.19,.16,.16),.035);
     for(const side of [-1,1]) {
-      d=blend(d,capsule(x,y,z,side*.42,1.28,0,side*.67,.55,0,.175,.135),.13);
-      d=blend(d,capsule(x,y,z,side*.67,.55,0,side*.83,-.82,0,.135,.078),.095);
-      d=blend(d,ellipsoid(x,y,z,side*.86,-.98,.01,.085,.17,.067),.085);
+      d=blend(d,ellipsoid(x,y,z,side*.258,2.01,0,.045,.10,.07),.035);
+      d=blend(d,capsule(x,y,z,side*.46,1.28,0,side*.68,.52,0,.18,.137),.19);
+      d=blend(d,capsule(x,y,z,side*.68,.52,0,side*.83,-.77,0,.137,.085),.12);
+      d=blend(d,ellipsoid(x,y,z,side*.85,-.9,.01,.091,.18,.072),.095);
+      d=blend(d,capsule(x,y,z,side*.89,-1.02,.015,side*.91,-1.19,.025,.033,.025),.025);
+      d=blend(d,capsule(x,y,z,side*.85,-1.02,.02,side*.85,-1.22,.03,.028,.02),.023);
+      d=blend(d,capsule(x,y,z,side*.82,-1.0,.02,side*.79,-1.18,.03,.025,.018),.02);
+      d=blend(d,capsule(x,y,z,side*.79,-.88,.055,side*.72,-1.07,.085,.04,.025),.045);
       d=blend(d,capsule(x,y,z,side*.19,-.21,0,side*.27,-1.37,0,.22,.18),.15);
       d=blend(d,capsule(x,y,z,side*.27,-1.37,0,side*.3,-2.6,0,.18,.097),.1);
       d=blend(d,ellipsoid(x,y,z,side*.3,-2.71,.16,.135,.09,.27),.08);
+      for(let toe=0;toe<3;toe++) d=blend(d,ellipsoid(x,y,z,side*(.23+toe*.07),-2.73,.39-toe*.027,.043,.055,.075),.035);
     }
     return d;
   }
@@ -196,11 +219,11 @@ async function createMannequin(section, onHotspot) {
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position * 1.008, 1.0); }`,
     fragmentShader: `varying vec3 vNormal; varying vec3 vPosition; uniform float uDetail;
       void main() {
-        float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0,0.0,1.0))), 2.1);
-        float scan = pow(max(0.0, sin(vPosition.y * 47.0)), 18.0) * (0.035 + uDetail * 0.06);
-        float axial = exp(-pow(vPosition.x * 12.0, 2.0)) * step(-1.6, vPosition.y) * step(vPosition.y, 1.45) * 0.055;
-        float alpha = min(0.62, edge * 0.49 + scan * 1.6 + axial * 2.0);
-        gl_FragColor = vec4(0.71, 1.0, 0.76, alpha);
+        float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0,0.0,1.0))), 2.7);
+        float scan = pow(max(0.0, sin(vPosition.y * 71.0)), 27.0) * (0.017 + uDetail * 0.028);
+        float axial = exp(-pow(vPosition.x * 13.0, 2.0)) * step(-1.5, vPosition.y) * step(vPosition.y, 1.45) * 0.02;
+        float alpha = min(0.55, edge * 0.46 + scan + axial);
+        gl_FragColor = vec4(0.29, 0.86, 1.0, alpha);
       }`
   });
   body.add(new THREE.Mesh(bodyGeometry, clinicalLayer));
@@ -213,15 +236,23 @@ async function createMannequin(section, onHotspot) {
     }
     return side*(low+.008);
   }
+  const contours=[];
   function contour(points,side,opacity) {
     const vertices=points.map(([x,y])=>new THREE.Vector3(x,y,surfaceZ(x,y,side)));
     const geometry=new THREE.BufferGeometry().setFromPoints(vertices);
-    const material=new THREE.LineBasicMaterial({color:0xd9ffd6,transparent:true,opacity:Math.min(1,opacity*1.75),depthWrite:false,depthTest:false});
+    const material=new THREE.LineBasicMaterial({color:0x69d5f2,transparent:true,opacity:Math.min(.42,opacity*.55),depthWrite:false,depthTest:false});
     const line = new THREE.Line(geometry,material);
+    line.userData.side=side;
     body.add(line);
+    contours.push(line);
     return line;
   }
   contour([[-.41,1.32],[-.3,1.37],[-.17,1.32],[0,1.26],[.17,1.32],[.3,1.37],[.41,1.32]],1,.51);
+  for (const side of [-1,1]) {
+    contour([[side*.035,2.095],[side*.075,2.115],[side*.13,2.105],[side*.16,2.08]],1,.48);
+    contour([[side*.04,2.0],[side*.085,1.97],[side*.13,1.98]],1,.22);
+  }
+  contour([[-.045,1.905],[0,1.895],[.045,1.905]],1,.37);
   contour(Array.from({length:20},(_,i)=>[0,1.31-i*.105]),1,.22);
   contour(Array.from({length:27},(_,i)=>[0,1.49-i*.09]),-1,.53);
   for (const side of [-1,1]) {
@@ -247,7 +278,69 @@ async function createMannequin(section, onHotspot) {
     }
     zoomDetails.push(contour(Array.from({length:20},(_,i)=>[side*(.1+i*.016),1.32-.12*Math.sin(i/19*Math.PI)]),1,0));
   }
-  const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x9ac59f, transparent: true, opacity: .22, depthWrite: false });
+  // Abstract inner structures stay behind the skin and provide depth during rotation.
+  const anatomy = new THREE.Group();
+  body.add(anatomy);
+  const innerLineMaterial = new THREE.LineBasicMaterial({color:0x8ceeff,transparent:true,opacity:.32,depthWrite:false});
+  const innerSurfaceMaterial = new THREE.MeshBasicMaterial({color:0x168da9,transparent:true,opacity:.16,depthWrite:false,side:THREE.DoubleSide});
+  for (const side of [-1, 1]) {
+    const thorax = new THREE.Mesh(new THREE.SphereGeometry(1,20,14), innerSurfaceMaterial);
+    thorax.position.set(side*.19,.98,0); thorax.scale.set(.21,.39,.17); anatomy.add(thorax);
+    for (let row=0; row<8; row++) {
+      const y=1.31-row*.16;
+      const points=Array.from({length:15},(_,i)=>{
+        const t=i/14, x=side*(.045+t*.31);
+        return new THREE.Vector3(x,y-.07*Math.sin(t*Math.PI),-.13-.09*Math.sin(t*Math.PI));
+      });
+      anatomy.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),innerLineMaterial));
+    }
+  }
+  anatomy.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({length:38},(_,i)=>new THREE.Vector3(0,1.61-i*.064,-.04-.018*Math.sin(i*.22)))),innerLineMaterial));
+  const vertebraMaterial = new THREE.MeshBasicMaterial({color:0x93eaff,transparent:true,opacity:.27,depthWrite:false});
+  for(let i=0;i<18;i++) {
+    const vertebra = new THREE.Mesh(new THREE.SphereGeometry(1,10,8),vertebraMaterial);
+    vertebra.position.set(0,1.45-i*.095,-.11);
+    vertebra.scale.set(.075,.038,.055);
+    anatomy.add(vertebra);
+  }
+  // Small curved volumes sit inside the continuous surface. Front and back
+  // sets alternate with the same rotation as the visitor's chosen view.
+  const anatomyViews = {front:new THREE.Group(),back:new THREE.Group()};
+  body.add(anatomyViews.front,anatomyViews.back);
+  const strandMaterial = new THREE.MeshBasicMaterial({color:0x83eaff,transparent:true,opacity:.37,depthWrite:false});
+  const deepMaterial = new THREE.MeshBasicMaterial({color:0x2eb4d3,transparent:true,opacity:.19,depthWrite:false});
+  function strand(view,points,radius=.008,material=strandMaterial) {
+    const path=new THREE.CatmullRomCurve3(points.map(point=>new THREE.Vector3(...point)));
+    const mesh=new THREE.Mesh(new THREE.TubeGeometry(path,Math.max(12,points.length*4),radius,5,false),material);
+    anatomyViews[view].add(mesh);
+  }
+  function volume(view,x,y,z,sx,sy,sz,material=deepMaterial) {
+    const mesh=new THREE.Mesh(new THREE.SphereGeometry(1,16,12),material);
+    mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);anatomyViews[view].add(mesh);
+  }
+  for(const side of [-1,1]) {
+    strand('front',[[0,1.45,.14],[side*.16,1.42,.18],[side*.34,1.32,.13],[side*.48,1.19,.05]],.013);
+    volume('front',side*.20,1.08,.10,.21,.33,.14);
+    volume('front',side*.32,.17,.10,.105,.31,.09);
+    volume('front',side*.23,-.82,.05,.13,.50,.115);
+    strand('front',[[side*.06,.12,.18],[side*.19,.08,.18],[side*.31,-.04,.13],[side*.34,-.2,.04]],.011);
+    for(let row=0;row<7;row++) {
+      const y=1.23-row*.15;
+      strand('front',[[side*.04,y,.17],[side*.14,y+.035,.23],[side*.27,y-.02,.20],[side*.38,y-.09,.11]],.007);
+    }
+    strand('back',[[0,1.43,-.17],[side*.20,1.39,-.21],[side*.37,1.28,-.15],[side*.47,1.13,-.04]],.012);
+    strand('back',[[side*.16,1.25,-.18],[side*.38,1.10,-.19],[side*.31,.76,-.21],[side*.12,.58,-.20],[side*.16,1.25,-.18]],.009);
+    volume('back',side*.23,.93,-.11,.16,.36,.12);
+    volume('back',side*.27,.18,-.10,.15,.26,.11);
+    strand('back',[[side*.04,.27,-.23],[side*.18,.23,-.22],[side*.34,.12,-.14],[side*.37,-.07,-.02]],.012);
+    for(let row=0;row<7;row++) {
+      const y=1.22-row*.15;
+      strand('back',[[side*.045,y,-.18],[side*.16,y+.025,-.23],[side*.29,y-.03,-.20],[side*.38,y-.09,-.10]],.007);
+    }
+  }
+  strand('back',Array.from({length:15},(_,i)=>[0,1.48-i*.117,-.235+.02*Math.sin(i*.45)]),.009);
+  strand('front',Array.from({length:13},(_,i)=>[0,1.38-i*.117,.185-.035*Math.sin(i*.35)]),.007);
+  const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x40b7d6, transparent: true, opacity: .17, depthWrite: false });
   for (const radius of [1.0, 1.35]) {
     const orbit = new THREE.Mesh(new THREE.TorusGeometry(radius, .006, 6, 72), orbitMaterial);
     orbit.rotation.x = Math.PI / 2;
@@ -265,15 +358,25 @@ async function createMannequin(section, onHotspot) {
   markers.forEach((point, index) => {
     const group = new THREE.Group();
     group.position.copy(point);
-    const halo = new THREE.Mesh(new THREE.SphereGeometry(.17, 16, 12), new THREE.MeshBasicMaterial({
-      color: 0xd8f3a7, transparent: true, opacity: .22, depthWrite: false
+    const halo = new THREE.Mesh(new THREE.SphereGeometry(.13, 20, 16), new THREE.MeshBasicMaterial({
+      color: 0xff486e, transparent: true, opacity: .09, depthWrite: false, blending: THREE.AdditiveBlending
     }));
-    const core = new THREE.Mesh(new THREE.SphereGeometry(.075, 16, 12), new THREE.MeshBasicMaterial({ color: 0xe8ffc3 }));
+    const core = new THREE.Mesh(new THREE.SphereGeometry(.027, 16, 12), new THREE.MeshBasicMaterial({ color: 0xff7894 }));
+    const glowCanvas = document.createElement('canvas');
+    glowCanvas.width = glowCanvas.height = 128;
+    const glowContext = glowCanvas.getContext('2d');
+    const glow = glowContext.createRadialGradient(64,64,3,64,64,64);
+    glow.addColorStop(0,'rgba(255,117,151,.7)');
+    glow.addColorStop(.2,'rgba(255,66,103,.36)');
+    glow.addColorStop(1,'rgba(255,67,110,0)');
+    glowContext.fillStyle=glow; glowContext.fillRect(0,0,128,128);
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(glowCanvas),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+    sprite.scale.set(.92,.92,1);
     const pick = new THREE.Mesh(new THREE.SphereGeometry(.29, 12, 8), new THREE.MeshBasicMaterial({
       transparent: true, opacity: 0, depthWrite: false
     }));
     pick.userData.region = index;
-    group.add(halo, core, pick);
+    group.add(sprite, halo, core, pick);
     body.add(group);
     markerGroups.push(group);
     pickMeshes.push(pick);
@@ -293,24 +396,34 @@ async function createMannequin(section, onHotspot) {
   function render(progress = latestProgress, region = latestRegion) {
     latestProgress = progress;
     latestRegion = region;
-    clinicalLayer.uniforms.uDetail.value = Math.max(0, (zoom - 1) / .15);
-    zoomDetails.forEach(line => { line.material.opacity = clinicalLayer.uniforms.uDetail.value * .62; });
+    const detail = THREE.MathUtils.clamp((zoom - 1) / .5, 0, 1);
+    clinicalLayer.uniforms.uDetail.value = detail;
+    skin.uniforms.uRegion.value.copy(markers[region]);
+    skin.uniforms.uFocus.value = detail;
+    zoomDetails.forEach(line => { line.material.opacity = detail * .32; });
     const turning = ease(.22, .49, progress);
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
     body.rotation.y = Math.PI * turning;
     const mobileFrame = host.clientWidth < 330;
-    const framingDistance = mobileFrame ? 11.2 : 11;
-    const verticalFocus = -.08 * upper - .12 * lower - (mobileFrame ? .14 : 0);
-    body.scale.x = mobileFrame ? 1.13 : 1;
+    const framingDistance = mobileFrame ? 10.2 : 10.1;
+    const baseFocus = -.08 * upper - .12 * lower - (mobileFrame ? .14 : 0);
+    const focusY = [1.26,.92,.2][region];
+    const verticalFocus = THREE.MathUtils.lerp(baseFocus, focusY, detail);
+    body.scale.x = mobileFrame ? 1.13 : 1.08;
     camera.position.set(0, verticalFocus, (framingDistance - .45 * upper + .05 * lower) / zoom);
     camera.lookAt(0, verticalFocus, 0);
     const visibleSide = progress < .38 ? 'front' : 'back';
+    anatomyViews.front.visible = visibleSide === 'front';
+    anatomyViews.back.visible = visibleSide === 'back';
+    contours.forEach(line => { line.visible = line.userData.side === (visibleSide === 'front' ? 1 : -1); });
     markerGroups.forEach((group, i) => {
       group.visible = regions[i].side === visibleSide;
-      group.scale.setScalar(i === region ? 1.18 : .72);
-      const halo = group.children[0];
-      halo.material.opacity = i === region ? .35 : .08;
+      group.scale.setScalar(i === region ? (mobileFrame ? 1.58 : 1.18) : .72);
+      const sprite = group.children[0];
+      const halo = group.children[1];
+      sprite.material.opacity = i === region ? 1 : .2;
+      halo.material.opacity = i === region ? .14 : .025;
     });
     body.updateMatrixWorld(true);
     camera.updateMatrixWorld(true);
@@ -406,11 +519,11 @@ export function initBodyJourney() {
   section.classList.add('bj--ready');
 
   function updateZoom(value) {
-    zoomLevel = Math.max(.85, Math.min(1.15, Math.round(value * 100) / 100));
+    zoomLevel = Math.max(1, Math.min(2, Math.round(value * 100) / 100));
     zoomOutput.textContent = `${Math.round(zoomLevel * 100)}%`;
     section.style.setProperty('--bj-fallback-zoom', String(zoomLevel));
     zoomButtons.forEach(button => {
-      button.disabled = button.dataset.zoom === 'in' ? zoomLevel >= 1.15 : button.dataset.zoom === 'out' ? zoomLevel <= .85 : zoomLevel === 1;
+      button.disabled = button.dataset.zoom === 'in' ? zoomLevel >= 2 : button.dataset.zoom === 'out' ? zoomLevel <= 1 : zoomLevel === 1;
     });
     scene3d?.setZoom(zoomLevel);
   }
@@ -555,8 +668,8 @@ export function initBodyJourney() {
 
   [...buttons, ...hotspots].forEach(button => button.addEventListener('click', event => openCheckIn(Number(button.dataset.region), button, event.detail !== 0)));
   zoomButtons.forEach(button => button.addEventListener('click', () => {
-    if (button.dataset.zoom === 'in') updateZoom(zoomLevel + .15);
-    else if (button.dataset.zoom === 'out') updateZoom(zoomLevel - .15);
+    if (button.dataset.zoom === 'in') updateZoom(zoomLevel + 1);
+    else if (button.dataset.zoom === 'out') updateZoom(zoomLevel - 1);
     else updateZoom(1);
   }));
   section.querySelector('.bj-checkin-trigger').addEventListener('click', event => openCheckIn(Math.max(0, active), event.currentTarget, false));

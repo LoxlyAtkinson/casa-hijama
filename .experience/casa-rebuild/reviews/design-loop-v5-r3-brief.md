@@ -1,0 +1,10 @@
+# Design Loop v5, round 3 — brief critic
+
+Scope: user goal completeness for the home page and body module only. I judged the frozen C22–C25 goals against the supplied final v5 screenshots, `browser-log-v5.json`, and `C:/Users/loxly/Desktop/3d human body.jpg`. I did not read implementation source, builder notes, or prior reviews. This is an evidence review; I did not replay the live site. Shared filesystem and supplied browser-log provenance limit procedural blinding.
+
+## Binary verdicts
+
+- **Home: PASS.** The 1440px and 390px hero captures show a dominant cupping visual changing to a private-room subject as scroll progress advances, with concise large copy and a booking action. The home evidence includes light/dark full pages, and the browser log records reversible film scrubbing, pause, still fallback, and reduced-motion still behavior. The 76% and 100% hero frames are effectively the same scene, but the start-to-room change satisfies the requested material change in subject.
+- **Body: PASS.** The normal-motion captures show a recognizably human, continuous-looking translucent cyan figure with subtle internal structure and localized pink focal light, visibly different from a flat front/back image swap. Front neck/shoulders advances to back upper and lower regions on desktop and mobile; a 200% lower-back state gives the selected area clear priority. Named region controls and keyboard captures reach all three four-question intake states. The completed notes use cautious language, keep answers on page, and frame products as items to ask about. Reduced-motion and blocked-WebGL captures retain readable region guidance and a clinical still; the log records reverse scrolling to the first region. The reference's watermark and unrelated pain insets are absent.
+
+**Biggest actionable gap:** None for the scoped home/body goal shown by this evidence. Publication and direct-route checks in C25 require the separate public-preview acceptance pass; this review does not certify them.

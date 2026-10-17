@@ -1,0 +1,13 @@
+# Design loop v5, round 4 — independent craft critique
+
+**Scope:** Visual judgment of `bar-v3.md` (including its referenced earlier bars) against the supplied Apple and clinical-body images and the rendered v5 desktop and mobile hero/body frames. I did not inspect implementation, builder notes, or earlier reviews. This is a frame-based craft verdict, not a browser behaviour or provenance check.
+
+## Home: PASS
+
+The Apple reference wins on absolute visual restraint: the dark field, single giant watch, and low headline make its product unmistakably dominant. Casa nevertheless wins the *applicable mechanisms* at both widths. The desktop opening gives the luminous cupping vessel most of the viewport, with a short, oversized statement and clear booking action in a separate readable area. The mobile opening preserves the single-subject hierarchy and visible action without crowding the vessel. The room frame is a materially new scene, not merely faded text: the bright treatment bed takes over the visual field, while the copy moves to a dark zone. This is a convincing scroll reveal and communicates Casa's service and privacy more directly than an Apple-like product shot could. The quiet light navigation against the dark scenes creates a deliberate transition. Static frames cannot establish whether the film pauses, how the scroll transition animates, or whether later editorial sections resolve the dark sequence; those need behavioural/whole-page evidence.
+
+## Body: PASS
+
+The supplied body reference wins in anatomical fidelity and the vivid, localized red/pink signal. Casa wins the *usable interpretation* of its visual mechanisms: one continuous cyan, edge-lit translucent figure is centered on a dark blue field; rib, spine, and pelvic linework give it a scan-like interior instead of a flat mannequin. The active neck/shoulder, upper-back, and lower-back areas move visibly between the front, back, and close lower-back frames, with inactive labels subdued. The 200% lower-back frame supplies spatial detail tied to the same body rather than a disconnected stock inset. Across desktop and mobile, the explanation stays readable beside or below the model and describes a discussion area without implying diagnosis. The mobile fallback retains a full luminous figure and readable guidance, although its anatomy style visibly differs from the primary render. Static frames cannot verify real rotation, direct region selection, or fallback trigger behaviour.
+
+**Overall craft verdict for the requested frames: PASS.** No actionable visual failure remains against the observable reference mechanisms. The residual validation is interaction and motion evidence, outside this frame-only critique.

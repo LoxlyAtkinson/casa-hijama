@@ -1,0 +1,20 @@
+# Design Loop system critic — v5, round 4
+
+Scope: the current root `design-system.md` applied only to the v5 home hero and clinical body states. Evidence inspected: the final `v5-*` PNG captures in `.experience/casa-rebuild/evidence/v5/` and the corresponding entries in `browser-log-v5.json`. I did not inspect implementation files, builder rationale, or earlier verdicts. Shared filesystem and evidence supplied by the builder limit procedural blinding; interaction statements below rely on the supplied browser log rather than my own live browser session.
+
+## Home start and room — **PASS**
+
+- **Primary and secondary actions:** At desktop and 390px, `v5-*-hero-start.png` shows a turquoise pill with dark text for “Book a session” and an underlined text link for “Explore Casa Hijama.” `v5-*-hero-room.png` shows “Explore treatments” as an underlined text link over dark media. This matches the system's primary and secondary CTA rule.
+- **Identity and hierarchy:** The header carries the Casa Hijama brand, route navigation/theme control on desktop, and theme/menu controls on mobile. Both hero frames use a small uppercase eyebrow, a large short-line headline, high contrast reading copy, turquoise emphasis and calm dark media. The room image and copy read as one section rather than detached elements.
+- **Responsive treatment:** The desktop start/room compositions keep wide margins and legible controls; the 390px captures retain approximately 20px content margins and readable links. `v5-*-hero-exit.png` shows the room frame remains legible at the end of the scroll sequence. The log records distinct start/room/exit progress at 1440×900 and 390×844.
+
+No rule-level gap is visible in these states. The log does not record activating either secondary link, so it cannot establish the destination of those links; the system rule judged here is their presentation as secondary text links.
+
+## Clinical body — **PASS**
+
+- **Clinical visual chapter:** `v5-desktop-body-front.png`, `upper.png`, `lower.png` and the matching mobile captures show a deep teal/near-black field, a translucent cyan figure, localized coral markers, and three named regions in the specified order. The explanatory copy is readable beside the figure on desktop and below it on mobile. The copy states that points are a conversation guide, not diagnosis; upper-back guidance acknowledges uncertain benefit, and lower-back guidance distinguishes wet and dry cupping.
+- **Forward, reverse and focus:** The final captures show front-facing neck/shoulders followed by back-facing upper and lower back, with the matching marker, region label, guidance and selected region control. `v5-*-body-lower-focus.png` shows the selected lower-back focus at 200% while navigation and “Explore this area” remain visible. `v5-*-body-reverse.png` returns to the front-facing first region and its copy. Corresponding log entries report native forward/reverse scroll state changes at both viewports.
+- **Keyboard equivalent:** The desktop and mobile `v5-*-body-keyboard-{neck-shoulders,upper-back,lower-back}.png` captures show the named region opening the matching check-in dialog after Enter. The log records the matching selected index and front/back orientation for all three regions at both viewports. This meets the system's equivalent keyboard path rule.
+- **Reduced motion and failure fallback:** `v5-mobile-body-reduced.png` shows the figure with stacked region explanations in ordinary document flow; the log records three panels without scroll pinning. `v5-mobile-body-webgl-fallback.png` shows a static clinical figure, named region controls, guidance and action after WebGL context creation was blocked. This preserves the body chapter when live rendering is unavailable.
+
+No rule-level gap is visible in these states. The reduced-motion viewport capture cuts off the end of the third card because it is a viewport image; the log reports that all three panels remain in document flow. The PNGs alone cannot prove the exact font family, semantic HTML structure, or that scrolling is native rather than simulated; those claims are not upgraded from visual inference.
