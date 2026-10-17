@@ -9,7 +9,7 @@ import { bodyJourney, initBodyJourney } from './body-journey.js';
 
 const app = document.querySelector('#app');
 const BASE = import.meta.env.BASE_URL;
-const A = '/assets/';
+const A = `${BASE}assets/`;
 const productImage = p => `${A}product-${p.id}.${[24, 25].includes(p.id) ? 'png' : 'jpg'}`;
 const phone = '27838738292';
 const whatsapp = (message) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
