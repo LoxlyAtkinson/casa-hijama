@@ -1,6 +1,10 @@
 # Progress
 
-Active contract: `contract-and-section-map.md`. Reference mechanisms: `bar.md`.
+Active contract: `contract-v4.md`. Outcome path: `outcome-map.md`. Reference mechanisms: `bar.md` and `bar-v2.md`.
+
+2026-10-17 active work: the interim public preview is live at https://loxlyatkinson.github.io/casa-hijama/ from repository https://github.com/LoxlyAtkinson/casa-hijama. The user explicitly authorized publication and autonomous improvements. Three specialized builders are working on the real 3D body, Scroll Craft motion and shop journey, including the latest product/cart visual reference. The Restore image was replaced with a cupping-tool still life and published in interim commit `03055dd`. The current source and browser evidence below predate these active changes and must not be used for final acceptance.
+
+Latest Design Loop critic findings remain open until repaired and re-reviewed: home anatomy/back-focus mismatch and mobile step skipping; shop product flyer-wall composition and unverified mobile/reduced-motion craft; body still needs final continuous clinical 3D proof. Exact next step: merge builder work, run connected desktop/mobile/dark/reduced-motion journeys, capture final revision, request fresh independent brief/system/craft and acceptance reviews, repair findings, run checker, push and verify public deployment.
 
 Status: Repaired after [raw review 01](reviews/review-01.md); awaiting fresh independent review of the final captures and source. The prior verdict remains FAIL and is retained unchanged.
 

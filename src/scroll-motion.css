@@ -1,0 +1,96 @@
+/* The runtime supplies timing; these rules define Casa Hijama's individual scenes. */
+:root {
+  --sc-canvas: #f8f7f3;
+  --sc-surface: #fffefa;
+  --sc-ink: #1d3331;
+  --sc-ink-soft: #61736f;
+  --sc-accent: #62b9bd;
+  --sc-accent-ink: #0b2e30;
+  --sc-font-display: Manrope, sans-serif;
+  --sc-font-text: 'DM Sans', sans-serif;
+}
+:root[data-theme=dark] {
+  --sc-canvas: #101b1c;
+  --sc-surface: #172729;
+  --sc-ink: #edf5ee;
+  --sc-ink-soft: #abc0bc;
+  --sc-accent: #7bc7c8;
+}
+
+.home-motion-hero { display:block; min-height:0; overflow:visible; }
+.home-hero-stage { display:flex; flex-direction:column; background:#e8e1d3; min-height:650px; isolation:isolate; }
+.home-hero-stage .hero-media { overflow:visible; inset:-4% -2%; width:104%; height:108%; }
+.home-hero-stage .hero-media img { transform:scale(calc(1.03 + var(--sc-p, 0) * .055)); transform-origin:72% 52%; }
+.home-hero-stage .hero-shade { z-index:0; }
+.home-hero-stage .hero-inner { position:relative; z-index:2; width:min(100% - 8vw, 1380px); flex:1; }
+.home-hero-stage .hero-caption { width:min(100% - 8vw, 1380px); z-index:2; }
+.home-hero-stage::after { content:""; position:absolute; z-index:1; inset:0; pointer-events:none; background:radial-gradient(circle at calc(82% - var(--sc-p, 0) * 10%) 38%, rgba(255,255,255,.18), transparent 41%); mix-blend-mode:screen; }
+.hero-progress,.film-progress { position:absolute; z-index:4; left:4vw; right:4vw; bottom:0; height:2px; background:rgba(255,255,255,.25); pointer-events:none; }
+.hero-progress::after,.film-progress::after { content:""; display:block; width:100%; height:100%; transform:scaleX(var(--sc-p, 0)); transform-origin:left; background:var(--teal); }
+.home-motion-hero .hero-copy[data-sc-cue] { transform-origin:left center; }
+.hero-second { position:absolute; left:0; top:24%; max-width:670px; color:#183734; }
+.hero-second h2 { font-size:clamp(3.3rem,5.2vw,6.2rem); line-height:1.06; margin:23px 0; }
+.hero-second h2 em { color:#2a898c; }
+.hero-second p { max-width:480px; font-size:1.08rem; line-height:1.7; color:#3b5652; margin-bottom:32px; }
+:root[data-theme=dark] .hero-second,:root[data-theme=dark] .hero-second p { color:#f0f7f1; }
+:root[data-theme=dark] .hero-second h2 em { color:#8ed3d1; }
+
+.intro[data-sc-act] { overflow:hidden; }
+.intro-visual img { min-height:112%; margin-top:-6%; }
+.intro [data-sc-in] { transition-duration:900ms; }
+.intro .intro-visual[data-sc-in] { transform:translate3d(-7vw,0,0); }
+.intro .intro-copy[data-sc-in] { transform:translate3d(4vw,0,0); transition-delay:110ms; }
+.intro [data-sc-in].sc-in { transform:none; }
+.intro-visual [data-sc-parallax] { will-change:transform; }
+
+.treatment-grid[data-sc-stagger] > * { transform:translate3d(0,70px,0); transition:opacity 850ms cubic-bezier(.2,.7,.1,1), transform 850ms cubic-bezier(.2,.7,.1,1), box-shadow .35s; }
+.treatment-grid[data-sc-stagger] > .sc-in { transform:none; }
+.treatment-grid[data-sc-stagger] > .sc-in:hover { transform:translateY(-7px); }
+.treatment-card .treatment-art { transition:filter .65s, transform .85s cubic-bezier(.2,.7,.1,1); }
+.treatment-card:hover .treatment-art { transform:scale(1.035); }
+
+.home-film-act { display:block; height:auto; overflow:visible; }
+.home-film-stage { position:sticky; top:0; height:100svh; width:100%; background:#2b4844; isolation:isolate; }
+.home-film-stage .film-bg { z-index:0; }
+.home-film-stage .film-bg video,.home-film-stage .film-bg .film-fallback { width:100%; height:100%; object-fit:cover; }
+.home-film-stage .film-freeze { position:absolute; inset:0; z-index:2; width:100%; height:100%; object-fit:cover; }
+.home-film-stage .film-freeze[hidden],.home-film-stage .film-control[hidden] { display:none!important; }
+.home-film-stage .film-bg video { transition:opacity .38s ease; }
+.home-film-stage .film-overlay { z-index:1; }
+.home-film-stage .film-content { z-index:2; }
+.home-film-stage .film-disclosure { z-index:3; }
+.home-film-stage .film-control { z-index:4; bottom:27px; right:4vw; }
+.home-film-stage .film-progress { z-index:4; }
+.home-film-stage .film-fallback { transition:opacity .38s ease; }
+.home-film-act.sc-has-clip .film-fallback { opacity:0; }
+
+@media(max-width:800px) {
+  .home-hero-stage { min-height:0; }
+  .home-hero-stage .hero-inner,.home-hero-stage .hero-caption { width:min(100% - 40px,650px); }
+  .home-hero-stage .hero-media { inset:0; width:100%; height:100%; }
+  .home-hero-stage .hero-media img { transform:scale(calc(1.05 + var(--sc-p, 0) * .025)); transform-origin:73% center; }
+  .hero-second { top:20%; max-width:min(92%,600px); }
+  .home-film-stage .film-content { width:min(100% - 40px,650px); }
+  .intro .intro-visual[data-sc-in],.intro .intro-copy[data-sc-in] { transform:translate3d(0,34px,0); }
+  .intro [data-sc-in].sc-in { transform:none; }
+}
+@media(max-width:560px) {
+  .home-hero-stage .hero-inner { padding-top:90px; }
+  .hero-second { top:30%; }
+  .hero-second h2 { font-size:clamp(3.1rem,11vw,4.8rem); }
+  .hero-second p { font-size:.98rem; }
+  .home-film-stage .film-content { justify-content:center; padding-top:100px; }
+  .home-film-stage .film-disclosure { left:20px; right:20px; bottom:28px; font-size:.61rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .home-motion-hero,.home-film-act { height:auto!important; }
+  .home-hero-stage,.home-film-stage { position:relative!important; min-height:710px; }
+  .home-hero-stage { height:auto; }
+  .home-film-stage { height:620px; min-height:620px; }
+  .home-film-stage .film-content { height:100%; }
+  .home-hero-stage .hero-media,.home-hero-stage .hero-media img,.intro-visual img { transform:none!important; }
+  .home-motion-hero .hero-copy[data-sc-cue],.home-film-act [data-sc-cue] { opacity:1!important; transform:none!important; }
+  .home-motion-hero .hero-second { display:none; }
+  .treatment-grid[data-sc-stagger] > *,.intro [data-sc-in] { opacity:1!important; transform:none!important; transition:none!important; }
+  .hero-progress,.film-progress { display:none; }
+}

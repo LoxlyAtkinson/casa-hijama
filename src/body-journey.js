@@ -36,12 +36,12 @@ export function bodyJourney() {
           <div class="bj-3d-tags" aria-hidden="true"><span data-region="0">NECK / SHOULDERS</span><span data-region="1">UPPER BACK</span><span data-region="2">LOWER BACK</span></div>
           <div class="bj-figure">
             <div class="bj-face bj-front" aria-hidden="false">
-              <img src="/assets/body-map-front.webp" alt="" loading="lazy" width="1024" height="1536">
+              <img src="${import.meta.env.BASE_URL}assets/body-map-front.webp" alt="" loading="lazy" width="1024" height="1536">
               <button type="button" class="bj-hotspot bj-hotspot-0 is-active" data-region="0" aria-label="Explore neck and shoulders"><i aria-hidden="true"></i></button>
               <span class="bj-locator bj-locator-0">NECK / SHOULDERS</span>
             </div>
             <div class="bj-face bj-back" aria-hidden="true">
-              <img src="/assets/body-map-back.webp" alt="" loading="lazy" width="1024" height="1536">
+              <img src="${import.meta.env.BASE_URL}assets/body-map-back.webp" alt="" loading="lazy" width="1024" height="1536">
               <button type="button" class="bj-hotspot bj-hotspot-1" data-region="1" tabindex="-1" aria-label="Explore upper back"><i aria-hidden="true"></i></button>
               <button type="button" class="bj-hotspot bj-hotspot-2" data-region="2" tabindex="-1" aria-label="Explore lower back"><i aria-hidden="true"></i></button>
               <span class="bj-locator bj-locator-1">UPPER BACK</span><span class="bj-locator bj-locator-2">LOWER BACK</span>
@@ -55,7 +55,7 @@ export function bodyJourney() {
         <div class="bj-panels" aria-live="polite">${regions.map((region, index) => `<article class="bj-panel${index === 0 ? ' is-active' : ''}" data-region="${index}"><span class="bj-region-label">${region.label}</span><h3>${region.title}</h3><p>${region.text}</p></article>`).join('')}</div>
         <div class="bj-region-controls" role="group" aria-label="Choose a body area">${regions.map((region, index) => `<button class="bj-region-button${index === 0 ? ' is-active' : ''}" type="button" data-region="${index}" aria-pressed="${index === 0}"><span class="bj-button-index">${region.number}</span>${region.label}</button>`).join('')}</div>
         <button class="bj-checkin-trigger" type="button">Explore this area <span aria-hidden="true">↗</span></button>
-        <a class="bj-treatment-link" href="/cupping-therapy">Explore treatments <span aria-hidden="true">↗</span></a>
+        <a class="bj-treatment-link" href="${import.meta.env.BASE_URL}cupping-therapy">Explore treatments <span aria-hidden="true">↗</span></a>
       </div>
     </div></div></div>
     <div class="bj-care wrap"><div><span class="bj-care-label">The evidence &amp; your safety</span><p>Cupping may reduce pain, but the evidence is not strong. Temporary skin marks are common; burns, scars and infection can occur. Speak with a clinician about persistent or worsening pain, and tell your therapist about your health before treatment.</p></div><a href="https://www.nccih.nih.gov/health/cupping" target="_blank" rel="noopener noreferrer">Read the NIH cupping guide <span aria-hidden="true">↗</span></a></div>
@@ -67,7 +67,7 @@ export function bodyJourney() {
         ${question('safety', '04 / Is there a safety concern to mention?', [['Recent injury, skin concern, numbness or weakness','Recent injury, skin concern, numbness or weakness'],['None of these','None of these'],['Unsure / prefer not to say','Unsure / prefer not to say']])}
         <button class="bj-review" type="submit">Review conversation notes <span aria-hidden="true">↗</span></button>
       </form>
-      <div class="bj-intake-result" hidden aria-live="polite"><h4 tabindex="-1">Your conversation notes</h4><ul class="bj-answer-summary"></ul><p>Share these details with a clinician or therapist. Cupping may reduce pain, but the evidence is weak. Wet cupping pierces the skin; dry cupping does not. Ask about suitability, hygiene and possible side effects. New, worsening or persistent symptoms deserve a clinician’s assessment.</p><div class="bj-product-note"><span>PRODUCTS TO ASK ABOUT</span><p>For an at-home comfort ritual, ask the Casa Hijama team about Kalonji Massage Oil or Castor Oil 100ml. These are not proven pain treatments or substitutes for care.</p><a href="/products">Browse the shop <span aria-hidden="true">↗</span></a></div></div>
+      <div class="bj-intake-result" hidden aria-live="polite"><h4 tabindex="-1">Your conversation notes</h4><ul class="bj-answer-summary"></ul><p>Share these details with a clinician or therapist. Cupping may reduce pain, but the evidence is weak. Wet cupping pierces the skin; dry cupping does not. Ask about suitability, hygiene and possible side effects. New, worsening or persistent symptoms deserve a clinician’s assessment.</p><div class="bj-product-note"><span>PRODUCTS TO ASK ABOUT</span><p>For an at-home comfort ritual, ask the Casa Hijama team about Kalonji Massage Oil or Castor Oil 100ml. These are not proven pain treatments or substitutes for care.</p><a href="${import.meta.env.BASE_URL}products">Browse the shop <span aria-hidden="true">↗</span></a></div><button class="bj-edit" type="button">Edit answers <span aria-hidden="true">↶</span></button></div>
     </div></dialog>
   </section>`;
 }
@@ -91,116 +91,116 @@ async function createMannequin(section, onHotspot) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(32, 1, .1, 50);
-  scene.add(new THREE.HemisphereLight(0xe6fff0, 0x203f37, 2.1));
-  const key = new THREE.DirectionalLight(0xd4ffd5, 2.8);
+  scene.add(new THREE.HemisphereLight(0xd9f7e8, 0x203d39, 1.55));
+  const key = new THREE.DirectionalLight(0xb9e5ce, 2.15);
   key.position.set(-3, 5, 6);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0x8de6c7, 3.2);
+  const rim = new THREE.DirectionalLight(0xb1ffd7, 3.45);
   rim.position.set(3, 2, -5);
   scene.add(rim);
 
   const body = new THREE.Group();
   scene.add(body);
   const skin = new THREE.MeshPhysicalMaterial({
-    color: 0x94bdab, metalness: .12, roughness: .38,
-    clearcoat: .43, clearcoatRoughness: .3
+    color: 0x78aa99, metalness: .11, roughness: .43,
+    clearcoat: .52, clearcoatRoughness: .28,
+    emissive: 0x254b40, emissiveIntensity: .1
   });
-  const joint = new THREE.MeshPhysicalMaterial({
-    color: 0xa3c9b5, metalness: .12, roughness: .39, clearcoat: .35
-  });
-  const sphere = new THREE.SphereGeometry(1, 24, 16);
-  function ellipsoid(x, y, z, sx, sy, sz, material = skin) {
-    const mesh = new THREE.Mesh(sphere, material);
-    mesh.position.set(x, y, z);
-    mesh.scale.set(sx, sy, sz);
-    body.add(mesh);
-    return mesh;
+  // A single implicit surface blends torso, limbs and head into one clinical silhouette.
+  const ellipsoid = (x,y,z,cx,cy,cz,sx,sy,sz) => (Math.hypot((x-cx)/sx,(y-cy)/sy,(z-cz)/sz)-1)*Math.min(sx,sy,sz);
+  function capsule(x,y,z,ax,ay,az,bx,by,bz,ra,rb) {
+    const vx=bx-ax,vy=by-ay,vz=bz-az;
+    const t=Math.max(0,Math.min(1,((x-ax)*vx+(y-ay)*vy+(z-az)*vz)/(vx*vx+vy*vy+vz*vz)));
+    return Math.hypot(x-ax-vx*t,y-ay-vy*t,z-az-vz*t)-(ra+(rb-ra)*t);
   }
-  function organicLimb(points, radii, material = skin) {
-    const curve = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)), false, 'centripetal');
-    const lengthSegments = 32;
-    const radialSegments = 20;
-    const geometry = new THREE.TubeGeometry(curve, lengthSegments, 1, radialSegments, false);
-    const position = geometry.getAttribute('position');
-    for (let i = 0; i <= lengthSegments; i++) {
-      const t = i / lengthSegments;
-      const center = curve.getPointAt(t);
-      const part = Math.min(radii.length - 2, Math.floor(t * (radii.length - 1)));
-      const local = t * (radii.length - 1) - part;
-      const smooth = local * local * (3 - 2 * local);
-      const radius = THREE.MathUtils.lerp(radii[part], radii[part + 1], smooth);
-      for (let j = 0; j <= radialSegments; j++) {
-        const index = i * (radialSegments + 1) + j;
-        const offset = new THREE.Vector3(position.getX(index), position.getY(index), position.getZ(index)).sub(center).multiplyScalar(radius).add(center);
-        position.setXYZ(index, offset.x, offset.y, offset.z);
+  function blend(a,b,k) { const h=Math.max(k-Math.abs(a-b),0)/k; return Math.min(a,b)-h*h*k*.25; }
+  function field(x,y,z) {
+    let d=ellipsoid(x,y,z,0,.79,0,.42,.79,.285);
+    d=blend(d,ellipsoid(x,y,z,0,1.17,0,.52,.38,.31),.17);
+    d=blend(d,ellipsoid(x,y,z,0,.2,0,.36,.43,.26),.18);
+    d=blend(d,ellipsoid(x,y,z,0,-.18,0,.36,.23,.275),.14);
+    d=blend(d,capsule(x,y,z,0,1.44,0,0,1.75,0,.17,.135),.12);
+    d=blend(d,ellipsoid(x,y,z,0,2.02,0,.26,.34,.235),.055);
+    for(const side of [-1,1]) {
+      d=blend(d,capsule(x,y,z,side*.42,1.28,0,side*.67,.55,0,.175,.135),.13);
+      d=blend(d,capsule(x,y,z,side*.67,.55,0,side*.83,-.82,0,.135,.078),.095);
+      d=blend(d,ellipsoid(x,y,z,side*.86,-.98,.01,.085,.17,.067),.085);
+      d=blend(d,capsule(x,y,z,side*.19,-.21,0,side*.27,-1.37,0,.22,.18),.15);
+      d=blend(d,capsule(x,y,z,side*.27,-1.37,0,side*.3,-2.6,0,.18,.097),.1);
+      d=blend(d,ellipsoid(x,y,z,side*.3,-2.71,.16,.135,.09,.27),.08);
+    }
+    return d;
+  }
+  const bounds={x:[-1.18,1.18],y:[-2.92,2.46],z:[-.62,.67]};
+  const steps={x:48,y:110,z:26};
+  const nx=steps.x+1,ny=steps.y+1,nz=steps.z+1;
+  const dx=(bounds.x[1]-bounds.x[0])/steps.x,dy=(bounds.y[1]-bounds.y[0])/steps.y,dz=(bounds.z[1]-bounds.z[0])/steps.z;
+  const grid=new Float32Array(nx*ny*nz);
+  const gridIndex=(i,j,k)=>(i*ny+j)*nz+k;
+  for(let i=0;i<nx;i++) for(let j=0;j<ny;j++) for(let k=0;k<nz;k++) grid[gridIndex(i,j,k)]=field(bounds.x[0]+i*dx,bounds.y[0]+j*dy,bounds.z[0]+k*dz);
+  const cube=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
+  const tetrahedra=[[0,5,1,6],[0,1,2,6],[0,2,3,6],[0,3,7,6],[0,7,4,6],[0,4,5,6]];
+  const positions=[],faces=[],cache=new Map();
+  for(let i=0;i<steps.x;i++) for(let j=0;j<steps.y;j++) for(let k=0;k<steps.z;k++) {
+    const points=cube.map(([a,b,c])=>[i+a,j+b,k+c]);
+    const corners=points.map(p=>gridIndex(...p));
+    const values=corners.map(index=>grid[index]);
+    if(values.every(v=>v>=0)||values.every(v=>v<0)) continue;
+    function edge(a,b) {
+      const ai=corners[a],bi=corners[b],key=ai<bi?`${ai}:${bi}`:`${bi}:${ai}`;
+      let index=cache.get(key);
+      if(index===undefined) {
+        const t=values[a]/(values[a]-values[b]),p=points[a],q=points[b];
+        index=positions.length/3;
+        positions.push(bounds.x[0]+(p[0]+(q[0]-p[0])*t)*dx,bounds.y[0]+(p[1]+(q[1]-p[1])*t)*dy,bounds.z[0]+(p[2]+(q[2]-p[2])*t)*dz);
+        cache.set(key,index);
+      }
+      return index;
+    }
+    for(const tetra of tetrahedra) {
+      const inside=tetra.filter(c=>values[c]<0),outside=tetra.filter(c=>values[c]>=0);
+      if(inside.length===1) faces.push(edge(inside[0],outside[0]),edge(inside[0],outside[1]),edge(inside[0],outside[2]));
+      else if(inside.length===3) faces.push(edge(outside[0],inside[0]),edge(outside[0],inside[1]),edge(outside[0],inside[2]));
+      else if(inside.length===2) {
+        const a=edge(inside[0],outside[0]),b=edge(inside[0],outside[1]),c=edge(inside[1],outside[1]),d=edge(inside[1],outside[0]);
+        faces.push(a,b,c,a,c,d);
       }
     }
-    geometry.computeVertexNormals();
-    const mesh = new THREE.Mesh(geometry, material);
-    body.add(mesh);
-    return mesh;
   }
-
-  // A continuous elliptical torso keeps the figure human-shaped without facial detail.
-  const crossSections = [
-    [1.58, .18, .18], [1.42, .39, .24], [1.26, .61, .3],
-    [1.02, .57, .34], [.7, .43, .28], [.38, .36, .24],
-    [.1, .44, .29], [-.27, .37, .27]
-  ];
-  const ringSides = 32;
-  const vertices = [];
-  const triangles = [];
-  for (let sectionIndex = 0; sectionIndex < crossSections.length - 1; sectionIndex++) {
-    const from = crossSections[sectionIndex];
-    const to = crossSections[sectionIndex + 1];
-    for (let step = 0; step < 5; step++) {
-      const raw = step / 5;
-      const t = raw * raw * (3 - 2 * raw);
-      const y = THREE.MathUtils.lerp(from[0], to[0], t);
-      const width = THREE.MathUtils.lerp(from[1], to[1], t);
-      const depth = THREE.MathUtils.lerp(from[2], to[2], t);
-      for (let j = 0; j <= ringSides; j++) {
-        const a = j / ringSides * Math.PI * 2;
-        vertices.push(Math.cos(a) * width, y, Math.sin(a) * depth);
-      }
+  const normals=[],sample=.006;
+  for(let n=0;n<positions.length;n+=3) {
+    const x=positions[n],y=positions[n+1],z=positions[n+2];
+    const normal=new THREE.Vector3(field(x+sample,y,z)-field(x-sample,y,z),field(x,y+sample,z)-field(x,y-sample,z),field(x,y,z+sample)-field(x,y,z-sample)).normalize();
+    normals.push(normal.x,normal.y,normal.z);
+  }
+  for(let n=0;n<faces.length;n+=3) {
+    const a=faces[n]*3,b=faces[n+1]*3,c=faces[n+2]*3;
+    const ab=new THREE.Vector3(positions[b]-positions[a],positions[b+1]-positions[a+1],positions[b+2]-positions[a+2]);
+    const ac=new THREE.Vector3(positions[c]-positions[a],positions[c+1]-positions[a+1],positions[c+2]-positions[a+2]);
+    if(ab.cross(ac).dot(new THREE.Vector3(normals[a],normals[a+1],normals[a+2]))<0) [faces[n+1],faces[n+2]]=[faces[n+2],faces[n+1]];
+  }
+  const bodyGeometry=new THREE.BufferGeometry();
+  bodyGeometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
+  bodyGeometry.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));
+  bodyGeometry.setIndex(faces);
+  body.add(new THREE.Mesh(bodyGeometry,skin));
+  function surfaceZ(x,y,side) {
+    let low=0,high=.65;
+    for(let n=0;n<18;n++) {
+      const mid=(low+high)/2;
+      if(field(x,y,side*mid)<0) low=mid;
+      else high=mid;
     }
+    return side*(low+.008);
   }
-  const last = crossSections.at(-1);
-  for (let j = 0; j <= ringSides; j++) {
-    const a = j / ringSides * Math.PI * 2;
-    vertices.push(Math.cos(a) * last[1], last[0], Math.sin(a) * last[2]);
+  function contour(points,side,opacity) {
+    const vertices=points.map(([x,y])=>new THREE.Vector3(x,y,surfaceZ(x,y,side)));
+    const geometry=new THREE.BufferGeometry().setFromPoints(vertices);
+    const material=new THREE.LineBasicMaterial({color:0xd1f1ce,transparent:true,opacity,depthWrite:false});
+    body.add(new THREE.Line(geometry,material));
   }
-  const ringCount = vertices.length / 3 / (ringSides + 1);
-  for (let i = 0; i < ringCount - 1; i++) {
-    for (let j = 0; j < ringSides; j++) {
-      const a = i * (ringSides + 1) + j;
-      const b = a + ringSides + 1;
-      triangles.push(a, a + 1, b, a + 1, b + 1, b);
-    }
-  }
-  const torsoGeometry = new THREE.BufferGeometry();
-  torsoGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-  torsoGeometry.setIndex(triangles);
-  torsoGeometry.computeVertexNormals();
-  body.add(new THREE.Mesh(torsoGeometry, skin));
-
-  organicLimb([[0, 1.43, 0], [0, 1.58, 0], [0, 1.79, 0]], [.19, .15, .14], joint);
-  ellipsoid(0, 2.03, 0, .32, .4, .27, joint);
-  ellipsoid(0, -.22, 0, .44, .3, .29);
-  for (const side of [-1, 1]) {
-    organicLimb([
-      [side * .44, 1.27, 0], [side * .61, 1.17, 0],
-      [side * .72, .65, 0], [side * .77, .33, 0],
-      [side * .83, .05, 0], [side * .89, -.48, .01]
-    ], [.16, .18, .155, .12, .105, .078]);
-    ellipsoid(side * .91, -.63, .01, .1, .19, .075, joint);
-    organicLimb([
-      [side * .19, -.26, 0], [side * .27, -.48, 0],
-      [side * .30, -.83, 0], [side * .31, -1.28, 0],
-      [side * .31, -1.57, 0], [side * .31, -2.25, 0]
-    ], [.2, .27, .235, .18, .165, .105]);
-    ellipsoid(side * .31, -2.38, .16, .15, .09, .31, joint);
-  }
+  contour([[-.3,1.34],[-.22,1.3],[-.12,1.27],[0,1.25],[.12,1.27],[.22,1.3],[.3,1.34]],1,.27);
+  contour(Array.from({length:18},(_,i)=>[0,1.34-i*.09]),-1,.32);
   const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x9ac59f, transparent: true, opacity: .22, depthWrite: false });
   for (const radius of [1.0, 1.35]) {
     const orbit = new THREE.Mesh(new THREE.TorusGeometry(radius, .006, 6, 72), orbitMaterial);
@@ -250,8 +250,8 @@ async function createMannequin(section, onHotspot) {
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
     body.rotation.y = Math.PI * turning;
-    camera.position.set(0, .5 * upper - .65 * lower, 10.3 - 1.25 * upper - .15 * lower);
-    camera.lookAt(0, .48 * upper - .6 * lower, 0);
+    camera.position.set(0, -.08 * upper - .12 * lower, 11 - .45 * upper + .05 * lower);
+    camera.lookAt(0, -.08 * upper - .12 * lower, 0);
     const visibleSide = progress < .38 ? 'front' : 'back';
     markerGroups.forEach((group, i) => {
       group.visible = regions[i].side === visibleSide;
@@ -309,10 +309,9 @@ async function createMannequin(section, onHotspot) {
       renderer.domElement.removeEventListener('pointermove', hover);
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       scene.traverse(object => {
-        if (object.geometry && object.geometry !== sphere) object.geometry.dispose();
+        object.geometry?.dispose();
         if (object.material && !Array.isArray(object.material)) object.material.dispose();
       });
-      sphere.dispose();
       renderer.dispose();
       renderer.domElement.remove();
       section.classList.remove('bj--webgl');
@@ -335,6 +334,8 @@ export function initBodyJourney() {
   const dialog = section.querySelector('.bj-dialog');
   const form = section.querySelector('.bj-intake-form');
   const result = section.querySelector('.bj-intake-result');
+  const dialogTitle = section.querySelector('#bj-dialog-title');
+  const dialogIntro = section.querySelector('.bj-dialog-intro');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   let active = -1;
   let frame = 0;
@@ -342,6 +343,9 @@ export function initBodyJourney() {
   let scene3d = null;
   let sceneLoad = null;
   let disposed = false;
+  let currentVisualProgress = 0;
+  let motionToken = 0;
+  let motionActive = false;
   section.classList.add('bj--ready');
 
   async function ensureScene() {
@@ -386,11 +390,12 @@ export function initBodyJourney() {
 
   function update() {
     frame = 0;
-    if (reduce.matches || document.hidden || dialog.open) return;
+    if (reduce.matches || document.hidden || dialog.open || motionActive) return;
     const rect = scrollArea.getBoundingClientRect();
     const stickyTop = parseFloat(getComputedStyle(stage).top) || 0;
     const travel = Math.max(1, rect.height - stage.offsetHeight);
     const progress = Math.max(0, Math.min(1, (stickyTop - rect.top) / travel));
+    currentVisualProgress = progress;
     const index = Math.min(2, Math.floor(progress * 3));
     setActive(index);
     if (rect.bottom > -innerHeight && rect.top < innerHeight * 2) scene3d?.render(progress, index);
@@ -406,18 +411,62 @@ export function initBodyJourney() {
     const root = document.documentElement;
     const previousBehavior = root.style.scrollBehavior;
     root.style.scrollBehavior = 'auto';
-    window.scrollTo(0, top + travel * ((index + .5) / 3));
+    const target = (index + .5) / 3;
+    window.scrollTo(0, top + travel * target);
     root.style.scrollBehavior = previousBehavior;
     setActive(index, true);
-    scene3d?.render((index + .5) / 3, index);
+    currentVisualProgress = target;
+    scene3d?.render(target, index);
   }
 
-  function openCheckIn(index, source) {
+  function animateTo(index) {
+    const token = ++motionToken;
+    const from = currentVisualProgress;
+    const to = (index + .5) / 3;
+    const duration = 620;
+    motionActive = true;
+    setActive(index, true);
+    return new Promise(resolve => {
+      let started = 0;
+      let finished = false;
+      const rescue = setTimeout(() => finish(token === motionToken && !disposed), duration + 500);
+      function finish(success) {
+        if (finished) return;
+        finished = true;
+        clearTimeout(rescue);
+        if (success) { motionActive = false; jumpTo(index); }
+        resolve(success);
+      }
+      function step(now) {
+        if (finished) return;
+        if (token !== motionToken || disposed) { finish(false); return; }
+        if (!started) started = now;
+        const t = Math.min(1, (now - started) / duration);
+        const eased = 1 - (1 - t) ** 3;
+        currentVisualProgress = from + (to - from) * eased;
+        scene3d?.render(currentVisualProgress, index);
+        if (t < 1) requestAnimationFrame(step);
+        else finish(true);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  async function openCheckIn(index, source, animate = true) {
     trigger = source;
-    jumpTo(index);
+    if (animate && scene3d && !reduce.matches) {
+      if (!await animateTo(index)) return;
+    } else {
+      motionToken++;
+      motionActive = false;
+      jumpTo(index);
+    }
     section.querySelector('.bj-dialog-region').textContent = regions[index].label.toUpperCase();
     form.reset();
+    form.hidden = false;
     result.hidden = true;
+    dialogTitle.textContent = 'Prepare for a conversation.';
+    dialogIntro.hidden = false;
     dialog.showModal();
   }
 
@@ -425,6 +474,8 @@ export function initBodyJourney() {
     section.classList.toggle('bj--enhanced', !reduce.matches);
     panels.forEach(panel => panel.removeAttribute('aria-hidden'));
     if (reduce.matches) {
+      motionToken++;
+      motionActive = false;
       scene3d?.dispose();
       scene3d = null;
       setActive(0, true);
@@ -435,9 +486,13 @@ export function initBodyJourney() {
     }
   }
 
-  [...buttons, ...hotspots].forEach(button => button.addEventListener('click', () => openCheckIn(Number(button.dataset.region), button)));
-  section.querySelector('.bj-checkin-trigger').addEventListener('click', event => openCheckIn(Math.max(0, active), event.currentTarget));
-  rotate.addEventListener('click', () => jumpTo(section.dataset.side === 'front' ? 1 : 0));
+  [...buttons, ...hotspots].forEach(button => button.addEventListener('click', event => openCheckIn(Number(button.dataset.region), button, event.detail !== 0)));
+  section.querySelector('.bj-checkin-trigger').addEventListener('click', event => openCheckIn(Math.max(0, active), event.currentTarget, false));
+  rotate.addEventListener('click', event => {
+    const index = section.dataset.side === 'front' ? 1 : 0;
+    if (event.detail && scene3d && !reduce.matches) animateTo(index);
+    else jumpTo(index);
+  });
   section.querySelector('.bj-dialog-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => { trigger?.focus(); trigger = null; schedule(); });
   form.addEventListener('submit', event => {
@@ -455,8 +510,19 @@ export function initBodyJourney() {
       return item;
     }));
     result.hidden = false;
+    form.hidden = true;
+    dialogTitle.textContent = 'Your notes, ready to share.';
+    dialogIntro.hidden = true;
+    dialog.scrollTop = 0;
     result.querySelector('h4').focus();
-    result.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'nearest' });
+  });
+  section.querySelector('.bj-edit').addEventListener('click', () => {
+    result.hidden = true;
+    form.hidden = false;
+    dialogTitle.textContent = 'Prepare for a conversation.';
+    dialogIntro.hidden = false;
+    dialog.scrollTop = 0;
+    form.querySelector('input:checked, input').focus();
   });
 
   reduce.addEventListener('change', onPreferenceChange);

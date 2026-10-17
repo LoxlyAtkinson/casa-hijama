@@ -7,7 +7,7 @@ const base = 'http://127.0.0.1:4173';
 const out = path.resolve(__dirname, '../.experience/casa-rebuild/evidence/final');
 fs.mkdirSync(out, { recursive: true });
 const observations = [];
-const sourceRevision = crypto.createHash('sha256').update(['index.html','src/main.js','src/styles.css','src/shop.js','src/shop.css','src/body-journey.js','src/body-journey.css','products.json'].map(file => fs.readFileSync(path.resolve(__dirname, '..', file))).join('\n')).digest('hex');
+const sourceRevision = crypto.createHash('sha256').update(['index.html','src/main.js','src/styles.css','src/scroll-motion.js','src/scroll-motion.css','scrollcraft/builds/casa-hijama/scrollcraft.js','scrollcraft/builds/casa-hijama/scrollcraft.css','src/shop.js','src/shop.css','src/shop-crops.json','src/body-journey.js','src/body-journey.css','products.json'].map(file => fs.readFileSync(path.resolve(__dirname, '..', file))).join('\n')).digest('hex');
 const routes = [
   ['home', '/'], ['treatments', '/cupping-therapy'],
   ['products', '/products'], ['information', '/more-information'],
@@ -162,6 +162,7 @@ async function open(context, route, viewport) {
     const media = await open(normal, '/', { width: 1440, height: 900 });
     const bodyArea = media.locator('.bj-scroll');
     await bodyArea.scrollIntoViewIfNeeded();
+    assert(await media.locator('.bj--webgl canvas').count() === 1, 'Continuous 3D body canvas did not render');
     const regionButtons = media.locator('.bj-region-button');
     for (const [index, name] of ['neck-shoulders', 'upper-back', 'lower-back'].entries()) {
       await regionButtons.nth(index).click();
@@ -169,26 +170,44 @@ async function open(context, route, viewport) {
       const guidance = (await media.locator('.bj-panel.is-active').textContent()).trim();
       assert(guidance.length > 40, `Body guidance missing for ${name}`);
       await record(media, `desktop-light-body-${name}`, '/', `body-${name}`, `Selected body region ${index + 1}`, 'Matching region, marker and guidance visible', guidance);
+      assert(await media.locator('.bj-dialog').evaluate(d => d.open), `Body check-in did not open for ${name}`);
+      if (index === 2) {
+        for (const key of ['duration', 'symptoms', 'goal', 'safety']) await media.locator(`.bj-intake-form input[name="${key}"]`).first().check();
+        await media.locator('.bj-review').click();
+        assert(await media.locator('.bj-intake-result').isVisible(), 'Body intake notes missing');
+        await record(media, 'desktop-light-body-intake-notes', '/', 'body-intake-notes', 'Answered four intake questions for lower back', 'Local conversation notes and browse action visible', (await media.locator('.bj-intake-result').innerText()).slice(0, 260));
+        await media.locator('.bj-edit').click();
+        assert(await media.locator('.bj-intake-form').isVisible(), 'Body intake edit recovery missing');
+      }
+      await media.locator('.bj-dialog-close').click();
     }
     await regionButtons.first().click();
     await media.waitForFunction(() => document.querySelector('.bj')?.dataset.region === '0');
     await record(media, 'desktop-light-body-reverse', '/', 'body-reverse', 'Returned from lower back to neck and shoulders', 'Earlier guidance restored on reverse scroll', (await media.locator('.bj-panel.is-active').textContent()).trim());
-    await media.locator('.film-section').scrollIntoViewIfNeeded();
-    await media.locator('.film-control:not([hidden])').waitFor({ timeout: 15000 });
-    await media.locator('.film-control').click();
-    const paused = await media.locator('#studio-film').evaluate(v => v.paused);
-    assert(paused, 'Video pause control');
-    await record(media, 'desktop-light-film-paused', '/', 'film-paused', 'Paused studio film', 'Video paused and play control visible', `Paused=${paused}; control=${await media.locator('.film-control').innerText()}`);
+    await media.locator('.bj-dialog-close').click();
+    const filmPosition = await media.locator('.film-section').evaluate(el => ({ top: el.offsetTop, height: el.offsetHeight }));
+    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .32);
+    await media.locator('#studio-film.sc-has-clip').waitFor({ timeout: 15000 });
+    await media.waitForTimeout(900);
+    const filmEarly = await media.locator('#studio-film').evaluate(v => v.currentTime);
+    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .68);
+    await media.waitForTimeout(1000);
+    const filmLate = await media.locator('#studio-film').evaluate(v => v.currentTime);
+    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .32);
+    await media.waitForTimeout(1000);
+    const filmReverse = await media.locator('#studio-film').evaluate(v => v.currentTime);
+    assert(filmLate > filmEarly + .2 && filmReverse < filmLate - .2, 'Film did not scrub forward and reverse with scroll');
+    await record(media, 'desktop-light-film-scrub', '/', 'film-scrub', 'Scrolled Higgsfield room film forward and back', 'Visible frames advance and reverse with page scroll', `Seconds ${filmEarly.toFixed(2)} → ${filmLate.toFixed(2)} → ${filmReverse.toFixed(2)}`);
     await media.close();
     await normal.close();
 
     const failedMedia = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
-    await failedMedia.route('**/private-room-film.webm', route => route.abort());
+    await failedMedia.route('**/private-room-film.mp4', route => route.abort());
     const mediaFallback = await open(failedMedia, '/', { width: 1440, height: 900 });
     await mediaFallback.locator('.film-section').scrollIntoViewIfNeeded();
     await mediaFallback.waitForTimeout(700);
-    const failedState = await mediaFallback.locator('#studio-film').evaluate(v => ({ error: v.error?.code ?? null, ready: v.classList.contains('ready'), fallback: getComputedStyle(document.querySelector('.film-fallback')).display }));
-    assert(failedState.error && !failedState.ready && failedState.fallback !== 'none', 'Video failure did not retain still');
+    const failedState = await mediaFallback.locator('#studio-film').evaluate(v => ({ loaded: v.classList.contains('sc-has-clip'), fallback: getComputedStyle(document.querySelector('.film-fallback')).display }));
+    assert(!failedState.loaded && failedState.fallback !== 'none', 'Video failure did not retain still');
     await record(mediaFallback, 'desktop-light-film-fallback', '/', 'film-fallback', 'Blocked studio film network request', 'Still image and booking action remain visible', JSON.stringify(failedState));
     await mediaFallback.close();
     await failedMedia.close();

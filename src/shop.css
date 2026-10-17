@@ -122,3 +122,62 @@
 @media(max-width:700px){.shop-page .catalog-hero{min-height:630px}.shop-story{padding-block:90px}.shop-story ol{gap:12px}.shop-spotlight-grid{grid-template-columns:1fr;gap:0}.shop-spotlight-copy{padding:85px 0 15px}.shop-spotlight-visual{height:420px;margin:auto}.shop-spotlight-visual>img{max-width:230px}.shop-page .catalog{padding-top:90px}.shop-controls{grid-template-columns:1fr;gap:20px}.shop-page .sort-label{justify-content:flex-start}.shop-page .filters{flex-wrap:nowrap;overflow:auto;scrollbar-width:thin;padding-bottom:18px}.shop-page .filter{flex:0 0 auto}.shop-bag-trigger{bottom:14px;right:14px}}
 @media(max-width:560px){.shop-story ol{grid-template-columns:1fr;gap:0}.shop-story li{display:grid;grid-template-columns:38px 1fr;gap:2px 12px;padding:13px 0}.shop-story li span{grid-row:span 2;margin:0;padding-top:2px}.shop-story li p{margin:3px 0 0}.shop-spotlight-copy h2{font-size:clamp(3.1rem,12vw,4.3rem)}.shop-spotlight-visual{height:370px}.shop-spotlight-caption{left:0;bottom:15px;min-width:180px}.shop-page .catalog-intro{margin-bottom:36px}.shop-page .product-grid{gap:9px}.shop-page .product-footer{flex-wrap:wrap;align-items:end}.shop-card-add{min-height:34px;min-width:67px}.shop-product-dialog{max-height:92dvh;overflow:auto}.shop-product-dialog .modal-image img{width:100%;max-height:280px;object-fit:cover}.shop-product-dialog .modal-text{padding:28px}.shop-bag-dialog{width:100%;max-width:100%}.shop-bag-header,.shop-bag-body,.shop-bag-footer{padding-left:20px;padding-right:20px}.shop-bag-header{padding-top:20px}.shop-bag-footer{padding-bottom:max(20px,env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){.shop-page .product-card,.shop-product-dialog[open],.shop-bag-dialog[open],.shop-bag-pop{animation:none!important}.shop-spotlight-orbit,.shop-spotlight-visual>img,.shop-page .product-card,.shop-bag-trigger,.shop-page .filter,.shop-card-add,.shop-search-wrap{transition:none!important}.shop-spotlight-visual:hover>img,.shop-spotlight-visual:focus-visible>img{transform:rotate(7deg)}}
+
+/* Product-focus revision: one quiet packshot field follows each item through
+   the card, focus dialog and enquiry bag. Source images remain unchanged. */
+.shop-product-stage{position:relative;overflow:hidden;background:#e5e7e3;isolation:isolate;width:100%;height:100%}
+.shop-product-stage:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#f2f3ef 0%,#e5e7e3 58%,#d9ded9 100%);z-index:0}
+.shop-product-stage img{position:absolute!important;left:var(--stage-left)!important;top:var(--stage-top)!important;width:calc(100% * var(--stage-scale))!important;height:calc(100% * var(--stage-scale))!important;max-width:none!important;min-height:0!important;object-fit:cover!important;transform:translate(-50%,-50%)!important;transition:transform .4s cubic-bezier(.2,.75,.2,1),filter .4s!important;mix-blend-mode:multiply;filter:saturate(.88) contrast(1.02);mask-image:radial-gradient(ellipse 31% 44% at var(--stage-mask-x) var(--stage-mask-y),#000 66%,transparent 100%)}
+.shop-product-stage[data-product-id="23"] img{mix-blend-mode:multiply;filter:saturate(.9);mask-image:linear-gradient(#000 0%,#000 82%,transparent 94%)}
+.shop-product-stage[data-product-id="3"] img,.shop-product-stage[data-product-id="14"] img,.shop-product-stage[data-product-id="15"] img,.shop-product-stage[data-product-id="24"] img,.shop-product-stage[data-product-id="25"] img,.shop-product-stage[data-product-id="26"] img,.shop-product-stage[data-product-id="30"] img{mask-image:none}
+.shop-page .product-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:38px 22px}
+.shop-page .product-card{border:0;background:transparent;box-shadow:none!important;overflow:visible;display:block;transform:none}
+.shop-page .product-card:hover{transform:none;box-shadow:none}
+.shop-card-stage{position:relative;aspect-ratio:.93;background:#e5e7e3;border-radius:18px;overflow:hidden}
+.shop-card-stage .product-open{position:absolute;inset:0;width:100%;padding:0;display:block;border-radius:18px;overflow:hidden}
+.shop-card-stage .shop-product-stage{height:calc(100% - 69px)}
+.shop-card-stage .shop-product-stage img{transition:filter .3s,transform .3s}
+.shop-card-stage .product-open:hover .shop-product-stage img,.shop-card-stage .product-open:focus-visible .shop-product-stage img{filter:saturate(1.03) contrast(1.04)}
+.shop-card-pill{position:absolute;z-index:2;top:15px;left:15px;background:#fffefa;color:#223c35;border-radius:100px;padding:9px 12px;font:800 .56rem Manrope;letter-spacing:.13em;box-shadow:0 3px 16px #183a2e12;pointer-events:none}
+.shop-page .shop-card-add{position:absolute;z-index:3;bottom:12px;left:13px;right:13px;width:calc(100% - 26px);height:45px;border:0;background:var(--teal);border-radius:100px;color:#0b2e30;font-size:.78rem;font-weight:800;display:flex;justify-content:center;align-items:center;gap:10px;transition:background .2s,transform .2s}
+.shop-page .shop-card-add:hover,.shop-page .shop-card-add:focus-visible{background:#91d7d4;color:#0b2e30;transform:translateY(-2px)}
+.shop-card-info{padding:19px 2px 0}
+.shop-card-info .product-category{margin:0 0 8px;display:block}
+.shop-card-info h3{margin:0 0 8px;font-size:1.12rem}
+.shop-card-info h3 button{border:0;background:none;color:var(--ink);padding:0;text-align:left;font:inherit;letter-spacing:inherit}
+.shop-card-info h3 button:hover{text-decoration:underline;text-decoration-color:var(--teal);text-underline-offset:4px}
+.shop-card-info p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.34rem}
+.shop-card-info .product-footer{display:flex;margin:0;padding:14px 0 0;border:0;font-size:.8rem;align-items:center}
+.shop-card-info .product-footer strong{font:700 .98rem Manrope}
+.shop-card-info .product-footer>span{color:var(--teal-dark);font-size:1.15rem}
+.shop-page .catalog-intro .shop-health-note{margin:23px 0 0;padding:14px 18px;border-left:2px solid var(--sage);background:var(--surface-alt);font-size:.78rem;line-height:1.5;max-width:620px}
+.shop-spotlight .shop-spotlight-stage{width:min(68%,380px);height:410px;position:relative;z-index:1;border-radius:18px;box-shadow:26px 36px 45px #173a3529;transform:rotate(4deg);transition:transform .5s cubic-bezier(.2,.75,.2,1),box-shadow .5s}
+.shop-spotlight-visual:hover .shop-spotlight-stage,.shop-spotlight-visual:focus-visible .shop-spotlight-stage{transform:rotate(1deg) translateY(-10px);box-shadow:28px 46px 55px #173a3534}
+.shop-spotlight .shop-spotlight-stage img{mix-blend-mode:normal}
+.shop-product-dialog .modal-image{background:#e5e7e3;min-height:520px}
+.shop-product-dialog .shop-detail-stage{height:100%;min-height:520px}
+.shop-product-dialog .shop-detail-stage img{mix-blend-mode:normal}
+.shop-bag-dialog{width:min(100%,560px);max-width:560px}
+.shop-bag-item{grid-template-columns:116px minmax(0,1fr);gap:20px;padding:25px 0}
+.shop-bag-item .shop-bag-stage{width:116px;height:132px;border-radius:10px}
+.shop-bag-item h3{font-size:1.07rem;margin:0 0 4px}
+.shop-bag-item p{font-size:.72rem;line-height:1.4;color:var(--muted);margin:0 0 7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.shop-related{padding:25px 0 32px}
+.shop-related h3{font-size:1.18rem;margin:0 0 17px}
+.shop-related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.shop-related-grid article{background:var(--surface-alt);border-radius:10px;overflow:hidden;min-width:0}
+.shop-related-stage{height:110px}
+.shop-related-grid article>div:last-child{display:grid;grid-template-columns:1fr auto;gap:4px 6px;padding:11px}
+.shop-related-grid strong{font:700 .73rem Manrope;grid-column:1/-1;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.shop-related-grid span{font:.68rem Manrope;color:var(--muted);align-self:center}
+.shop-related-grid button{border:0;background:var(--teal);color:#0b2e30;border-radius:30px;padding:5px 10px;font-size:.66rem;font-weight:800}
+@media(max-width:1000px){.shop-page .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.shop-spotlight .shop-spotlight-stage{height:300px;width:250px}.shop-product-dialog .modal-image,.shop-product-dialog .shop-detail-stage{min-height:330px}}
+@media(max-width:560px){.shop-page .product-grid{gap:26px 10px}.shop-card-stage{border-radius:13px;aspect-ratio:.82}.shop-card-stage .shop-product-stage{height:calc(100% - 56px)}.shop-card-pill{top:8px;left:8px;padding:6px 8px;font-size:.48rem}.shop-page .shop-card-add{height:36px;bottom:8px;left:8px;right:8px;width:calc(100% - 16px);font-size:.64rem}.shop-card-info{padding:12px 1px 0}.shop-card-info h3{font-size:.95rem}.shop-card-info p{font-size:.7rem;line-height:1.4;min-height:2rem}.shop-card-info .product-footer{padding-top:9px}.shop-card-info .product-footer strong{font-size:.82rem}.shop-spotlight .shop-spotlight-stage{height:265px;width:220px}.shop-product-dialog .modal-image,.shop-product-dialog .shop-detail-stage{min-height:270px}.shop-bag-dialog{width:100%;max-width:100%}.shop-bag-item{grid-template-columns:100px minmax(0,1fr);gap:13px}.shop-bag-item .shop-bag-stage{width:100px;height:120px}.shop-bag-item p{display:none}}
+@media(prefers-reduced-motion:reduce){.shop-product-stage img,.shop-spotlight .shop-spotlight-stage,.shop-page .shop-card-add{transition:none!important}.shop-spotlight-visual:hover .shop-spotlight-stage,.shop-spotlight-visual:focus-visible .shop-spotlight-stage{transform:rotate(4deg)}}
+
+.shop-product-stage{display:grid;place-items:center}
+.shop-product-cutout{position:relative;width:min(82%,calc(74% * var(--crop-aspect)));aspect-ratio:var(--crop-aspect);overflow:hidden;flex:none}
+.shop-product-stage .shop-product-cutout img{position:absolute!important;left:var(--crop-left)!important;top:var(--crop-top)!important;width:var(--crop-img-w)!important;height:var(--crop-img-h)!important;max-width:none!important;max-height:none!important;min-height:0!important;object-fit:fill!important;transform:none!important;filter:saturate(.92)!important;mix-blend-mode:multiply!important;mask-image:none!important;transition:none!important}
+.shop-product-stage[data-product-id="27"] .shop-product-cutout{clip-path:polygon(32% 0,70% 0,70% 18%,80% 27%,91% 39%,100% 47%,100% 100%,0 100%,0 47%,9% 39%,19% 27%,28% 18%)}
+.shop-spotlight .shop-spotlight-stage .shop-product-cutout img,.shop-product-dialog .shop-detail-stage .shop-product-cutout img{mix-blend-mode:multiply!important}
