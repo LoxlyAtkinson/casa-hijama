@@ -34,6 +34,7 @@ export function bodyJourney() {
           <div class="bj-focus" aria-hidden="true"></div>
           <div class="bj-webgl-host" aria-hidden="true"></div>
           <div class="bj-3d-tags" aria-hidden="true"><span data-region="0">NECK / SHOULDERS</span><span data-region="1">UPPER BACK</span><span data-region="2">LOWER BACK</span></div>
+          <div class="bj-zoom-controls" role="group" aria-label="Body figure zoom"><span>ZOOM</span><button type="button" data-zoom="out" aria-label="Zoom out body figure">−</button><output class="bj-zoom-level" aria-live="polite">100%</output><button type="button" data-zoom="in" aria-label="Zoom in body figure">+</button><button type="button" data-zoom="reset" aria-label="Reset body figure zoom">↺</button></div>
           <div class="bj-figure">
             <div class="bj-face bj-front" aria-hidden="false">
               <img src="${import.meta.env.BASE_URL}assets/body-map-front.webp" alt="" loading="lazy" width="1024" height="1536">
@@ -239,6 +240,7 @@ async function createMannequin(section, onHotspot) {
   const tags = [...section.querySelectorAll('.bj-3d-tags span')];
   let latestProgress = 0;
   let latestRegion = 0;
+  let zoom = 1;
   function ease(a, b, x) {
     const t = THREE.MathUtils.clamp((x - a) / (b - a), 0, 1);
     return t * t * (3 - 2 * t);
@@ -250,7 +252,8 @@ async function createMannequin(section, onHotspot) {
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
     body.rotation.y = Math.PI * turning;
-    camera.position.set(0, -.08 * upper - .12 * lower, 11 - .45 * upper + .05 * lower);
+    const framingDistance = host.clientWidth < 300 ? 12.6 : 11;
+    camera.position.set(0, -.08 * upper - .12 * lower, (framingDistance - .45 * upper + .05 * lower) / zoom);
     camera.lookAt(0, -.08 * upper - .12 * lower, 0);
     const visibleSide = progress < .38 ? 'front' : 'back';
     markerGroups.forEach((group, i) => {
@@ -303,6 +306,7 @@ async function createMannequin(section, onHotspot) {
   resize();
   return {
     render,
+    setZoom(value) { zoom = value; render(); },
     dispose() {
       observer.disconnect();
       renderer.domElement.removeEventListener('click', click);
@@ -336,6 +340,8 @@ export function initBodyJourney() {
   const result = section.querySelector('.bj-intake-result');
   const dialogTitle = section.querySelector('#bj-dialog-title');
   const dialogIntro = section.querySelector('.bj-dialog-intro');
+  const zoomButtons = [...section.querySelectorAll('.bj-zoom-controls button')];
+  const zoomOutput = section.querySelector('.bj-zoom-level');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   let active = -1;
   let frame = 0;
@@ -346,7 +352,18 @@ export function initBodyJourney() {
   let currentVisualProgress = 0;
   let motionToken = 0;
   let motionActive = false;
+  let zoomLevel = 1;
   section.classList.add('bj--ready');
+
+  function updateZoom(value) {
+    zoomLevel = Math.max(.85, Math.min(1.15, Math.round(value * 100) / 100));
+    zoomOutput.textContent = `${Math.round(zoomLevel * 100)}%`;
+    section.style.setProperty('--bj-fallback-zoom', String(zoomLevel));
+    zoomButtons.forEach(button => {
+      button.disabled = button.dataset.zoom === 'in' ? zoomLevel >= 1.15 : button.dataset.zoom === 'out' ? zoomLevel <= .85 : zoomLevel === 1;
+    });
+    scene3d?.setZoom(zoomLevel);
+  }
 
   async function ensureScene() {
     if (scene3d || sceneLoad) return;
@@ -354,7 +371,7 @@ export function initBodyJourney() {
     try {
       const created = await sceneLoad;
       if (disposed || reduce.matches) created?.dispose();
-      else { scene3d = created; schedule(); }
+      else { scene3d = created; scene3d?.setZoom(zoomLevel); schedule(); }
     } catch {
       section.classList.remove('bj--webgl');
     } finally {
@@ -487,6 +504,11 @@ export function initBodyJourney() {
   }
 
   [...buttons, ...hotspots].forEach(button => button.addEventListener('click', event => openCheckIn(Number(button.dataset.region), button, event.detail !== 0)));
+  zoomButtons.forEach(button => button.addEventListener('click', () => {
+    if (button.dataset.zoom === 'in') updateZoom(zoomLevel + .15);
+    else if (button.dataset.zoom === 'out') updateZoom(zoomLevel - .15);
+    else updateZoom(1);
+  }));
   section.querySelector('.bj-checkin-trigger').addEventListener('click', event => openCheckIn(Math.max(0, active), event.currentTarget, false));
   rotate.addEventListener('click', event => {
     const index = section.dataset.side === 'front' ? 1 : 0;
@@ -529,6 +551,7 @@ export function initBodyJourney() {
   addEventListener('scroll', schedule, { passive: true });
   addEventListener('resize', schedule);
   document.addEventListener('visibilitychange', schedule);
+  updateZoom(1);
   onPreferenceChange();
   return () => {
     disposed = true;

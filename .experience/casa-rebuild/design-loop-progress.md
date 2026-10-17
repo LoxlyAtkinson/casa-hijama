@@ -1,16 +1,13 @@
-# Design Loop progress
+# Design Loop progress — 2026-10-17
 
-Reference: `bar.md` plus the user's shop and body images. System rules: project-root `design-system.md`. Active acceptance contract: `contract-v2.md`.
+Active acceptance contract: `../contract-v4.md`. Reference mechanisms: `../bar.md` and `../bar-v2.md`; system: project-root `design-system.md`. User supplied the Apple Watch Series 12 page, the Casa Hijama source, the VITA body image, product showcase and product/cart screenshot. Phase 1 answers were supplied in the conversation; preflight and teardown were completed before builders. Scroll Craft doctor passed required local tooling; optional KIE key was unavailable, so owned/generated assets and Higgsfield film were used. The bar and output were renderable in Chromium.
 
-The user supplied the rebuild target, Apple Watch page, and existing Casa Hijama site. The new images add shop and body reference mechanisms. Reference and local pages render; Higgsfield and image generation are available. All critics have an input. Sonnet and Haiku are not among available team models, so the closest workhorse/fast models fill brief/system roles and the strongest available model fills craft.
-
-| Piece | Round | Brief | System | Craft | Largest open gap |
+| Piece | Current round | Brief | System | Craft | Largest unresolved gap |
 | --- | ---: | --- | --- | --- | --- |
-| Home narrative, media and booking | 1 | PASS | FAIL | FAIL | Header booking color; film repeats studio cups image |
-| Shop discovery and bag | 0 | Pending | Pending | Pending | New scope being built |
-| Body scroll journey | 0 | Pending | Pending | Pending | New scope being built |
-| Treatments and information | 0 | Pending | Pending | Pending | Pending critique |
+| Home narrative, 3D body, motion and booking | 3 | FAIL | FAIL | Home PASS; body FAIL | Body lacks discoverable zoom and is undersized on mobile |
+| Shop discovery and bag | 2 | PASS for journey | FAIL | FAIL | Mobile descriptions truncate; bag is too dark and dense for reference |
+| Treatments and information | 1 | No missing route found | Pending integrated review | Pending integrated review | Awaiting integrated acceptance verdict |
 
-Home round 1 details: `home_brief_critic` PASS; `home_system_critic` FAIL on dark header booking pill; `home_craft_critic` FAIL on repeated visual subject in studio film. Repair underway: turquoise header booking pill and new treatment-room still/film. The original first round captured source remains in prior evidence; recapture before round 2.
+Earlier raw failures are retained. Home round 2 found back-area focus, mobile scroll step skipping, and weak marker hierarchy. Shop round 1 found promotional flyer staging and medical product claims. Builders repaired these and verified browser journeys. Fresh round 3/2 critics reviewed published source revision `9f70615`; their unedited reports are `final-brief-raw.md`, `final-system-raw.md`, and `final-craft-raw.md`. Body/shop builders are repairing the listed failures. Recapture and request a fresh three-role review after those changes.
 
-Elapsed pieces: 0/4 complete. Exit requires brief, system and craft PASS for each piece and a fresh independent acceptance review after implementation changes.
+Exit requires all three critics to PASS per piece and final experience acceptance; any FAIL is an open repair item, not a completion claim.

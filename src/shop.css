@@ -181,3 +181,67 @@
 .shop-product-stage .shop-product-cutout img{position:absolute!important;left:var(--crop-left)!important;top:var(--crop-top)!important;width:var(--crop-img-w)!important;height:var(--crop-img-h)!important;max-width:none!important;max-height:none!important;min-height:0!important;object-fit:fill!important;transform:none!important;filter:saturate(.92)!important;mix-blend-mode:multiply!important;mask-image:none!important;transition:none!important}
 .shop-product-stage[data-product-id="27"] .shop-product-cutout{clip-path:polygon(32% 0,70% 0,70% 18%,80% 27%,91% 39%,100% 47%,100% 100%,0 100%,0 47%,9% 39%,19% 27%,28% 18%)}
 .shop-spotlight .shop-spotlight-stage .shop-product-cutout img,.shop-product-dialog .shop-detail-stage .shop-product-cutout img{mix-blend-mode:multiply!important}
+
+/* Review surface: the bag is a calm, light place to confirm selections in
+   either site theme. Keep product identity and order details easy to scan. */
+.shop-bag-dialog{width:min(100%,680px);max-width:680px;background:#f8faf7;color:#183631;box-shadow:-28px 0 80px #071c1d4d}
+.shop-bag-header{padding:39px 42px 28px;border-color:#d8e2dd}
+.shop-bag-header .eyebrow{color:#307a78}
+.shop-bag-header h2{font-size:clamp(2.3rem,3.5vw,3.2rem);letter-spacing:-.055em;margin-top:9px}
+.shop-bag-header h2 span{color:#5f7771}
+.shop-bag-close{width:45px;height:45px;background:#fff;border-color:#d8e2dd;color:#183631}
+.shop-bag-body{padding:17px 42px 30px}
+.shop-bag-item{grid-template-columns:150px minmax(0,1fr);gap:27px;padding:28px 0 34px;border-color:#d8e2dd}
+.shop-bag-item .shop-bag-stage{width:150px;height:175px;border-radius:14px}
+.shop-bag-item .product-category{color:#317d7b;font-size:.65rem;margin:7px 0 12px}
+.shop-bag-item h3{font-size:1.35rem;letter-spacing:-.04em;line-height:1.18;margin-bottom:10px}
+.shop-bag-item p{color:#60736c;font-size:.8rem;line-height:1.5;margin-bottom:12px}
+.shop-bag-item strong{font-size:1.02rem}
+.shop-bag-actions{justify-content:flex-start;gap:28px;margin-top:19px}
+.shop-qty{min-height:42px;border-color:#bfd1cb;background:#fff}
+.shop-qty button{width:42px;height:42px;color:#183631;font-size:1.12rem}
+.shop-qty button:hover{background:#e7f3f1}
+.shop-qty span{min-width:25px;font-size:.88rem}
+.shop-remove{color:#486661;font-size:.76rem}
+.shop-related{padding:36px 0 50px}
+.shop-related h3{font-size:1.48rem;letter-spacing:-.04em;margin-bottom:21px}
+.shop-related-grid{gap:16px}
+.shop-related-grid article{background:#edf2ef;border-radius:14px}
+.shop-related-stage{height:156px}
+.shop-related-grid article>div:last-child{padding:16px;gap:9px}
+.shop-related-grid strong{font-size:.85rem;color:#183631}
+.shop-related-grid span{color:#536b65;font-size:.78rem}
+.shop-related-grid button{padding:8px 16px;font-size:.74rem}
+.shop-bag-footer{padding:27px 42px 38px;border-color:#d8e2dd;background:#fff}
+.shop-bag-total{align-items:baseline;font-size:.95rem}
+.shop-bag-total strong{font-size:1.7rem}
+.shop-bag-footer p{color:#58716a;font-size:.75rem;line-height:1.55;margin-top:12px}
+.shop-whatsapp{min-height:53px;margin-top:23px;background:#69c5c5;color:#102f31}
+.shop-whatsapp:hover{background:#89d6d4;color:#102f31}
+.shop-fallback-link{color:#286e6b;font-size:.76rem;margin-top:17px}
+.shop-bag-empty p{color:#58716a}
+.shop-page .product-card{display:flex;flex-direction:column}
+.shop-card-info{display:flex;flex-direction:column;flex:1}
+.shop-card-info h3{min-height:2.5em}
+.shop-card-info p{display:block;-webkit-line-clamp:unset;overflow:visible;min-height:0}
+.shop-card-info .product-footer{margin-top:auto;padding-top:17px}
+@media(max-width:560px){
+  .shop-bag-dialog{width:100%;max-width:100%}
+  .shop-bag-header{padding:24px 22px 21px}
+  .shop-bag-header h2{font-size:2.35rem}
+  .shop-bag-body{padding:13px 22px 30px}
+  .shop-bag-item{grid-template-columns:116px minmax(0,1fr);gap:18px;padding:24px 0 31px}
+  .shop-bag-item .shop-bag-stage{width:116px;height:146px}
+  .shop-bag-item h3{font-size:1.12rem}
+  .shop-bag-item p{display:-webkit-box;font-size:.69rem}
+  .shop-bag-item strong{font-size:.88rem}
+  .shop-bag-actions{gap:15px;margin-top:15px}
+  .shop-qty{min-height:38px}
+  .shop-qty button{width:37px;height:37px}
+  .shop-related{padding:31px 0 43px}
+  .shop-related-stage{height:123px}
+  .shop-related-grid article>div:last-child{padding:12px}
+  .shop-bag-footer{padding:23px 22px max(24px,env(safe-area-inset-bottom))}
+  .shop-card-info h3{min-height:2.5em}
+  .shop-card-info p{display:block;-webkit-line-clamp:unset;overflow:visible;min-height:0;line-height:1.5}
+}
