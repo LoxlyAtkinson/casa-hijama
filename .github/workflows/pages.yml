@@ -28,6 +28,11 @@ jobs:
         env:
           GITHUB_PAGES: '1'
       - run: cp dist/index.html dist/404.html
+      - run: |
+          for route in products cupping-therapy more-information; do
+            mkdir -p "dist/$route"
+            cp dist/index.html "dist/$route/index.html"
+          done
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
