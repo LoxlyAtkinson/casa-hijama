@@ -1,13 +1,11 @@
 # Design Loop progress — 2026-10-17
 
-Active acceptance contract: `../contract-v4.md`. Reference mechanisms: `../bar.md` and `../bar-v2.md`; system: project-root `design-system.md`. User supplied the Apple Watch Series 12 page, the Casa Hijama source, the VITA body image, product showcase and product/cart screenshot. Phase 1 answers were supplied in the conversation; preflight and teardown were completed before builders. Scroll Craft doctor passed required local tooling; optional KIE key was unavailable, so owned/generated assets and Higgsfield film were used. The bar and output were renderable in Chromium.
+Active contract: `contract-v4.md`. Visual bars: `bar.md`, `bar-v2.md`. Design system: project-root `design-system.md`. The supplied Casa, Apple Watch, VITA body and product/cart references were treated as design inputs. The Design Loop and Scroll Craft skills were read and applied; the Scroll Craft engine runs the home scroll score.
 
-| Piece | Current round | Brief | System | Craft | Largest unresolved gap |
-| --- | ---: | --- | --- | --- | --- |
-| Home narrative, 3D body, motion and booking | 3 | FAIL | FAIL | Home PASS; body FAIL | Body lacks discoverable zoom and is undersized on mobile |
-| Shop discovery and bag | 2 | PASS for journey | FAIL | FAIL | Mobile descriptions truncate; bag is too dark and dense for reference |
-| Treatments and information | 1 | No missing route found | Pending integrated review | Pending integrated review | Awaiting integrated acceptance verdict |
+| Piece | Final brief | Final system | Final craft | Outcome |
+| --- | --- | --- | --- | --- |
+| Home narrative, clinical 3D body, motion and booking | Round 4 PASS | Round 5 PASS | Round 5 PASS | Accepted |
+| Shop discovery, detail and enquiry bag | Round 4 PASS | Round 5 PASS | Round 5 PASS | Accepted |
+| Treatments and information | Integrated independent acceptance PASS | Integrated independent acceptance PASS | Full route captures inspected | Accepted |
 
-Earlier raw failures are retained. Home round 2 found back-area focus, mobile scroll step skipping, and weak marker hierarchy. Shop round 1 found promotional flyer staging and medical product claims. Builders repaired these and verified browser journeys. Fresh round 3/2 critics reviewed published source revision `9f70615`; their unedited reports are `final-brief-raw.md`, `final-system-raw.md`, and `final-craft-raw.md`. Body/shop builders are repairing the listed failures. Recapture and request a fresh three-role review after those changes.
-
-Exit requires all three critics to PASS per piece and final experience acceptance; any FAIL is an open repair item, not a completion claim.
+The raw failure reports from earlier rounds are preserved. Round 3 found a duplicated public route prefix, a mannequin-like default body, and a repetitive 30-card catalog. The public route was repaired; the WebGL body now has a translucent clinical scan and zoom detail; the catalog uses six product-family showrooms with focal packshots and horizontal shelves. Round 5 craft and system rechecks passed. The independent C1–C21 review and machine checker passed for deployed source commit `6f8411e124fb4c37e970542e312ebf7796350bed` in `reviews/review-v4-02.md` and `.json`.
