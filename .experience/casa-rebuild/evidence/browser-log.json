@@ -1,0 +1,170 @@
+[
+  {
+    "route": "/",
+    "state": "home-light",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:17:53+02:00",
+    "action": "Opened home; hero, navigation, primary booking action visible",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Opened home; hero, navigation, primary booking action visible",
+    "result": "PASS",
+    "screenshot": "desktop_light_home"
+  },
+  {
+    "route": "/",
+    "state": "home-dark",
+    "viewport": {
+      "width": 1561,
+      "height": 889
+    },
+    "timestamp": "2026-10-17T09:22:05+02:00",
+    "action": "Switched to dark theme; headline and hero remain readable",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Switched to dark theme; headline and hero remain readable",
+    "result": "PASS",
+    "screenshot": "desktop_dark_home"
+  },
+  {
+    "route": "/",
+    "state": "home-light-mobile",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "timestamp": "2026-10-17T09:17:44+02:00",
+    "action": "Viewed home at narrow viewport; navigation and hero fit",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Viewed home at narrow viewport; navigation and hero fit",
+    "result": "PASS",
+    "screenshot": "mobile_light_home"
+  },
+  {
+    "route": "/",
+    "state": "home-dark-mobile",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "timestamp": "2026-10-17T09:17:40+02:00",
+    "action": "Viewed dark home at narrow viewport; text and action fit",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Viewed dark home at narrow viewport; text and action fit",
+    "result": "PASS",
+    "screenshot": "mobile_dark_home"
+  },
+  {
+    "route": "/#book",
+    "state": "booking-dark-mobile",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "timestamp": "2026-10-17T09:17:36+02:00",
+    "action": "Used mobile booking link; form entry reached",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Used mobile booking link; form entry reached",
+    "result": "PASS",
+    "screenshot": "mobile_dark_booking"
+  },
+  {
+    "route": "/cupping-therapy",
+    "state": "treatments-light",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:18:46+02:00",
+    "action": "Opened treatments route; hero and booking action visible",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Opened treatments route; hero and booking action visible",
+    "result": "PASS",
+    "screenshot": "desktop_light_treatments"
+  },
+  {
+    "route": "/more-information",
+    "state": "information-light",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:18:46+02:00",
+    "action": "Opened information route; article path visible",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Opened information route; article path visible",
+    "result": "PASS",
+    "screenshot": "desktop_light_information"
+  },
+  {
+    "route": "/more-information",
+    "state": "faq-open",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:18:54+02:00",
+    "action": "Opened first FAQ; answer was exposed",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Opened first FAQ; answer was exposed",
+    "result": "PASS",
+    "screenshot": "desktop_light_faq_open"
+  },
+  {
+    "route": "/products",
+    "state": "products-light",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:17:55+02:00",
+    "action": "Opened catalog; product collection rendered",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Opened catalog; product collection rendered",
+    "result": "PASS",
+    "screenshot": "desktop_light_products"
+  },
+  {
+    "route": "/products",
+    "state": "products-oils",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:18:37+02:00",
+    "action": "Selected Oils filter; 2 products rendered",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Selected Oils filter; 2 products rendered",
+    "result": "PASS",
+    "screenshot": "desktop_light_products_oils"
+  },
+  {
+    "route": "/products",
+    "state": "product-modal",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:18:38+02:00",
+    "action": "Opened Castor Oil detail dialog; Escape closed it",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Opened Castor Oil detail dialog; Escape closed it",
+    "result": "PASS",
+    "screenshot": "desktop_light_product_modal"
+  },
+  {
+    "route": "/#book",
+    "state": "booking-ready",
+    "viewport": {
+      "width": 1265,
+      "height": 712
+    },
+    "timestamp": "2026-10-17T09:19:51+02:00",
+    "action": "Submitted complete dummy request; prepared WhatsApp link appeared",
+    "expected": "Visible, usable content and feedback for this state",
+    "actual": "Submitted complete dummy request; prepared WhatsApp link appeared",
+    "result": "PASS",
+    "screenshot": "desktop_light_booking_ready"
+  }
+]

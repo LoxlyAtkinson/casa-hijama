@@ -1,0 +1,432 @@
+{
+  "reviewer": "independent_review",
+  "authored_by": "independent_review",
+  "builders": [
+    "/root"
+  ],
+  "run_id": "review-01-20261017",
+  "contract": {
+    "path": "../contract-and-section-map.md",
+    "sha256": "e863254704543d2f33a5ea72fa7a0f537382587c78851d9f7fb52efe46da4f70"
+  },
+  "sources": [
+    {
+      "path": "../../../index.html",
+      "sha256": "3269e1bb5da9d459598809203bce572b622fce4fafbd7400e697725a9682410c"
+    },
+    {
+      "path": "../../../package.json",
+      "sha256": "f2ab26e6f04b69be9fe51d667a10dcbc44e60285fca24edb14f8632ef43b039b"
+    },
+    {
+      "path": "../../../package-lock.json",
+      "sha256": "ff821562fbcaad9fe8716e4e29d94251cd2ac53910b931788f7477d71d7c03cb"
+    },
+    {
+      "path": "../../../products.json",
+      "sha256": "ac7a0fcbea5f71126870df88a401147250c1c44f0afdaeee64ca8db28008ab86"
+    },
+    {
+      "path": "../../../vercel.json",
+      "sha256": "1abbc0baf6a050b3c703dc05e873776d44ee0bfcbb1117036df26acfa455c29a"
+    },
+    {
+      "path": "../../../src/main.js",
+      "sha256": "c3e9c61b0c56cf3ddeaf7c8ec2e0b4073d898d5b0990ccfb99c78fe1d4a96ce4"
+    },
+    {
+      "path": "../../../src/styles.css",
+      "sha256": "ce84676cc3c7e4e073daec852d4de2d6430b78a475282fe797c5e747a4414b6c"
+    },
+    {
+      "path": "../../../public/assets/catalog-hero.png",
+      "sha256": "3ae4de0fd206a0482925b480e3a8ddc3bd18447db30031009603798d802dc5b9"
+    },
+    {
+      "path": "../../../public/assets/hero-generated.png",
+      "sha256": "10320d2bc69e109786c233e5744fab0370e4fcb8f202535d29113330ce8b19a3"
+    },
+    {
+      "path": "../../../public/assets/hero.jpg",
+      "sha256": "dbe95a75e0060c8b80453647beb053f4380bfc31bad5bba7364ca0daa82cdfb6"
+    },
+    {
+      "path": "../../../public/assets/logo.png",
+      "sha256": "d4618ac017ca2e0a11a8a996e3c958f56aa1abf4c6581751bbba2e11a6d198aa"
+    },
+    {
+      "path": "../../../public/assets/prices-1.jpg",
+      "sha256": "4f7644cea4d696f58f234bcf10b1493e55011391a3b51358c9c74fc46b44319c"
+    },
+    {
+      "path": "../../../public/assets/prices-2.jpg",
+      "sha256": "4f7644cea4d696f58f234bcf10b1493e55011391a3b51358c9c74fc46b44319c"
+    },
+    {
+      "path": "../../../public/assets/product-1.jpg",
+      "sha256": "f273b9c20b32b5170f6d514cecb465b7f67026ed570246dddbff519bbf8c4331"
+    },
+    {
+      "path": "../../../public/assets/product-10.jpg",
+      "sha256": "e6218a2aa1bf2e59462893122d1c10961204726e84f27027c21846ece6d42c71"
+    },
+    {
+      "path": "../../../public/assets/product-11.jpg",
+      "sha256": "355721997bce945cd4f243ab702b0e787df679578180105a6ef71eb059e6d9ae"
+    },
+    {
+      "path": "../../../public/assets/product-12.jpg",
+      "sha256": "55c81f741857f7ca193f796d14fc869ab41412c3e3ed9f923d3b216ce3729dc0"
+    },
+    {
+      "path": "../../../public/assets/product-13.jpg",
+      "sha256": "b4c6079c0ecd0e45bfb8ecfed91a70b06fe30ffc6821d6421f01ddc70b2910fe"
+    },
+    {
+      "path": "../../../public/assets/product-14.jpg",
+      "sha256": "58c2b8169efd2d1b10b8ab8419041cc2811c83b508958b8cfa0245828de18549"
+    },
+    {
+      "path": "../../../public/assets/product-15.jpg",
+      "sha256": "6fc170f0fd97abf1eb304e87dc28bb8466034cfb5b8ef3a1c09b8eae7fa7e1f2"
+    },
+    {
+      "path": "../../../public/assets/product-16.jpg",
+      "sha256": "770fa546287aa00251c61ca65be127981b8b5e6565895d2f2ede258b6da1fef4"
+    },
+    {
+      "path": "../../../public/assets/product-17.jpg",
+      "sha256": "6c81c4f15424842253a8543e666e2cae58a40e2c30a90461e70c98402f2aad0f"
+    },
+    {
+      "path": "../../../public/assets/product-18.jpg",
+      "sha256": "cc74aac5eba6ba9b7ea0e6e3a84f794ec7684c6cab0e799aeab3b9ef7d73a788"
+    },
+    {
+      "path": "../../../public/assets/product-19.jpg",
+      "sha256": "ce37e2550e0b1a09de80334aba95d7dcdd2519d7a3da74979882cdcbcd8b1244"
+    },
+    {
+      "path": "../../../public/assets/product-2.jpg",
+      "sha256": "be07af81f12e172024c5bd4fb01e80a532621f79e7e806b0a8a4ce25bb0cf5ed"
+    },
+    {
+      "path": "../../../public/assets/product-20.jpg",
+      "sha256": "569fa939ce43c0e566e0788ae4a2da1c742f78ca82d6a736f1c0ab55da954de4"
+    },
+    {
+      "path": "../../../public/assets/product-21.jpg",
+      "sha256": "048989f7c1509c4c9c591fca1dfc44c707cc84c9f4d8657d6629f6ce726dc3cb"
+    },
+    {
+      "path": "../../../public/assets/product-22.jpg",
+      "sha256": "a43de0b3544720946a5c881985904a999d7c7a56b4b74d1cbb97591e988e5ddb"
+    },
+    {
+      "path": "../../../public/assets/product-23.jpg",
+      "sha256": "ac3e76e79790226dc70bfb1e557919a4a92e9b1ee9db036bcfd5fb5a4505cdb4"
+    },
+    {
+      "path": "../../../public/assets/product-24.png",
+      "sha256": "d13d6324568f9f5b71024488aca2da3a3e5ef386a4d0ce8a64f85bbbde7fe97d"
+    },
+    {
+      "path": "../../../public/assets/product-25.png",
+      "sha256": "7eac2ed870cfa73d06c6d21ae660158b5edce0bb366cf58c241844a246587b04"
+    },
+    {
+      "path": "../../../public/assets/product-26.jpg",
+      "sha256": "b530923b9e9a7af39f00a870b8a5885fda72fb798ef28dd160b7d3efb4148079"
+    },
+    {
+      "path": "../../../public/assets/product-27.jpg",
+      "sha256": "17d8f635e36d588a4d38ac8bfee329d0dcdd7242a318f9d4ba4fb25da8dfd8eb"
+    },
+    {
+      "path": "../../../public/assets/product-28.jpg",
+      "sha256": "17d8f635e36d588a4d38ac8bfee329d0dcdd7242a318f9d4ba4fb25da8dfd8eb"
+    },
+    {
+      "path": "../../../public/assets/product-29.jpg",
+      "sha256": "d65c35a7ab4f99a7373795fff7765a6d4d14e1d0669814d566bde7553b8ebe16"
+    },
+    {
+      "path": "../../../public/assets/product-3.jpg",
+      "sha256": "b82a744025e04e8a884425683560e5f8dd9e2e814bba1b77a2742a2aa19578ad"
+    },
+    {
+      "path": "../../../public/assets/product-30.jpg",
+      "sha256": "b0954bcbfb0c06996e6257e032c1e61639c4d04a46b15b8006726d7359854647"
+    },
+    {
+      "path": "../../../public/assets/product-4.jpg",
+      "sha256": "3fb9caeb9556aea43bf236083949b34a0d9af68c018cdbd7e016cc0382e340e2"
+    },
+    {
+      "path": "../../../public/assets/product-5.jpg",
+      "sha256": "f466627d7942d7cbd400961fa5d292773f163610718e64436fa377beed14fac6"
+    },
+    {
+      "path": "../../../public/assets/product-6.jpg",
+      "sha256": "8f42a8237ad9ca7ffff29b82d877a01d756ad628ac555468e4747b52375ec243"
+    },
+    {
+      "path": "../../../public/assets/product-7.jpg",
+      "sha256": "ed3ada697c389e99e681f4b54858057e66f42c7d00c7641690f25edcda348e5d"
+    },
+    {
+      "path": "../../../public/assets/product-8.jpg",
+      "sha256": "b2d233198c872805e4c430fef5497944e15beca29c541d5c550d325ae1e79bea"
+    },
+    {
+      "path": "../../../public/assets/product-9.jpg",
+      "sha256": "a3e7c8c6b1f30471a3432e14a24fdf27a30e1b3e69b4b0bea322af984f7952b6"
+    },
+    {
+      "path": "../../../public/assets/studio-film-frame.jpg",
+      "sha256": "7affcc9ad41cec66c8caf89a957e0f58fa8fcc0b966812473081a747e4e317da"
+    },
+    {
+      "path": "../../../public/assets/studio-film.mp4",
+      "sha256": "609f227f939407dd57ca61cac0a6e74a62eba866361d2aaf180d3082ee41ea46"
+    },
+    {
+      "path": "../../../public/assets/studio.jpg",
+      "sha256": "15e7893649e64f39f57dbc46242c45544bb90531375470d09f081008d03cc41a"
+    }
+  ],
+  "artifacts": {
+    "desktop_light_home": {
+      "path": "../evidence/desktop-light-home.png",
+      "sha256": "a7887067f06114be8a52fb3bcb90509093c1f0fca78c051edb101916f23e32cf",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "home-light",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:17:53+02:00"
+    },
+    "desktop_dark_home": {
+      "path": "../evidence/desktop-dark-home.png",
+      "sha256": "e420c317884ee73e1c788075f4c0fc294d15241f13bb6af357a55d42e1eb2d70",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "home-dark",
+      "viewport": {
+        "width": 1561,
+        "height": 889
+      },
+      "timestamp": "2026-10-17T09:22:05+02:00"
+    },
+    "mobile_light_home": {
+      "path": "../evidence/mobile-light-home.png",
+      "sha256": "af40d547ac344d2eb2dd8c3dcef4f1cfacbe3c60a74352a672cf006e711dac4d",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "home-light-mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "timestamp": "2026-10-17T09:17:44+02:00"
+    },
+    "mobile_dark_home": {
+      "path": "../evidence/mobile-dark-home.png",
+      "sha256": "64da6f93a599190aeb96cd4c142700bbcaa26a3fb5e5456761c6bbe36456e373",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "home-dark-mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "timestamp": "2026-10-17T09:17:40+02:00"
+    },
+    "mobile_dark_booking": {
+      "path": "../evidence/mobile-dark-booking.png",
+      "sha256": "f49cfd7f2e8738a2caed89abb1bd4fd0e4b74551af3bcd7f97b1d4eb4be673d5",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-dark-mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "timestamp": "2026-10-17T09:17:36+02:00"
+    },
+    "desktop_light_treatments": {
+      "path": "../evidence/desktop-light-treatments.png",
+      "sha256": "b1f8d01805890e4a8bc55b985a7b569ec5b454ac48d2f3c858267f1a9d4a9251",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "treatments-light",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:18:46+02:00"
+    },
+    "desktop_light_information": {
+      "path": "../evidence/desktop-light-information.png",
+      "sha256": "b049a4dd0435cb7bcf0aecfee6b423ffc5cbc06cdb2663a91db5459d8212c46e",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "information-light",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:18:46+02:00"
+    },
+    "desktop_light_faq_open": {
+      "path": "../evidence/desktop-light-faq-open.png",
+      "sha256": "53348fce6779b8feffebad159fe6ae309d5428bf67aec3a1392f4d0f1ccf32b3",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "faq-open",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:18:54+02:00"
+    },
+    "desktop_light_products": {
+      "path": "../evidence/desktop-light-products.png",
+      "sha256": "72c9a585af7dfa2f92db1171839bc878826843f435dc687da3f632f44ea03ede",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "products-light",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:17:55+02:00"
+    },
+    "desktop_light_products_oils": {
+      "path": "../evidence/desktop-light-products-oils.png",
+      "sha256": "58b3b0c038264332d318c8d991ee6d466fb6fef8430497e40d687e1e902251fb",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "products-oils",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:18:37+02:00"
+    },
+    "desktop_light_product_modal": {
+      "path": "../evidence/desktop-light-product-modal.png",
+      "sha256": "55e0d00b800aafc9eb2623adf032856815258df5e6b04261491824df676a36ab",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "product-modal",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:18:38+02:00"
+    },
+    "desktop_light_booking_ready": {
+      "path": "../evidence/desktop-light-booking-ready.png",
+      "sha256": "21556fc90272b3367d9eca0db5cb7981a4cb6d0a67a09818f51c6734c599eb6a",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-ready",
+      "viewport": {
+        "width": 1265,
+        "height": 712
+      },
+      "timestamp": "2026-10-17T09:19:51+02:00"
+    },
+    "browser_log": {
+      "path": "../evidence/browser-log.json",
+      "sha256": "451c53066d2e3b19ae66655aa592bb44b5160918e753935bc34971c9229c7506",
+      "kind": "browser_log"
+    }
+  },
+  "criteria": {
+    "C1": "BLOCKED",
+    "C2": "BLOCKED",
+    "C3": "FAIL",
+    "C4": "BLOCKED",
+    "C5": "BLOCKED",
+    "C6": "BLOCKED",
+    "C7": "BLOCKED",
+    "C8": "BLOCKED",
+    "C9": "FAIL"
+  },
+  "gates": {
+    "coverage": {
+      "status": "BLOCKED",
+      "evidence": [
+        "browser_log",
+        "desktop_light_home",
+        "desktop_light_treatments",
+        "desktop_light_information"
+      ]
+    },
+    "composition": {
+      "status": "BLOCKED",
+      "evidence": [
+        "desktop_light_home",
+        "desktop_light_products",
+        "desktop_light_treatments"
+      ]
+    },
+    "behaviour": {
+      "status": "FAIL",
+      "evidence": [
+        "browser_log",
+        "desktop_light_products_oils",
+        "desktop_light_booking_ready"
+      ]
+    },
+    "evidence": {
+      "status": "FAIL",
+      "evidence": [
+        "browser_log",
+        "mobile_light_home",
+        "mobile_dark_booking"
+      ]
+    },
+    "independence": {
+      "status": "PASS",
+      "evidence": [
+        "browser_log",
+        "desktop_light_home"
+      ]
+    },
+    "repair_loop": {
+      "status": "BLOCKED",
+      "evidence": [
+        "browser_log",
+        "desktop_light_products"
+      ]
+    },
+    "completion": {
+      "status": "FAIL",
+      "evidence": [
+        "browser_log",
+        "desktop_light_products"
+      ]
+    }
+  },
+  "score": 60,
+  "verdict": "FAIL",
+  "unresolved": [
+    "Neem Soap and Himalayan Soap catalog cards/dialogs request missing .jpg assets; only .png files exist.",
+    "All 12 files named .png contain JPEG/JFIF data and fail the mandated PNG evidence integrity check."
+  ],
+  "unverified": [
+    "Full-page/adjacent-section composition",
+    "390px mobile journeys on all routes and overflow",
+    "Theme persistence and dark non-home routes",
+    "Keyboard navigation/dialog focus",
+    "Product sort",
+    "Booking validation, WhatsApp URL/destination and blocked handoff recovery",
+    "Reduced-motion, video pause/still and map fallback",
+    "External destination/failure behavior"
+  ]
+}

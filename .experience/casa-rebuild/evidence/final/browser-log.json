@@ -1,0 +1,562 @@
+[
+  {
+    "route": "/",
+    "state": "desktop-light-home-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:03:44.586Z",
+    "action": "Opened /, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme light",
+    "result": "PASS",
+    "screenshot": "desktop-light-home-full"
+  },
+  {
+    "route": "/cupping-therapy",
+    "state": "desktop-light-treatments-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:03:46.321Z",
+    "action": "Opened /cupping-therapy, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme light",
+    "result": "PASS",
+    "screenshot": "desktop-light-treatments-full"
+  },
+  {
+    "route": "/products",
+    "state": "desktop-light-products-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:03:51.729Z",
+    "action": "Opened /products, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme light; 30 products",
+    "result": "PASS",
+    "screenshot": "desktop-light-products-full"
+  },
+  {
+    "route": "/more-information",
+    "state": "desktop-light-information-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:03:53.220Z",
+    "action": "Opened /more-information, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme light",
+    "result": "PASS",
+    "screenshot": "desktop-light-information-full"
+  },
+  {
+    "route": "/",
+    "state": "mobile-light-home-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:03:57.075Z",
+    "action": "Opened /, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme light",
+    "result": "PASS",
+    "screenshot": "mobile-light-home-full"
+  },
+  {
+    "route": "/cupping-therapy",
+    "state": "mobile-light-treatments-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:03:59.133Z",
+    "action": "Opened /cupping-therapy, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme light",
+    "result": "PASS",
+    "screenshot": "mobile-light-treatments-full"
+  },
+  {
+    "route": "/products",
+    "state": "mobile-light-products-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:04:02.624Z",
+    "action": "Opened /products, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme light; 30 products",
+    "result": "PASS",
+    "screenshot": "mobile-light-products-full"
+  },
+  {
+    "route": "/more-information",
+    "state": "mobile-light-information-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:04:03.922Z",
+    "action": "Opened /more-information, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme light; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme light",
+    "result": "PASS",
+    "screenshot": "mobile-light-information-full"
+  },
+  {
+    "route": "/",
+    "state": "desktop-dark-home-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:10.489Z",
+    "action": "Opened /, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme dark",
+    "result": "PASS",
+    "screenshot": "desktop-dark-home-full"
+  },
+  {
+    "route": "/cupping-therapy",
+    "state": "desktop-dark-treatments-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:12.720Z",
+    "action": "Opened /cupping-therapy, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme dark",
+    "result": "PASS",
+    "screenshot": "desktop-dark-treatments-full"
+  },
+  {
+    "route": "/products",
+    "state": "desktop-dark-products-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:18.234Z",
+    "action": "Opened /products, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme dark; 30 products",
+    "result": "PASS",
+    "screenshot": "desktop-dark-products-full"
+  },
+  {
+    "route": "/more-information",
+    "state": "desktop-dark-information-full",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:19.765Z",
+    "action": "Opened /more-information, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 1440px; document 1440px; theme dark",
+    "result": "PASS",
+    "screenshot": "desktop-dark-information-full"
+  },
+  {
+    "route": "/",
+    "state": "mobile-dark-home-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:04:24.251Z",
+    "action": "Opened /, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme dark",
+    "result": "PASS",
+    "screenshot": "mobile-dark-home-full"
+  },
+  {
+    "route": "/cupping-therapy",
+    "state": "mobile-dark-treatments-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:04:27.443Z",
+    "action": "Opened /cupping-therapy, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme dark",
+    "result": "PASS",
+    "screenshot": "mobile-dark-treatments-full"
+  },
+  {
+    "route": "/products",
+    "state": "mobile-dark-products-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:04:30.786Z",
+    "action": "Opened /products, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme dark; 30 products",
+    "result": "PASS",
+    "screenshot": "mobile-dark-products-full"
+  },
+  {
+    "route": "/more-information",
+    "state": "mobile-dark-information-full",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:04:33.059Z",
+    "action": "Opened /more-information, scrolled through all sections and captured full page",
+    "expected": "No horizontal overflow; theme dark; all primary sections visible",
+    "actual": "Viewport 390px; document 390px; theme dark",
+    "result": "PASS",
+    "screenshot": "mobile-dark-information-full"
+  },
+  {
+    "route": "/products",
+    "state": "soaps-filter",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:36.246Z",
+    "action": "Filtered catalog to Soaps",
+    "expected": "Three soap cards with loaded images, including both PNG assets",
+    "actual": "[{\"src\":\"/assets/product-24.png\",\"loaded\":true},{\"src\":\"/assets/product-25.png\",\"loaded\":true},{\"src\":\"/assets/product-26.jpg\",\"loaded\":true}]",
+    "result": "PASS",
+    "screenshot": "desktop-light-soaps"
+  },
+  {
+    "route": "/products",
+    "state": "soap-24-dialog",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:37.111Z",
+    "action": "Opened product 24 dialog",
+    "expected": "Dialog open with loaded PNG image",
+    "actual": "{\"src\":\"/assets/product-24.png\",\"loaded\":true}",
+    "result": "PASS",
+    "screenshot": "desktop-light-soap-24-dialog"
+  },
+  {
+    "route": "/products",
+    "state": "soap-25-dialog",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:38.030Z",
+    "action": "Opened product 25 dialog",
+    "expected": "Dialog open with loaded PNG image",
+    "actual": "{\"src\":\"/assets/product-25.png\",\"loaded\":true}",
+    "result": "PASS",
+    "screenshot": "desktop-light-soap-25-dialog"
+  },
+  {
+    "route": "/products",
+    "state": "shop-empty",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:38.516Z",
+    "action": "Searched for an unavailable product",
+    "expected": "Clear recovery and no-results message visible",
+    "actual": "No products; reset action visible",
+    "result": "PASS",
+    "screenshot": "desktop-light-shop-empty"
+  },
+  {
+    "route": "/products",
+    "state": "products-sorted",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:39.259Z",
+    "action": "Selected name A to Z sort",
+    "expected": "All 30 products ordered alphabetically",
+    "actual": "First: Apple Cider Extract; last: ZamZam Water 5L",
+    "result": "PASS",
+    "screenshot": "desktop-light-products-sorted"
+  },
+  {
+    "route": "/products",
+    "state": "dialog-keyboard-return",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:39.739Z",
+    "action": "Opened first product with Enter, closed with Escape",
+    "expected": "Dialog closed and keyboard focus returned to trigger",
+    "actual": "Focused product 12",
+    "result": "PASS",
+    "screenshot": "desktop-light-dialog-keyboard-return"
+  },
+  {
+    "route": "/products",
+    "state": "shop-bag-empty",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:40.250Z",
+    "action": "Opened the enquiry bag before choosing products",
+    "expected": "Empty message and collection recovery visible",
+    "actual": "Empty bag dialog open",
+    "result": "PASS",
+    "screenshot": "desktop-light-shop-bag-empty"
+  },
+  {
+    "route": "/products",
+    "state": "shop-bag-populated",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:41.560Z",
+    "action": "Added a product, increased quantity and opened bag",
+    "expected": "Quantity, subtotal, WhatsApp enquiry and fallback link visible",
+    "actual": "Assalamu alaikum Casa Hijama, I would like to enquire about these products:\n\n- 2 × Kalonji Massage Oil (R90 each)\n\nKnown-price subtotal: R180\nPlease confirm availability, prices and collection or delivery arrangements. I",
+    "result": "PASS",
+    "screenshot": "desktop-light-shop-bag-populated"
+  },
+  {
+    "route": "/more-information",
+    "state": "faq-keyboard-open",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:42.795Z",
+    "action": "Focused first question and pressed Enter",
+    "expected": "Treatment answer expanded and remains readable",
+    "actual": "What treatments do you offer?\n\nWet cupping (Hijama), dry cupping, massage and combined Hijama plus massage sessions.",
+    "result": "PASS",
+    "screenshot": "desktop-light-faq-keyboard-open"
+  },
+  {
+    "route": "/#book",
+    "state": "booking-invalid",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:44.246Z",
+    "action": "Submitted blank appointment form",
+    "expected": "Browser focuses required name and prevents handoff",
+    "actual": "{\"valid\":false,\"focused\":true}",
+    "result": "PASS",
+    "screenshot": "desktop-light-booking-invalid"
+  },
+  {
+    "route": "/#book",
+    "state": "booking-ready-final",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:44.735Z",
+    "action": "Submitted complete dummy appointment with automatic handoff blocked",
+    "expected": "Visible recovery link carries all entered details to WhatsApp",
+    "actual": "https://wa.me/27838738292; message includes name, date, treatment, pending-confirmation wording",
+    "result": "PASS",
+    "screenshot": "desktop-light-booking-ready-final"
+  },
+  {
+    "route": "/#book",
+    "state": "booking-fallback",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:45.214Z",
+    "action": "Followed visible fallback after blocked automatic handoff",
+    "expected": "New tab opened at prepared WhatsApp URL without sending a message",
+    "actual": "https://wa.me/27838738292; popup URL matched",
+    "result": "PASS",
+    "screenshot": "desktop-light-booking-fallback"
+  },
+  {
+    "route": "/",
+    "state": "map-fallback",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:45.700Z",
+    "action": "Inspected location when external map cannot render",
+    "expected": "Address and open-directions fallback remain visible",
+    "actual": "https://maps.google.com/?q=77+Belgravia+Road+Athlone+Cape+Town+7764",
+    "result": "PASS",
+    "screenshot": "desktop-light-map-fallback"
+  },
+  {
+    "route": "/",
+    "state": "body-neck-shoulders",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:49.322Z",
+    "action": "Selected body region 1",
+    "expected": "Matching region, marker and guidance visible",
+    "actual": "",
+    "result": "PASS",
+    "screenshot": "desktop-light-body-neck-shoulders"
+  },
+  {
+    "route": "/",
+    "state": "body-upper-back",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:49.991Z",
+    "action": "Selected body region 2",
+    "expected": "Matching region, marker and guidance visible",
+    "actual": "",
+    "result": "PASS",
+    "screenshot": "desktop-light-body-upper-back"
+  },
+  {
+    "route": "/",
+    "state": "body-lower-back",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:50.657Z",
+    "action": "Selected body region 3",
+    "expected": "Matching region, marker and guidance visible",
+    "actual": "",
+    "result": "PASS",
+    "screenshot": "desktop-light-body-lower-back"
+  },
+  {
+    "route": "/",
+    "state": "body-reverse",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:51.525Z",
+    "action": "Returned from lower back to neck and shoulders",
+    "expected": "Earlier guidance restored on reverse scroll",
+    "actual": "",
+    "result": "PASS",
+    "screenshot": "desktop-light-body-reverse"
+  },
+  {
+    "route": "/",
+    "state": "film-paused",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:53.310Z",
+    "action": "Paused studio film",
+    "expected": "Video paused and play control visible",
+    "actual": "Paused=true; control=Play motion",
+    "result": "PASS",
+    "screenshot": "desktop-light-film-paused"
+  },
+  {
+    "route": "/",
+    "state": "film-fallback",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T08:04:57.474Z",
+    "action": "Blocked studio film network request",
+    "expected": "Still image and booking action remain visible",
+    "actual": "{\"error\":4,\"ready\":false,\"fallback\":\"block\"}",
+    "result": "PASS",
+    "screenshot": "desktop-light-film-fallback"
+  },
+  {
+    "route": "/",
+    "state": "body-reduced-motion",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:05:00.457Z",
+    "action": "Opened body guide with reduced motion",
+    "expected": "All three guidance cards are readable in ordinary flow",
+    "actual": "Three region cards visible",
+    "result": "PASS",
+    "screenshot": "mobile-light-body-reduced"
+  },
+  {
+    "route": "/",
+    "state": "film-still-reduced-motion",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:05:00.991Z",
+    "action": "Opened home with reduced motion preference",
+    "expected": "Static studio image displayed; video source not attached",
+    "actual": "{\"src\":null,\"fallback\":\"block\",\"motion\":true}",
+    "result": "PASS",
+    "screenshot": "mobile-light-film-still"
+  },
+  {
+    "route": "/",
+    "state": "mobile-menu-open",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:05:01.847Z",
+    "action": "Opened mobile navigation",
+    "expected": "All route links and close control visible",
+    "actual": "Links: 5; expanded=true",
+    "result": "PASS",
+    "screenshot": "mobile-light-menu-open"
+  },
+  {
+    "route": "/products",
+    "state": "mobile-soap-dialog",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:05:03.570Z",
+    "action": "Filtered to Soaps and opened Himalayan Soap at 390px",
+    "expected": "Dialog and PNG product image visible without horizontal overflow",
+    "actual": "Document width 390px",
+    "result": "PASS",
+    "screenshot": "mobile-light-soap-dialog"
+  },
+  {
+    "route": "/more-information",
+    "state": "theme-persisted-information",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T08:05:06.321Z",
+    "action": "Switched theme, navigated to information, then reloaded",
+    "expected": "Chosen theme persisted across route and reload",
+    "actual": "Theme=dark",
+    "result": "PASS",
+    "screenshot": "mobile-theme-persisted-information"
+  }
+]

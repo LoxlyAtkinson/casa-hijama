@@ -1,0 +1,747 @@
+{
+  "reviewer": "Codex independent acceptance judge 02 (/root/final_independent_review)",
+  "authored_by": "Codex independent acceptance judge 02 (/root/final_independent_review)",
+  "builders": [
+    "Codex Casa Hijama implementation agent (/root)"
+  ],
+  "run_id": "casa-final-review-02-1c2e46417b65",
+  "contract": {
+    "path": "../contract-and-section-map.md",
+    "sha256": "e863254704543d2f33a5ea72fa7a0f537382587c78851d9f7fb52efe46da4f70"
+  },
+  "sources": [
+    {
+      "path": "../../../README.md",
+      "sha256": "28528cc26073c23f9e15927dd635e062fa6c0f5e7d3f4645d642683dd276c843"
+    },
+    {
+      "path": "../../../index.html",
+      "sha256": "3269e1bb5da9d459598809203bce572b622fce4fafbd7400e697725a9682410c"
+    },
+    {
+      "path": "../../../package-lock.json",
+      "sha256": "ff821562fbcaad9fe8716e4e29d94251cd2ac53910b931788f7477d71d7c03cb"
+    },
+    {
+      "path": "../../../package.json",
+      "sha256": "f2ab26e6f04b69be9fe51d667a10dcbc44e60285fca24edb14f8632ef43b039b"
+    },
+    {
+      "path": "../../../products.json",
+      "sha256": "ac7a0fcbea5f71126870df88a401147250c1c44f0afdaeee64ca8db28008ab86"
+    },
+    {
+      "path": "../../../public/assets/catalog-hero.png",
+      "sha256": "3ae4de0fd206a0482925b480e3a8ddc3bd18447db30031009603798d802dc5b9"
+    },
+    {
+      "path": "../../../public/assets/hero-generated.png",
+      "sha256": "10320d2bc69e109786c233e5744fab0370e4fcb8f202535d29113330ce8b19a3"
+    },
+    {
+      "path": "../../../public/assets/hero.jpg",
+      "sha256": "dbe95a75e0060c8b80453647beb053f4380bfc31bad5bba7364ca0daa82cdfb6"
+    },
+    {
+      "path": "../../../public/assets/logo.png",
+      "sha256": "d4618ac017ca2e0a11a8a996e3c958f56aa1abf4c6581751bbba2e11a6d198aa"
+    },
+    {
+      "path": "../../../public/assets/prices-1.jpg",
+      "sha256": "4f7644cea4d696f58f234bcf10b1493e55011391a3b51358c9c74fc46b44319c"
+    },
+    {
+      "path": "../../../public/assets/prices-2.jpg",
+      "sha256": "4f7644cea4d696f58f234bcf10b1493e55011391a3b51358c9c74fc46b44319c"
+    },
+    {
+      "path": "../../../public/assets/product-1.jpg",
+      "sha256": "f273b9c20b32b5170f6d514cecb465b7f67026ed570246dddbff519bbf8c4331"
+    },
+    {
+      "path": "../../../public/assets/product-10.jpg",
+      "sha256": "e6218a2aa1bf2e59462893122d1c10961204726e84f27027c21846ece6d42c71"
+    },
+    {
+      "path": "../../../public/assets/product-11.jpg",
+      "sha256": "355721997bce945cd4f243ab702b0e787df679578180105a6ef71eb059e6d9ae"
+    },
+    {
+      "path": "../../../public/assets/product-12.jpg",
+      "sha256": "55c81f741857f7ca193f796d14fc869ab41412c3e3ed9f923d3b216ce3729dc0"
+    },
+    {
+      "path": "../../../public/assets/product-13.jpg",
+      "sha256": "b4c6079c0ecd0e45bfb8ecfed91a70b06fe30ffc6821d6421f01ddc70b2910fe"
+    },
+    {
+      "path": "../../../public/assets/product-14.jpg",
+      "sha256": "58c2b8169efd2d1b10b8ab8419041cc2811c83b508958b8cfa0245828de18549"
+    },
+    {
+      "path": "../../../public/assets/product-15.jpg",
+      "sha256": "6fc170f0fd97abf1eb304e87dc28bb8466034cfb5b8ef3a1c09b8eae7fa7e1f2"
+    },
+    {
+      "path": "../../../public/assets/product-16.jpg",
+      "sha256": "770fa546287aa00251c61ca65be127981b8b5e6565895d2f2ede258b6da1fef4"
+    },
+    {
+      "path": "../../../public/assets/product-17.jpg",
+      "sha256": "6c81c4f15424842253a8543e666e2cae58a40e2c30a90461e70c98402f2aad0f"
+    },
+    {
+      "path": "../../../public/assets/product-18.jpg",
+      "sha256": "cc74aac5eba6ba9b7ea0e6e3a84f794ec7684c6cab0e799aeab3b9ef7d73a788"
+    },
+    {
+      "path": "../../../public/assets/product-19.jpg",
+      "sha256": "ce37e2550e0b1a09de80334aba95d7dcdd2519d7a3da74979882cdcbcd8b1244"
+    },
+    {
+      "path": "../../../public/assets/product-2.jpg",
+      "sha256": "be07af81f12e172024c5bd4fb01e80a532621f79e7e806b0a8a4ce25bb0cf5ed"
+    },
+    {
+      "path": "../../../public/assets/product-20.jpg",
+      "sha256": "569fa939ce43c0e566e0788ae4a2da1c742f78ca82d6a736f1c0ab55da954de4"
+    },
+    {
+      "path": "../../../public/assets/product-21.jpg",
+      "sha256": "048989f7c1509c4c9c591fca1dfc44c707cc84c9f4d8657d6629f6ce726dc3cb"
+    },
+    {
+      "path": "../../../public/assets/product-22.jpg",
+      "sha256": "a43de0b3544720946a5c881985904a999d7c7a56b4b74d1cbb97591e988e5ddb"
+    },
+    {
+      "path": "../../../public/assets/product-23.jpg",
+      "sha256": "ac3e76e79790226dc70bfb1e557919a4a92e9b1ee9db036bcfd5fb5a4505cdb4"
+    },
+    {
+      "path": "../../../public/assets/product-24.png",
+      "sha256": "d13d6324568f9f5b71024488aca2da3a3e5ef386a4d0ce8a64f85bbbde7fe97d"
+    },
+    {
+      "path": "../../../public/assets/product-25.png",
+      "sha256": "7eac2ed870cfa73d06c6d21ae660158b5edce0bb366cf58c241844a246587b04"
+    },
+    {
+      "path": "../../../public/assets/product-26.jpg",
+      "sha256": "b530923b9e9a7af39f00a870b8a5885fda72fb798ef28dd160b7d3efb4148079"
+    },
+    {
+      "path": "../../../public/assets/product-27.jpg",
+      "sha256": "17d8f635e36d588a4d38ac8bfee329d0dcdd7242a318f9d4ba4fb25da8dfd8eb"
+    },
+    {
+      "path": "../../../public/assets/product-28.jpg",
+      "sha256": "17d8f635e36d588a4d38ac8bfee329d0dcdd7242a318f9d4ba4fb25da8dfd8eb"
+    },
+    {
+      "path": "../../../public/assets/product-29.jpg",
+      "sha256": "d65c35a7ab4f99a7373795fff7765a6d4d14e1d0669814d566bde7553b8ebe16"
+    },
+    {
+      "path": "../../../public/assets/product-3.jpg",
+      "sha256": "b82a744025e04e8a884425683560e5f8dd9e2e814bba1b77a2742a2aa19578ad"
+    },
+    {
+      "path": "../../../public/assets/product-30.jpg",
+      "sha256": "b0954bcbfb0c06996e6257e032c1e61639c4d04a46b15b8006726d7359854647"
+    },
+    {
+      "path": "../../../public/assets/product-4.jpg",
+      "sha256": "3fb9caeb9556aea43bf236083949b34a0d9af68c018cdbd7e016cc0382e340e2"
+    },
+    {
+      "path": "../../../public/assets/product-5.jpg",
+      "sha256": "f466627d7942d7cbd400961fa5d292773f163610718e64436fa377beed14fac6"
+    },
+    {
+      "path": "../../../public/assets/product-6.jpg",
+      "sha256": "8f42a8237ad9ca7ffff29b82d877a01d756ad628ac555468e4747b52375ec243"
+    },
+    {
+      "path": "../../../public/assets/product-7.jpg",
+      "sha256": "ed3ada697c389e99e681f4b54858057e66f42c7d00c7641690f25edcda348e5d"
+    },
+    {
+      "path": "../../../public/assets/product-8.jpg",
+      "sha256": "b2d233198c872805e4c430fef5497944e15beca29c541d5c550d325ae1e79bea"
+    },
+    {
+      "path": "../../../public/assets/product-9.jpg",
+      "sha256": "a3e7c8c6b1f30471a3432e14a24fdf27a30e1b3e69b4b0bea322af984f7952b6"
+    },
+    {
+      "path": "../../../public/assets/studio-film-frame.jpg",
+      "sha256": "7affcc9ad41cec66c8caf89a957e0f58fa8fcc0b966812473081a747e4e317da"
+    },
+    {
+      "path": "../../../public/assets/studio-film.mp4",
+      "sha256": "609f227f939407dd57ca61cac0a6e74a62eba866361d2aaf180d3082ee41ea46"
+    },
+    {
+      "path": "../../../public/assets/studio-film.webm",
+      "sha256": "2df306bda9472177505f9e1453edbedc6b8f7c11893c40b06562191af351359d"
+    },
+    {
+      "path": "../../../public/assets/studio.jpg",
+      "sha256": "15e7893649e64f39f57dbc46242c45544bb90531375470d09f081008d03cc41a"
+    },
+    {
+      "path": "../../../scripts/verify-experience.cjs",
+      "sha256": "3686fdefd10c9738b73acd3a92bb4c287217df6fb596a7c82f1f4bb5418cf9b6"
+    },
+    {
+      "path": "../../../src/main.js",
+      "sha256": "5dbd2495d53b41e19323353282990e41ed88f6592edfbe50bb080d46119cc07e"
+    },
+    {
+      "path": "../../../src/styles.css",
+      "sha256": "e236550b53ce43046be13864662f5af8ce860700b9803e7725457e64e200c4c9"
+    },
+    {
+      "path": "../../../vercel.json",
+      "sha256": "1abbc0baf6a050b3c703dc05e873776d44ee0bfcbb1117036df26acfa455c29a"
+    }
+  ],
+  "artifacts": {
+    "desktop-light-home-full": {
+      "path": "../evidence/final/desktop-light-home-full.png",
+      "sha256": "93dbb6263bc3f5521a1e29974c82ea39c1174c7483106a4b6193abbecd3ea565",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-light-home-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:37:36.438Z"
+    },
+    "desktop-light-treatments-full": {
+      "path": "../evidence/final/desktop-light-treatments-full.png",
+      "sha256": "17928d2a2c239447a75f66a9b1b29cdf1fc5134014cf07f367402bdea9fe9feb",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "desktop-light-treatments-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:37:38.522Z"
+    },
+    "desktop-light-products-full": {
+      "path": "../evidence/final/desktop-light-products-full.png",
+      "sha256": "1b3df47316e62d946f6b26b29894229aada6753128a19c959777665c951e0784",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "desktop-light-products-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:37:43.279Z"
+    },
+    "desktop-light-information-full": {
+      "path": "../evidence/final/desktop-light-information-full.png",
+      "sha256": "6b5b8bd35196dba352f12f1d41ae60067fe4780b1eccd48ca8fa89da0e3ad092",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "desktop-light-information-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:37:44.814Z"
+    },
+    "mobile-light-home-full": {
+      "path": "../evidence/final/mobile-light-home-full.png",
+      "sha256": "1f449bc0c81b3a91896964204293a7194e224b3f7d4a739ef078028a3fcbc5df",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-light-home-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:37:48.016Z"
+    },
+    "mobile-light-treatments-full": {
+      "path": "../evidence/final/mobile-light-treatments-full.png",
+      "sha256": "2c5db266a26be379ca6f6a5421823382bf4a18ba419262cbe9a6e7b2fc5bbbf3",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "mobile-light-treatments-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:37:49.431Z"
+    },
+    "mobile-light-products-full": {
+      "path": "../evidence/final/mobile-light-products-full.png",
+      "sha256": "a541afc46e1f63b771dab55655cc7079d808970616dcedb0dfef25ab6b4715f6",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "mobile-light-products-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:37:52.014Z"
+    },
+    "mobile-light-information-full": {
+      "path": "../evidence/final/mobile-light-information-full.png",
+      "sha256": "29a306834f8973fe5532299ec4257e7b006d68800986ba515ea6a7fe0e002ce4",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "mobile-light-information-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:37:53.204Z"
+    },
+    "desktop-dark-home-full": {
+      "path": "../evidence/final/desktop-dark-home-full.png",
+      "sha256": "92d449dc948326ba4490285e056fb36bb7bb6be37553515b4c3cf86f58beefd6",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-dark-home-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:37:59.729Z"
+    },
+    "desktop-dark-treatments-full": {
+      "path": "../evidence/final/desktop-dark-treatments-full.png",
+      "sha256": "a0e7ebdb8c963d16ac53d793d196c622325c0c54f539b3e16a8902adbb5c0d12",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "desktop-dark-treatments-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:01.899Z"
+    },
+    "desktop-dark-products-full": {
+      "path": "../evidence/final/desktop-dark-products-full.png",
+      "sha256": "166272cab31acc5b2d1efa89fd77c6153cda046eb7d42b84b7b5a582b66445b4",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "desktop-dark-products-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:05.246Z"
+    },
+    "desktop-dark-information-full": {
+      "path": "../evidence/final/desktop-dark-information-full.png",
+      "sha256": "3a9de120af2b2a3801941eed3ad39d2c8bc068670205e25eef8a89d50902557d",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "desktop-dark-information-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:06.660Z"
+    },
+    "mobile-dark-home-full": {
+      "path": "../evidence/final/mobile-dark-home-full.png",
+      "sha256": "7c3ec73563cc95a3038a40ce37367a50d9cc06d2e10fab73c4c1a407d22acbbb",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-dark-home-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:09.670Z"
+    },
+    "mobile-dark-treatments-full": {
+      "path": "../evidence/final/mobile-dark-treatments-full.png",
+      "sha256": "55c14ff842d68635418e45853fcc04f0cee83ecff3cb4f89baf1cc33fa9287db",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "mobile-dark-treatments-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:11.354Z"
+    },
+    "mobile-dark-products-full": {
+      "path": "../evidence/final/mobile-dark-products-full.png",
+      "sha256": "dd3e3b53aa5d40343b9a3ec6d8f07fcd7a8d8903c48ed00d14c3a32af7e04436",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "mobile-dark-products-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:13.987Z"
+    },
+    "mobile-dark-information-full": {
+      "path": "../evidence/final/mobile-dark-information-full.png",
+      "sha256": "4745ecb01345c67d22a0d49d0a6eb9dc7fb733457ebb5fb2de0e4f80a82c662c",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "mobile-dark-information-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:15.208Z"
+    },
+    "desktop-light-soaps": {
+      "path": "../evidence/final/desktop-light-soaps.png",
+      "sha256": "d8f7b9373a9904ac852880d97f7461dd3961059ea61f31e41157dc8278da2bd0",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "soaps-filter",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:16.514Z"
+    },
+    "desktop-light-soap-24-dialog": {
+      "path": "../evidence/final/desktop-light-soap-24-dialog.png",
+      "sha256": "5dfebcc80db590efec676cd531dbdf308ca4b8d31b44d4408807ec36e27ecdc9",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "soap-24-dialog",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:16.969Z"
+    },
+    "desktop-light-soap-25-dialog": {
+      "path": "../evidence/final/desktop-light-soap-25-dialog.png",
+      "sha256": "e3882d3da1694c8fe2eebabdc6b8f7a2716358756782afeed3f87131c0db8b5b",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "soap-25-dialog",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:17.338Z"
+    },
+    "desktop-light-products-sorted": {
+      "path": "../evidence/final/desktop-light-products-sorted.png",
+      "sha256": "91d44d7705c00de41e3697140035fcccdb3fdde3ccedf012453ce88e3c1275a4",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "products-sorted",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:17.789Z"
+    },
+    "desktop-light-dialog-keyboard-return": {
+      "path": "../evidence/final/desktop-light-dialog-keyboard-return.png",
+      "sha256": "efaecbfc6cfddbbc72edced1322679219b5ad411ada64aaa6b10b195977a89b6",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "dialog-keyboard-return",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:18.152Z"
+    },
+    "desktop-light-faq-keyboard-open": {
+      "path": "../evidence/final/desktop-light-faq-keyboard-open.png",
+      "sha256": "6923b4f2832d1656e61c1ff7d82a274706aa4cc799c5fe39bd9eb11a8e9cdeef",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "faq-keyboard-open",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:18.910Z"
+    },
+    "desktop-light-booking-invalid": {
+      "path": "../evidence/final/desktop-light-booking-invalid.png",
+      "sha256": "1b18349fef3600f2369bc693b6fcb883e8dd0ff8ebd1fe9c48117f332be34275",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-invalid",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:19.768Z"
+    },
+    "desktop-light-booking-ready-final": {
+      "path": "../evidence/final/desktop-light-booking-ready-final.png",
+      "sha256": "4fa4574759e9d2c41192664ff2ed06463b44d415c6491d893054bbd65f6ea27a",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-ready-final",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:20.124Z"
+    },
+    "desktop-light-booking-fallback": {
+      "path": "../evidence/final/desktop-light-booking-fallback.png",
+      "sha256": "e5f00a528f28ffd33a1647cf1d7718b55ddf91c82c01fbfd164ec832145f151e",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-fallback",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:20.570Z"
+    },
+    "desktop-light-map-fallback": {
+      "path": "../evidence/final/desktop-light-map-fallback.png",
+      "sha256": "e03944dcd662c9ab5cf295df7346ac5eb1b23f2b3d7d10f91c2e34e40352b4ae",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "map-fallback",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:20.790Z"
+    },
+    "desktop-light-film-paused": {
+      "path": "../evidence/final/desktop-light-film-paused.png",
+      "sha256": "bb8cdcc1b4d8b394757481747fa691553afd77b25dbf6144204b8f666e6411ff",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "film-paused",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:23.360Z"
+    },
+    "desktop-light-film-fallback": {
+      "path": "../evidence/final/desktop-light-film-fallback.png",
+      "sha256": "c0f642cc102cab3b2112660ad034f245b146c42ca45baa06bd69dbcf3fc8eee7",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "film-fallback",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-17T07:38:26.658Z"
+    },
+    "mobile-light-film-still": {
+      "path": "../evidence/final/mobile-light-film-still.png",
+      "sha256": "bce5deeb270ecc2ad93d9fb5a16b7dc2812318e93886692ecf922ddc327c65d8",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "film-still-reduced-motion",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:28.508Z"
+    },
+    "mobile-light-menu-open": {
+      "path": "../evidence/final/mobile-light-menu-open.png",
+      "sha256": "7952a02987d2f74a10037f59980c865aa4faa23150d8b71a04caf665e7246e60",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-menu-open",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:28.770Z"
+    },
+    "mobile-light-soap-dialog": {
+      "path": "../evidence/final/mobile-light-soap-dialog.png",
+      "sha256": "66c940eb1449e6a900047ea439db811ccd43d4e08970b1ad5007a5b85bbd0777",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "mobile-soap-dialog",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:29.725Z"
+    },
+    "mobile-theme-persisted-information": {
+      "path": "../evidence/final/mobile-theme-persisted-information.png",
+      "sha256": "112e2febd6bff3e7cbd7d1d6fce10d94bbbe9dedfe1e3f8775fcd1582fd0a305",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "theme-persisted-information",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-17T07:38:31.368Z"
+    },
+    "browser-log": {
+      "path": "../evidence/final/browser-log.json",
+      "sha256": "fc96e3a2291737f9e67d9880ced60d8069cbe5bfc7aee1f5a1acc3d741139cfe",
+      "kind": "browser_log"
+    }
+  },
+  "criteria": {
+    "C1": "PASS",
+    "C2": "PASS",
+    "C3": "PASS",
+    "C4": "PASS",
+    "C5": "PASS",
+    "C6": "PASS",
+    "C7": "PASS",
+    "C8": "PASS",
+    "C9": "PASS"
+  },
+  "gates": {
+    "coverage": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-light-home-full",
+        "desktop-light-treatments-full",
+        "desktop-light-products-full",
+        "desktop-light-information-full",
+        "browser-log"
+      ]
+    },
+    "composition": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-light-home-full",
+        "mobile-light-home-full",
+        "desktop-dark-home-full",
+        "mobile-dark-home-full",
+        "browser-log"
+      ]
+    },
+    "behaviour": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-light-soaps",
+        "desktop-light-products-sorted",
+        "desktop-light-dialog-keyboard-return",
+        "desktop-light-faq-keyboard-open",
+        "desktop-light-booking-invalid",
+        "desktop-light-booking-fallback",
+        "mobile-light-menu-open",
+        "mobile-light-soap-dialog",
+        "browser-log"
+      ]
+    },
+    "evidence": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-light-home-full",
+        "desktop-light-treatments-full",
+        "desktop-light-products-full",
+        "desktop-light-information-full",
+        "mobile-light-home-full",
+        "mobile-light-treatments-full",
+        "mobile-light-products-full",
+        "mobile-light-information-full",
+        "desktop-dark-home-full",
+        "desktop-dark-treatments-full",
+        "desktop-dark-products-full",
+        "desktop-dark-information-full",
+        "mobile-dark-home-full",
+        "mobile-dark-treatments-full",
+        "mobile-dark-products-full",
+        "mobile-dark-information-full",
+        "desktop-light-soaps",
+        "desktop-light-soap-24-dialog",
+        "desktop-light-soap-25-dialog",
+        "desktop-light-products-sorted",
+        "desktop-light-dialog-keyboard-return",
+        "desktop-light-faq-keyboard-open",
+        "desktop-light-booking-invalid",
+        "desktop-light-booking-ready-final",
+        "desktop-light-booking-fallback",
+        "desktop-light-map-fallback",
+        "desktop-light-film-paused",
+        "desktop-light-film-fallback",
+        "mobile-light-film-still",
+        "mobile-light-menu-open",
+        "mobile-light-soap-dialog",
+        "mobile-theme-persisted-information",
+        "browser-log"
+      ]
+    },
+    "independence": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-light-home-full",
+        "mobile-dark-products-full",
+        "browser-log"
+      ]
+    },
+    "repair_loop": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-light-soaps",
+        "desktop-light-soap-24-dialog",
+        "desktop-light-soap-25-dialog",
+        "desktop-light-booking-ready-final",
+        "desktop-light-booking-fallback",
+        "browser-log"
+      ]
+    },
+    "completion": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-light-home-full",
+        "desktop-light-treatments-full",
+        "desktop-light-products-full",
+        "desktop-light-information-full",
+        "mobile-light-home-full",
+        "mobile-light-treatments-full",
+        "mobile-light-products-full",
+        "mobile-light-information-full",
+        "desktop-dark-home-full",
+        "desktop-dark-treatments-full",
+        "desktop-dark-products-full",
+        "desktop-dark-information-full",
+        "mobile-dark-home-full",
+        "mobile-dark-treatments-full",
+        "mobile-dark-products-full",
+        "mobile-dark-information-full",
+        "desktop-light-soaps",
+        "desktop-light-soap-24-dialog",
+        "desktop-light-soap-25-dialog",
+        "desktop-light-products-sorted",
+        "desktop-light-dialog-keyboard-return",
+        "desktop-light-faq-keyboard-open",
+        "desktop-light-booking-invalid",
+        "desktop-light-booking-ready-final",
+        "desktop-light-booking-fallback",
+        "desktop-light-map-fallback",
+        "desktop-light-film-paused",
+        "desktop-light-film-fallback",
+        "mobile-light-film-still",
+        "mobile-light-menu-open",
+        "mobile-light-soap-dialog",
+        "mobile-theme-persisted-information",
+        "browser-log"
+      ]
+    }
+  },
+  "score": 100,
+  "verdict": "PASS",
+  "unresolved": [],
+  "unverified": []
+}
