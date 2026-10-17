@@ -103,9 +103,10 @@ async function createMannequin(section, onHotspot) {
   const body = new THREE.Group();
   scene.add(body);
   const skin = new THREE.MeshPhysicalMaterial({
-    color: 0x93bba7, metalness: .06, roughness: .58,
-    clearcoat: .35, clearcoatRoughness: .4,
-    emissive: 0x5f9d7b, emissiveIntensity: .22
+    color: 0x91a995, metalness: .04, roughness: .55,
+    clearcoat: .3, clearcoatRoughness: .43,
+    emissive: 0x719d7e, emissiveIntensity: .11,
+    transparent: true, opacity: .56, depthWrite: false, side: THREE.DoubleSide
   });
   // A single implicit surface blends torso, limbs and head into one clinical silhouette.
   const ellipsoid = (x,y,z,cx,cy,cz,sx,sy,sz) => (Math.hypot((x-cx)/sx,(y-cy)/sy,(z-cz)/sz)-1)*Math.min(sx,sy,sz);
@@ -198,8 +199,8 @@ async function createMannequin(section, onHotspot) {
         float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0,0.0,1.0))), 2.1);
         float scan = pow(max(0.0, sin(vPosition.y * 47.0)), 18.0) * (0.035 + uDetail * 0.06);
         float axial = exp(-pow(vPosition.x * 12.0, 2.0)) * step(-1.6, vPosition.y) * step(vPosition.y, 1.45) * 0.055;
-        float alpha = min(0.38, edge * 0.26 + scan + axial);
-        gl_FragColor = vec4(0.58, 0.94, 0.72, alpha);
+        float alpha = min(0.62, edge * 0.49 + scan * 1.6 + axial * 2.0);
+        gl_FragColor = vec4(0.71, 1.0, 0.76, alpha);
       }`
   });
   body.add(new THREE.Mesh(bodyGeometry, clinicalLayer));
@@ -215,8 +216,10 @@ async function createMannequin(section, onHotspot) {
   function contour(points,side,opacity) {
     const vertices=points.map(([x,y])=>new THREE.Vector3(x,y,surfaceZ(x,y,side)));
     const geometry=new THREE.BufferGeometry().setFromPoints(vertices);
-    const material=new THREE.LineBasicMaterial({color:0xd1f1ce,transparent:true,opacity,depthWrite:false});
-    body.add(new THREE.Line(geometry,material));
+    const material=new THREE.LineBasicMaterial({color:0xd9ffd6,transparent:true,opacity:Math.min(1,opacity*1.75),depthWrite:false,depthTest:false});
+    const line = new THREE.Line(geometry,material);
+    body.add(line);
+    return line;
   }
   contour([[-.41,1.32],[-.3,1.37],[-.17,1.32],[0,1.26],[.17,1.32],[.3,1.37],[.41,1.32]],1,.51);
   contour(Array.from({length:20},(_,i)=>[0,1.31-i*.105]),1,.22);
@@ -231,6 +234,18 @@ async function createMannequin(section, onHotspot) {
     }
     contour(Array.from({length:17},(_,i)=>[side*(.09+i*.018),-.05-i*.046]),1,.19);
     contour(Array.from({length:21},(_,i)=>[side*(.25+i*.003),-.39-i*.075]),1,.16);
+  }
+  const zoomDetails = [];
+  for (const side of [-1,1]) {
+    for (const y of [1.05,.84,.63,.42,.21]) {
+      const upperBack = contour(Array.from({length:15},(_,i)=>[side*(.09+i*.022),y-.055*Math.sin(i/14*Math.PI)]),-1,0);
+      zoomDetails.push(upperBack);
+    }
+    for (const y of [.41,.27,.13,-.01]) {
+      const lowerBack = contour(Array.from({length:14},(_,i)=>[side*(.06+i*.022),y-.045*Math.sin(i/13*Math.PI)]),-1,0);
+      zoomDetails.push(lowerBack);
+    }
+    zoomDetails.push(contour(Array.from({length:20},(_,i)=>[side*(.1+i*.016),1.32-.12*Math.sin(i/19*Math.PI)]),1,0));
   }
   const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x9ac59f, transparent: true, opacity: .22, depthWrite: false });
   for (const radius of [1.0, 1.35]) {
@@ -279,6 +294,7 @@ async function createMannequin(section, onHotspot) {
     latestProgress = progress;
     latestRegion = region;
     clinicalLayer.uniforms.uDetail.value = Math.max(0, (zoom - 1) / .15);
+    zoomDetails.forEach(line => { line.material.opacity = clinicalLayer.uniforms.uDetail.value * .62; });
     const turning = ease(.22, .49, progress);
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);

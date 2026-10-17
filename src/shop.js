@@ -9,11 +9,14 @@ const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character =>
 const money = value => `R${value.toLocaleString('en-ZA')}`;
 const bagKey = 'casa-hijama-bag';
 const heroProduct = products.find(product => product.id === 23);
-const collectionChapters = {
-  6: { number: '02', title: 'Rooted in the everyday.', copy: 'Explore the botanicals and pantry staples in the Casa collection, one product at a time.', product: products.find(product => product.id === 8), action: 'Explore Organic Moringa', tone: 'botanical' },
-  15: { number: '03', title: 'A moment for yourself.', copy: 'Make space for a care ritual with the skin and oil collection.', product: products.find(product => product.id === 17), action: 'Explore Healing Moisturizer', tone: 'care' },
-  24: { number: '04', title: 'Carry the ritual home.', copy: 'Discover soaps, ZamZam water and practical essentials for your own routine.', product: products.find(product => product.id === 27), action: 'Explore ZamZam Water', tone: 'essentials' },
-};
+const showroomBands = [
+  { title: 'Begin with botanicals.', copy: 'Explore the first six formulas in the Casa edit.', ids: [3, 1, 2, 4, 5, 6], tone: 'sage' },
+  { title: 'Leaves, roots & seeds.', copy: 'A closer look at familiar ingredients from the collection.', ids: [8, 7, 9, 10, 11], tone: 'ivory' },
+  { title: 'The pantry shelf.', copy: 'Everyday staples and capsules, gathered in one place.', ids: [14, 12, 13, 15, 29], tone: 'stone' },
+  { title: 'For a care ritual.', copy: 'Skin care and oils for moments set aside for yourself.', ids: [23, 16, 17, 18, 22], tone: 'mint' },
+  { title: 'Focused formulas.', copy: 'View the tablet range and ask our team about ingredients and suitability.', ids: [20, 19, 21], tone: 'ivory' },
+  { title: 'Simple essentials.', copy: 'Soaps, ZamZam water and cupping equipment to explore.', ids: [27, 24, 25, 26, 28, 30], tone: 'sage' },
+];
 // Original catalog art is a mix of photos and vendor flyers. These crop windows
 // show the photographed item instead of embedding each full promotional flyer.
 function productStage(product, className = '', loading = 'lazy') {
@@ -63,13 +66,18 @@ export function initShop() {
     if (sort === 'az') matching.sort((a, b) => a.name.localeCompare(b.name));
     return matching;
   };
-  const card = product => `<article class="product-card" style="--shop-index:${Math.min(7, products.indexOf(product))}"><div class="shop-card-stage"><button type="button" class="product-open" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${productStage(product)}</button><span class="shop-card-pill">CASA EDIT</span><button type="button" class="shop-card-add" data-shop-add="${product.id}" aria-label="Add ${escapeHtml(product.name)} to enquiry bag">Add to enquiry bag <span aria-hidden="true">+</span></button></div><div class="shop-card-info"><span class="product-category">${labels[product.cat]}</span><h3><button type="button" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${escapeHtml(product.name)}</button></h3><p>${escapeHtml(product.desc)}</p><div class="product-footer"><strong>${escapeHtml(product.priceLabel)}</strong><span aria-hidden="true">↗</span></div></div></article>`;
-  const chapter = ({ number, title, copy, product, action, tone }) => `<aside class="shop-collection-chapter shop-collection-chapter--${tone}" aria-label="Collection edit ${number}"><div class="shop-chapter-copy"><span class="eyebrow">THE CASA EDIT / ${number}</span><h3>${title}</h3><p>${copy}</p><button type="button" class="shop-chapter-link" data-shop-open="${product.id}">${action} <span aria-hidden="true">↗</span></button></div><button type="button" class="shop-chapter-product" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${productStage(product, 'shop-chapter-stage', 'eager')}<span class="shop-chapter-label">${escapeHtml(product.name)} · ${escapeHtml(product.priceLabel)}</span></button></aside>`;
+  const card = (product, featured = false) => `<article class="product-card${featured ? ' shop-feature-card' : ''}" style="--shop-index:${Math.min(7, products.indexOf(product))}"><div class="shop-card-stage"><button type="button" class="product-open" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${productStage(product, '', featured ? 'eager' : 'lazy')}</button><span class="shop-card-pill">${featured ? 'IN FOCUS' : 'CASA EDIT'}</span><button type="button" class="shop-card-add" data-shop-add="${product.id}" aria-label="Add ${escapeHtml(product.name)} to enquiry bag">Add to enquiry bag <span aria-hidden="true">+</span></button></div><div class="shop-card-info"><span class="product-category">${labels[product.cat]}</span><h3><button type="button" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${escapeHtml(product.name)}</button></h3><p>${escapeHtml(product.desc)}</p><div class="product-footer"><strong>${escapeHtml(product.priceLabel)}</strong><span aria-hidden="true">↗</span></div></div></article>`;
+  const showroom = () => showroomBands.map((band, index) => {
+    const [featuredId, ...otherIds] = band.ids;
+    const featured = products.find(product => product.id === featuredId);
+    const others = otherIds.map(id => products.find(product => product.id === id));
+    return `<section class="shop-showroom-band shop-showroom-band--${band.tone}" aria-labelledby="shop-band-title-${index}"><div class="shop-band-heading"><div><span class="eyebrow">THE CASA COLLECTION / ${String(index + 1).padStart(2, '0')}</span><h3 id="shop-band-title-${index}">${band.title}</h3><p>${band.copy}</p></div><span class="shop-band-count">${band.ids.length} PRODUCTS</span></div><div class="shop-band-layout">${card(featured, true)}<div class="shop-band-shelf"><div class="shop-band-shelf-head"><span>MORE TO EXPLORE</span><div class="shop-band-arrows"><button type="button" data-shop-scroll="prev" aria-label="Scroll ${band.title} products left">←</button><button type="button" data-shop-scroll="next" aria-label="Scroll ${band.title} products right">→</button></div></div><div class="shop-band-rail" tabindex="0" role="region" aria-label="${band.title} more products">${others.map(product => card(product)).join('')}</div></div></div></section>`;
+  }).join('');
   const renderProducts = () => {
     const matching = filterProducts();
     const curated = category === 'all' && !search.value.trim() && sort === 'default';
-    grid.classList.toggle('has-chapters', curated);
-    grid.innerHTML = matching.map((product, index) => card(product) + (curated && collectionChapters[index + 1] ? chapter(collectionChapters[index + 1]) : '')).join('');
+    grid.classList.toggle('has-showroom', curated);
+    grid.innerHTML = curated ? showroom() : matching.map(product => card(product)).join('');
     document.querySelector('.result-count').textContent = `${matching.length} ${matching.length === 1 ? 'product' : 'products'} ${search.value.trim() || category !== 'all' ? 'found' : 'in the collection'}`;
     document.querySelector('.shop-empty').hidden = matching.length !== 0;
     document.querySelector('.shop-clear').hidden = !search.value.trim() && category === 'all';
@@ -137,6 +145,8 @@ export function initShop() {
   document.querySelector('.shop-reset').addEventListener('click', reset);
   document.addEventListener('keydown', event => { if (event.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) && !productDialog.open && !bagDialog.open) { event.preventDefault(); search.focus(); } });
   document.querySelector('.shop-page').addEventListener('click', event => {
+    const scrollButton = event.target.closest('[data-shop-scroll]');
+    if (scrollButton) { const rail = scrollButton.closest('.shop-band-shelf').querySelector('.shop-band-rail'); rail.scrollBy({ left: (scrollButton.dataset.shopScroll === 'next' ? 1 : -1) * Math.max(rail.clientWidth * .75, 220), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); return; }
     const addButton = event.target.closest('[data-shop-add]');
     if (addButton) { add(addButton.dataset.shopAdd); return; }
     const openButton = event.target.closest('[data-shop-open]');

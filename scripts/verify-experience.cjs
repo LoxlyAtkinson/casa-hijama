@@ -219,7 +219,7 @@ async function open(context, route, viewport) {
     await mediaFallback.locator('.film-section').scrollIntoViewIfNeeded();
     await mediaFallback.waitForTimeout(700);
     const failedState = await mediaFallback.locator('#studio-film').evaluate(v => ({ loaded: v.classList.contains('sc-has-clip'), fallback: getComputedStyle(document.querySelector('.film-fallback')).display }));
-    assert(!failedState.loaded && failedState.fallback !== 'none', 'Video failure did not retain still');
+    assert(!failedState.loaded && failedState.fallback !== 'none' && await mediaFallback.locator('.film-control').isHidden(), 'Video failure did not retain still or hide inactive motion control');
     await record(mediaFallback, 'desktop-light-film-fallback', '/', 'film-fallback', 'Blocked studio film network request', 'Still image and booking action remain visible', JSON.stringify(failedState));
     await mediaFallback.close();
     await failedMedia.close();
