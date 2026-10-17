@@ -245,3 +245,12 @@
   .shop-card-info h3{min-height:2.5em}
   .shop-card-info p{display:block;-webkit-line-clamp:unset;overflow:visible;min-height:0;line-height:1.5}
 }
+
+/* Expand each original product crop within its stage. Bottle silhouettes
+   remove the visible square corners of the vendor photographs. */
+.shop-product-cutout{width:min(91%,calc(98% * var(--crop-aspect)))}
+.shop-product-dialog .shop-detail-stage .shop-product-cutout{width:min(94%,calc(122% * var(--crop-aspect)))}
+.shop-product-stage:is([data-product-id="1"],[data-product-id="2"],[data-product-id="3"],[data-product-id="4"],[data-product-id="5"],[data-product-id="6"],[data-product-id="7"],[data-product-id="8"],[data-product-id="9"],[data-product-id="10"],[data-product-id="11"],[data-product-id="12"],[data-product-id="13"],[data-product-id="15"],[data-product-id="19"],[data-product-id="20"],[data-product-id="21"],[data-product-id="22"],[data-product-id="28"]) .shop-product-cutout{clip-path:polygon(12% 0,88% 0,88% 14%,95% 21%,100% 31%,100% 91%,94% 100%,6% 100%,0 91%,0 31%,5% 21%,12% 14%)}
+.shop-product-cutout{mix-blend-mode:multiply}
+.shop-product-stage .shop-product-cutout img,.shop-spotlight .shop-spotlight-stage .shop-product-cutout img,.shop-product-dialog .shop-detail-stage .shop-product-cutout img{mix-blend-mode:normal!important}
+.shop-product-dialog .shop-detail-stage[data-product-id="23"] .shop-product-cutout{width:min(89%,calc(94% * var(--crop-aspect)))}

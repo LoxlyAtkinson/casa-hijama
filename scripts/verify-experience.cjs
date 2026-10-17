@@ -163,6 +163,11 @@ async function open(context, route, viewport) {
     const bodyArea = media.locator('.bj-scroll');
     await bodyArea.scrollIntoViewIfNeeded();
     assert(await media.locator('.bj--webgl canvas').count() === 1, 'Continuous 3D body canvas did not render');
+    await media.locator('.bj-zoom-controls button[data-zoom="in"]').click();
+    assert((await media.locator('.bj-zoom-level').innerText()) === '115%', 'Body zoom control did not change level');
+    await record(media, 'desktop-light-body-zoom', '/', 'body-zoom', 'Zoomed the rendered clinical body', 'Camera moves closer and zoom level displays 115%', 'Continuous WebGL canvas; zoom level 115%');
+    await media.locator('.bj-zoom-controls button[data-zoom="reset"]').click();
+    assert((await media.locator('.bj-zoom-level').innerText()) === '100%', 'Body zoom reset failed');
     const regionButtons = media.locator('.bj-region-button');
     for (const [index, name] of ['neck-shoulders', 'upper-back', 'lower-back'].entries()) {
       await regionButtons.nth(index).click();
@@ -185,19 +190,24 @@ async function open(context, route, viewport) {
     await media.waitForFunction(() => document.querySelector('.bj')?.dataset.region === '0');
     await record(media, 'desktop-light-body-reverse', '/', 'body-reverse', 'Returned from lower back to neck and shoulders', 'Earlier guidance restored on reverse scroll', (await media.locator('.bj-panel.is-active').textContent()).trim());
     await media.locator('.bj-dialog-close').click();
-    const filmPosition = await media.locator('.film-section').evaluate(el => ({ top: el.offsetTop, height: el.offsetHeight }));
-    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .32);
+    const filmPosition = await media.locator('.film-section').evaluate(el => ({ top: el.getBoundingClientRect().top + scrollY, height: el.getBoundingClientRect().height }));
+    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .2);
     await media.locator('#studio-film.sc-has-clip').waitFor({ timeout: 15000 });
-    await media.waitForTimeout(900);
+    await media.waitForTimeout(1200);
     const filmEarly = await media.locator('#studio-film').evaluate(v => v.currentTime);
-    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .68);
-    await media.waitForTimeout(1000);
+    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .8);
+    await media.waitForFunction(t => document.querySelector('#studio-film').currentTime > t + .3, filmEarly, { timeout: 10000 });
     const filmLate = await media.locator('#studio-film').evaluate(v => v.currentTime);
-    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .32);
-    await media.waitForTimeout(1000);
+    await media.evaluate(y => scrollTo(0, y), filmPosition.top + filmPosition.height * .2);
+    await media.waitForFunction(t => document.querySelector('#studio-film').currentTime < t - .3, filmLate, { timeout: 10000 });
     const filmReverse = await media.locator('#studio-film').evaluate(v => v.currentTime);
+    console.log(`Film timing: ${filmEarly.toFixed(2)} → ${filmLate.toFixed(2)} → ${filmReverse.toFixed(2)}`);
     assert(filmLate > filmEarly + .2 && filmReverse < filmLate - .2, 'Film did not scrub forward and reverse with scroll');
     await record(media, 'desktop-light-film-scrub', '/', 'film-scrub', 'Scrolled Higgsfield room film forward and back', 'Visible frames advance and reverse with page scroll', `Seconds ${filmEarly.toFixed(2)} → ${filmLate.toFixed(2)} → ${filmReverse.toFixed(2)}`);
+    await media.locator('.film-control').click();
+    assert((await media.locator('.film-control').getAttribute('aria-pressed')) === 'true' && await media.locator('.film-freeze').isVisible(), 'Film pause frame missing');
+    await record(media, 'desktop-light-film-paused', '/', 'film-paused', 'Paused scroll film at current frame', 'Held frame and resume control remain visible', 'Paused frame visible; Play motion control');
+    await media.locator('.film-control').click();
     await media.close();
     await normal.close();
 
@@ -255,7 +265,8 @@ async function open(context, route, viewport) {
     const noScriptPage = await noScript.newPage();
     await noScriptPage.goto(base + '/products');
     assert(await noScriptPage.locator('noscript a[href^="https://wa.me/"]').isVisible(), 'No-JavaScript contact recovery missing');
-    await record(noScriptPage, 'mobile-shop-no-javascript', '/products', 'no-javascript', 'Opened products with JavaScript disabled', 'Casa contact and WhatsApp recovery remain visible', 'No-JavaScript fallback visible');
+    assert(await noScriptPage.locator('.nojs-list li').count() === 30, 'No-JavaScript product catalog incomplete');
+    await record(noScriptPage, 'mobile-shop-no-javascript', '/products', 'no-javascript', 'Opened products with JavaScript disabled', 'All 30 product names/prices and WhatsApp enquiry remain available', '30 static products and WhatsApp link visible');
     await noScript.close();
 
     fs.writeFileSync(path.join(out, 'browser-log.json'), JSON.stringify(observations, null, 2));

@@ -252,9 +252,12 @@ async function createMannequin(section, onHotspot) {
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
     body.rotation.y = Math.PI * turning;
-    const framingDistance = host.clientWidth < 300 ? 12.6 : 11;
-    camera.position.set(0, -.08 * upper - .12 * lower, (framingDistance - .45 * upper + .05 * lower) / zoom);
-    camera.lookAt(0, -.08 * upper - .12 * lower, 0);
+    const mobileFrame = host.clientWidth < 330;
+    const framingDistance = mobileFrame ? 11.2 : 11;
+    const verticalFocus = -.08 * upper - .12 * lower - (mobileFrame ? .14 : 0);
+    body.scale.x = mobileFrame ? 1.13 : 1;
+    camera.position.set(0, verticalFocus, (framingDistance - .45 * upper + .05 * lower) / zoom);
+    camera.lookAt(0, verticalFocus, 0);
     const visibleSide = progress < .38 ? 'front' : 'back';
     markerGroups.forEach((group, i) => {
       group.visible = regions[i].side === visibleSide;
