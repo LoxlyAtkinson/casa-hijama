@@ -1,0 +1,230 @@
+[
+  {
+    "size": "desktop",
+    "state": "front",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "metrics": {
+      "header": {
+        "text": "Book a session ↗",
+        "box": {
+          "left": 1240.65625,
+          "right": 1382.390625
+        },
+        "content": {
+          "left": 1257.65625,
+          "right": 1365.390625
+        },
+        "scrollWidth": 142,
+        "clientWidth": 142
+      },
+      "body": {
+        "text": "Explore this area ↗",
+        "box": {
+          "left": 999.46875,
+          "right": 1148.28125
+        },
+        "content": {
+          "left": 1017.46875,
+          "right": 1130.28125
+        },
+        "scrollWidth": 147,
+        "clientWidth": 147
+      },
+      "documentWidth": 1440
+    },
+    "result": "PASS"
+  },
+  {
+    "size": "desktop",
+    "state": "neck-zoom",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "metrics": {
+      "header": {
+        "text": "Book a session ↗",
+        "box": {
+          "left": 1240.65625,
+          "right": 1382.390625
+        },
+        "content": {
+          "left": 1257.65625,
+          "right": 1365.390625
+        },
+        "scrollWidth": 142,
+        "clientWidth": 142
+      },
+      "body": {
+        "text": "Explore this area ↗",
+        "box": {
+          "left": 999.46875,
+          "right": 1148.28125
+        },
+        "content": {
+          "left": 1017.46875,
+          "right": 1130.28125
+        },
+        "scrollWidth": 147,
+        "clientWidth": 147
+      },
+      "documentWidth": 1440
+    },
+    "result": "PASS"
+  },
+  {
+    "size": "desktop",
+    "state": "lower-zoom",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "metrics": {
+      "header": {
+        "text": "Book a session ↗",
+        "box": {
+          "left": 1240.65625,
+          "right": 1382.390625
+        },
+        "content": {
+          "left": 1257.65625,
+          "right": 1365.390625
+        },
+        "scrollWidth": 142,
+        "clientWidth": 142
+      },
+      "body": {
+        "text": "Explore this area ↗",
+        "box": {
+          "left": 999.46875,
+          "right": 1148.28125
+        },
+        "content": {
+          "left": 1017.46875,
+          "right": 1130.28125
+        },
+        "scrollWidth": 147,
+        "clientWidth": 147
+      },
+      "documentWidth": 1440
+    },
+    "result": "PASS"
+  },
+  {
+    "size": "mobile",
+    "state": "front",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "metrics": {
+      "header": {
+        "text": "Book a session ↗",
+        "box": {
+          "left": 0,
+          "right": 0
+        },
+        "content": {
+          "left": 0,
+          "right": 0
+        },
+        "scrollWidth": 0,
+        "clientWidth": 0
+      },
+      "body": {
+        "text": "Explore this area ↗",
+        "box": {
+          "left": 20,
+          "right": 158.8125
+        },
+        "content": {
+          "left": 33,
+          "right": 145.8125
+        },
+        "scrollWidth": 137,
+        "clientWidth": 137
+      },
+      "documentWidth": 390
+    },
+    "result": "PASS"
+  },
+  {
+    "size": "mobile",
+    "state": "neck-zoom",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "metrics": {
+      "header": {
+        "text": "Book a session ↗",
+        "box": {
+          "left": 0,
+          "right": 0
+        },
+        "content": {
+          "left": 0,
+          "right": 0
+        },
+        "scrollWidth": 0,
+        "clientWidth": 0
+      },
+      "body": {
+        "text": "Explore this area ↗",
+        "box": {
+          "left": 20,
+          "right": 158.8125
+        },
+        "content": {
+          "left": 33,
+          "right": 145.8125
+        },
+        "scrollWidth": 137,
+        "clientWidth": 137
+      },
+      "documentWidth": 390
+    },
+    "result": "PASS"
+  },
+  {
+    "size": "mobile",
+    "state": "lower-zoom",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "metrics": {
+      "header": {
+        "text": "Book a session ↗",
+        "box": {
+          "left": 0,
+          "right": 0
+        },
+        "content": {
+          "left": 0,
+          "right": 0
+        },
+        "scrollWidth": 0,
+        "clientWidth": 0
+      },
+      "body": {
+        "text": "Explore this area ↗",
+        "box": {
+          "left": 20,
+          "right": 158.8125
+        },
+        "content": {
+          "left": 33,
+          "right": 145.8125
+        },
+        "scrollWidth": 137,
+        "clientWidth": 137
+      },
+      "documentWidth": 390
+    },
+    "result": "PASS"
+  }
+]
