@@ -164,6 +164,7 @@
 .bj-drag-hint{color:#94bdc3;font-size:.61rem;font-weight:700;letter-spacing:.06em;text-transform:none}
 .bj--webgl .bj-webgl-host canvas{cursor:grab;touch-action:pan-y}
 .bj--webgl.bj--zoomed .bj-webgl-host canvas{-webkit-mask-image:radial-gradient(ellipse 67% 57% at 50% 50%,#000 45%,transparent 100%);mask-image:radial-gradient(ellipse 67% 57% at 50% 50%,#000 45%,transparent 100%)}
+.bj--webgl.bj--zoomed .bj-webgl-host{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent)}
 .bj-figure{opacity:1;transition:opacity .65s ease}
 .bj-webgl-host canvas{opacity:0;transition:opacity .65s ease}
 .bj--webgl .bj-figure{opacity:0;visibility:hidden;transition:opacity .65s ease,visibility 0s .65s}
@@ -173,3 +174,22 @@
 .bj-3d-tags span{font-size:.62rem;letter-spacing:.075em;color:#c7ebef}
 .bj-3d-tags span.is-active{color:#ffd1dc}
 @media(max-width:680px){.bj-3d-tags span{font-size:.57rem;letter-spacing:.035em}.bj-region-button{font-size:.64rem}.bj-region-button:not(.is-active){color:#b7d8d3}}
+/* Keep the named, clickable alternative readable at a 390px viewport. */
+@media(max-width:680px){
+  .bj-3d-tags span{font-size:.68rem;letter-spacing:0;text-shadow:0 1px 8px #041219,0 0 3px #041219}
+  .bj-region-controls{gap:0}
+  .bj-region-button{font-size:.69rem;gap:3px;min-height:38px;padding:7px 1px}
+  .bj-region-button:not(.is-active){color:#d0e8e6}
+  .bj-button-index{font-size:.64rem}
+  .bj-view-label,.bj-zoom-controls>span,.bj-zoom-level{font-size:.64rem}
+  .bj-panel p{font-size:.78rem;line-height:1.42}
+  .bj-intro p{font-size:.78rem;line-height:1.48}
+  .bj-checkin-trigger,.bj--ready .bj-checkin-trigger{font-size:.72rem;min-height:42px}
+  .bj-visual-wrap{margin:-15px auto -20px}
+}
+@media(max-width:680px) and (prefers-reduced-motion:reduce){.bj-visual-wrap{margin:0 auto 20px}}
+@media(max-width:680px) and (max-height:860px){
+  .bj-visual-wrap{width:min(64vw,250px)}
+  .bj-panels,.bj--enhanced .bj-panels{height:138px}
+}
+@media(max-width:680px) and (prefers-reduced-motion:reduce){.bj-panels,.bj--enhanced .bj-panels{height:auto}}

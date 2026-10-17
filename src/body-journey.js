@@ -86,10 +86,7 @@ async function createMannequin(section, onHotspot, onOrbit) {
   }
   // The companion sacrum shares the exterior's coordinate system. A failed
   // detail fetch must never prevent the main figure or its controls loading.
-  let pelvis;
-  try {
-    pelvis = await new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}assets/body-hubmap-pelvis.glb`);
-  } catch { /* Exterior remains the complete fallback. */ }
+  const pelvis = await new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}assets/body-hubmap-pelvis.glb`).catch(() => null);
   const host = section.querySelector('.bj-webgl-host');
   let renderer;
   try {
@@ -119,7 +116,7 @@ async function createMannequin(section, onHotspot, onOrbit) {
   scene.add(body);
   const skin = new THREE.ShaderMaterial({
     uniforms: { uRegion: { value: new THREE.Vector3(.42,1.29,.28) }, uFocus: { value: 0 } },
-    transparent: true, depthWrite: true, side: THREE.FrontSide,
+    transparent: true, depthWrite: false, depthTest: true, side: THREE.FrontSide,
     vertexShader: `varying vec3 vNormal; varying vec3 vObjectNormal; varying vec3 vPosition; varying vec3 vEye;
       void main() { vNormal = normalize(normalMatrix * normal); vObjectNormal = normal; vPosition = position;
         vec4 view = modelViewMatrix * vec4(position, 1.0); vEye = normalize(-view.xyz);
@@ -128,29 +125,44 @@ async function createMannequin(section, onHotspot, onOrbit) {
       uniform vec3 uRegion; uniform float uFocus;
       void main() {
         float facing = abs(dot(normalize(vNormal), normalize(vEye)));
-        float rim = pow(1.0 - facing, 2.35);
+        float rim = pow(1.0 - facing, 1.45);
         float diffuse = max(0.0, dot(normalize(vNormal), normalize(vec3(-0.55,0.7,0.7))));
         float coolDepth = 0.46 + 0.54 * diffuse;
         float breath = 0.5 + 0.5 * sin(vPosition.y * 2.6 + vPosition.x * 4.0);
-        vec3 blue = mix(vec3(0.37,0.76,0.70), vec3(0.65,0.96,0.81), coolDepth);
-        blue += vec3(0.018,0.034,0.034) * breath;
-        vec3 colour = mix(blue, vec3(0.91,1.0,0.82), rim * 0.92);
+        vec3 blue = mix(vec3(0.20,0.77,0.94), vec3(0.45,0.97,1.0), coolDepth);
+        blue += vec3(0.012,0.025,0.035) * breath;
+        vec3 colour = mix(blue, vec3(0.85,1.0,1.0), rim * 0.94);
         // Fine scan contours follow the actual 3D surface through rotation.
         float alongX = pow(1.0 - abs(sin(vPosition.x * 12.0)), 44.0);
         float alongZ = pow(1.0 - abs(sin(vPosition.z * 12.0)), 44.0);
         float across = pow(1.0 - abs(sin(vPosition.y * 12.0)), 44.0);
         float grid = max(mix(alongX, alongZ, abs(vObjectNormal.x)), across);
         float gridMask = smoothstep(-1.5,-.95,vPosition.y) * (1.0 - smoothstep(1.55,1.76,vPosition.y));
-        colour = mix(colour, vec3(0.94,1.0,0.83), grid * gridMask * .42);
+        colour = mix(colour, vec3(0.78,1.0,1.0), grid * gridMask * .62);
+        // Fine, low-contrast cross sections and curved torso ribs suggest a
+        // luminous scan. All coordinates are local to the turning 3D surface.
+        float torso = smoothstep(.57,.72,vPosition.y) * (1.0 - smoothstep(1.42,1.57,vPosition.y));
+        float side = smoothstep(.02,.11,abs(vPosition.x)) * (1.0 - smoothstep(.37,.49,abs(vPosition.x)));
+        float faceMask = smoothstep(.13,.25,abs(vPosition.z));
+        float ribPhase = (vPosition.y + .12 * abs(vPosition.x) + .025 * sin(vPosition.x * 13.0)) * 39.0;
+        float ribs = pow(1.0 - abs(sin(ribPhase)), 36.0) * torso * side * faceMask;
+        float sternum = (1.0 - smoothstep(.008,.034,abs(vPosition.x)))
+          * smoothstep(.80,.96,vPosition.y) * (1.0 - smoothstep(1.39,1.52,vPosition.y))
+          * smoothstep(.15,.27,vPosition.z);
+        float fine = pow(1.0 - abs(sin(vPosition.y * 71.0)), 66.0)
+          * (1.0 - smoothstep(1.68,1.85,vPosition.y)) * .13;
+        float scanDetail = clamp(ribs * .32 + sternum * .20 + fine, 0.0, .42);
+        colour = mix(colour, vec3(.78,1.0,1.0), scanDetail);
         vec3 fromFocus = (vPosition - uRegion) / vec3(0.28,0.28,0.35);
         float warmth = exp(-dot(fromFocus,fromFocus) * 1.35);
-         colour = mix(colour, vec3(1.0,0.27,0.43), warmth * (0.22 + 0.32*uFocus));
+         colour = mix(colour, vec3(1.0,0.12,0.30), warmth * (0.60 + 0.26*uFocus));
          // A broad, feathered pelvic shadow keeps the scan comfortable at every angle.
          vec3 pelvic = (vPosition - vec3(0.0,-0.48,0.10)) / vec3(0.38,0.45,0.48);
          float veil = exp(-dot(pelvic,pelvic) * 1.25);
-         colour = mix(colour, vec3(0.19,0.52,0.49), veil * 0.76);
-         float alpha = 0.72 + 0.11 * diffuse + rim * 0.13 + warmth * 0.05;
-         gl_FragColor = vec4(colour, min(0.94, alpha));
+         colour = mix(colour, vec3(0.015,0.22,0.32), veil * 0.72);
+         float alpha = 0.53 + 0.16 * diffuse + rim * 0.30 + grid * gridMask * 0.10 + warmth * 0.12 + scanDetail * .12;
+         alpha *= 1.0 - veil * 0.40;
+         gl_FragColor = vec4(colour, min(0.93, alpha));
       }`
   });
   // HuBMAP v1.2 Visible Human male skin. Its original metre-scale Y-up mesh is
@@ -169,32 +181,32 @@ async function createMannequin(section, onHotspot, onOrbit) {
   const smooth = (a, b, x) => { const t = THREE.MathUtils.clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
   for (let i = 0; i < positions.count; i++) {
     const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i);
-    const center = 1 - smooth(.07, .16, Math.abs(x));
-    const vertical = smooth(-.78, -.66, y) * (1 - smooth(-.35, -.27, y));
+    const center = 1 - smooth(.08, .24, Math.abs(x));
+    const vertical = smooth(-1.07, -.87, y) * (1 - smooth(-.35, -.23, y));
     const flatten = center * vertical;
-    if (flatten > 0 && z > .22) positions.setZ(i, z - Math.max(0, z - .22) * flatten * .96);
+    if (flatten > 0 && z > .035) positions.setZ(i, THREE.MathUtils.lerp(z, .035, flatten * .97));
+    const face = smooth(1.70,1.85,y) * (1 - smooth(2.13,2.28,y)) * (1 - smooth(.13,.28,Math.abs(x)));
+    if (face > 0 && z > .13) positions.setZ(i, THREE.MathUtils.lerp(positions.getZ(i), .265, face * .84));
   }
   positions.needsUpdate = true;
   bodyGeometry.computeVertexNormals();
-  body.add(new THREE.Mesh(bodyGeometry, skin));
-  // A restrained edge pass gives the realistic source a synthetic scan reading.
-  const clinicalLayer = new THREE.ShaderMaterial({
-    uniforms: { uDetail: { value: 0 } },
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-    vertexShader: `varying vec3 vNormal; varying vec3 vPosition;
-      void main() { vNormal = normalize(normalMatrix * normal); vPosition = position;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position * 1.006, 1.0); }`,
-    fragmentShader: `varying vec3 vNormal; varying vec3 vPosition; uniform float uDetail;
-      void main() {
-        float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0,0.0,1.0))), 3.2);
-        float scan = pow(max(0.0, sin(vPosition.y * 48.0)), 48.0) * (0.003 + uDetail * 0.006);
-        float alpha = min(0.24, edge * 0.17 + scan);
-        gl_FragColor = vec4(0.29, 0.86, 1.0, alpha);
-      }`
-  });
-  body.add(new THREE.Mesh(bodyGeometry, clinicalLayer));
-  const contours = [];
-  const zoomDetails = [];
+  // A depth-only first pass leaves exactly the nearest surface for the cyan
+  // shader. Transparent far-side limbs cannot create jagged double images.
+  const depthSurface = new THREE.Mesh(bodyGeometry, new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: true, side: THREE.FrontSide }));
+  depthSurface.renderOrder = 0;
+  const scanSurface = new THREE.Mesh(bodyGeometry, skin);
+  scanSurface.renderOrder = 1;
+  const outlineSurface = new THREE.Mesh(bodyGeometry, new THREE.ShaderMaterial({
+    side: THREE.FrontSide, transparent: true, blending: THREE.AdditiveBlending,
+    depthWrite: false, depthTest: false, toneMapped: false,
+    vertexShader: `varying vec3 vNormal; varying vec3 vEye;
+      void main(){vNormal=normalize(normalMatrix*normal);vec4 view=modelViewMatrix*vec4(position,1.0);vEye=normalize(-view.xyz);gl_Position=projectionMatrix*view;}`,
+    fragmentShader: `varying vec3 vNormal; varying vec3 vEye;
+      void main(){float edge=pow(1.0-abs(dot(normalize(vNormal),normalize(vEye))),2.2);gl_FragColor=vec4(.58,.96,1.0,edge*.58);}`
+  }));
+  outlineSurface.scale.setScalar(1.009);
+  outlineSurface.renderOrder = 2;
+  body.add(depthSurface, scanSurface, outlineSurface);
   // Quiet depth cues, kept behind the real exterior and intentionally restrained.
   const anatomy = new THREE.Group();
   body.add(anatomy);
@@ -210,12 +222,15 @@ async function createMannequin(section, onHotspot, onOrbit) {
     regionalDetails.push({ material, region });
   }
   for (const side of [-1, 1]) {
-    anatomyCurve('front', 0, [[0,1.36,.25],[side*.15,1.40,.32],[side*.34,1.34,.34],[side*.48,1.20,.29]], .015);
-    anatomyCurve('front', 0, [[side*.48,1.33,.25],[side*.55,1.27,.26],[side*.55,1.14,.27],[side*.46,1.10,.29]], .012);
-    anatomyCurve('back', 1, [[side*.14,1.23,-.29],[side*.40,1.23,-.32],[side*.52,1.05,-.28],[side*.32,.72,-.27],[side*.14,1.23,-.29]], .01);
+    anatomyCurve('front', 0, [[side*.06,1.73,.17],[side*.11,1.60,.20],[side*.21,1.45,.27],[side*.35,1.34,.32]], .004);
+    anatomyCurve('front', 0, [[0,1.36,.25],[side*.15,1.40,.32],[side*.34,1.34,.34],[side*.48,1.20,.29]], .006);
+    anatomyCurve('front', 0, [[side*.03,1.31,.25],[side*.18,1.34,.30],[side*.34,1.28,.32],[side*.45,1.18,.28]], .004);
+    anatomyCurve('front', 0, [[side*.41,1.35,.27],[side*.50,1.28,.28],[side*.51,1.17,.26],[side*.46,1.10,.29]], .005);
+    anatomyCurve('back', 1, [[side*.14,1.23,-.29],[side*.40,1.23,-.32],[side*.52,1.05,-.28],[side*.32,.72,-.27],[side*.14,1.23,-.29]], .005);
     anatomyCurve('back', 1, [[side*.1,.49,-.27],[side*.20,.47,-.28],[side*.24,.39,-.26]], .006);
+    anatomyCurve('back', 2, [[side*.34,.57,-.27],[side*.27,.40,-.30],[side*.25,.19,-.31],[side*.32,.02,-.28]], .004);
   }
-  anatomyCurve('back', 2, [[0,.53,-.29],[.01,.36,-.32],[0,.19,-.33],[0,.03,-.33],[0,-.11,-.31]], .009);
+  anatomyCurve('back', 2, [[0,.53,-.29],[.01,.36,-.32],[0,.19,-.33],[0,.03,-.33],[0,-.11,-.31]], .004);
   if (pelvis) {
     pelvis.scene.updateMatrixWorld(true);
     let sacrum;
@@ -225,21 +240,22 @@ async function createMannequin(section, onHotspot, onOrbit) {
       geometry.applyMatrix4(sacrum.matrixWorld);
       geometry.scale(2.75, 2.75, 2.75);
       geometry.translate(0, -.23, 0);
-      const material = new THREE.MeshBasicMaterial({ color: 0x93e4f2, transparent: true, opacity: .06, depthWrite: false, depthTest: false, side: THREE.FrontSide });
+      const material = new THREE.MeshStandardMaterial({ color: 0x77cfe1, emissive: 0x123d52, metalness: .08, roughness: .42, transparent: true, opacity: .05, depthWrite: false, depthTest: false, side: THREE.FrontSide });
       const mesh = new THREE.Mesh(geometry, material);
       mesh.renderOrder = 4;
       anatomyViews.back.add(mesh);
-      regionalDetails.push({ material, region: 2 });
+      regionalDetails.push({ material, region: 2, sacrum: true });
     }
   }
   const innerLineMaterial = new THREE.LineBasicMaterial({
-    color: 0x88d8e9, transparent: true, opacity: .075, depthWrite: false, depthTest: false
+    color: 0x9ce6f2, transparent: true, opacity: .20, depthWrite: false, depthTest: false
   });
   function strand(view, points) {
     const path = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)));
     const line = new THREE.Line(
       new THREE.BufferGeometry().setFromPoints(path.getPoints(28)), innerLineMaterial
     );
+    line.renderOrder = 4;
     anatomyViews[view].add(line);
   }
   for (const [view, sign] of [['front', 1], ['back', -1]]) {
@@ -280,8 +296,8 @@ async function createMannequin(section, onHotspot, onOrbit) {
     glowCanvas.width = glowCanvas.height = 128;
     const glowContext = glowCanvas.getContext('2d');
     const glow = glowContext.createRadialGradient(64,64,3,64,64,64);
-    glow.addColorStop(0,'rgba(255,117,151,.7)');
-    glow.addColorStop(.2,'rgba(255,66,103,.36)');
+    glow.addColorStop(0,'rgba(255,70,115,.9)');
+    glow.addColorStop(.2,'rgba(255,35,88,.5)');
     glow.addColorStop(1,'rgba(255,67,110,0)');
     glowContext.fillStyle=glow; glowContext.fillRect(0,0,128,128);
     const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(glowCanvas),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
@@ -319,19 +335,17 @@ async function createMannequin(section, onHotspot, onOrbit) {
     latestRegion = visualRegion;
     if (visualRegion !== region) onOrbit(visualRegion, false);
     const detail = THREE.MathUtils.clamp((zoom - 1) / .5, 0, 1);
-    clinicalLayer.uniforms.uDetail.value = detail;
     skin.uniforms.uRegion.value.copy(markers[visualRegion]);
     skin.uniforms.uFocus.value = detail;
-    zoomDetails.forEach(line => { line.material.opacity = detail * .12; });
-    regionalDetails.forEach(({ material, region: detailRegion }) => {
-      material.opacity = detailRegion === visualRegion ? .07 + detail * .15 : .025;
+    regionalDetails.forEach(({ material, region: detailRegion, sacrum }) => {
+      material.opacity = detailRegion === visualRegion ? (sacrum ? .035 + detail * .065 : .16 + detail * .22) : .015;
     });
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
     body.rotation.y = angle;
     body.rotation.x = orbitPitch;
     const mobileFrame = host.clientWidth < 330;
-    const framingDistance = mobileFrame ? 10.2 : 10.1;
+    const framingDistance = mobileFrame ? 9.6 : 10.1;
     const baseFocus = -.08 * upper - .12 * lower - (mobileFrame ? .14 : 0);
     const focusY = [1.26,.92,.2][visualRegion];
     const verticalFocus = THREE.MathUtils.lerp(baseFocus, focusY, detail);
@@ -340,7 +354,6 @@ async function createMannequin(section, onHotspot, onOrbit) {
     camera.lookAt(0, verticalFocus, 0);
     anatomyViews.front.visible = visibleSide === 'front';
     anatomyViews.back.visible = visibleSide === 'back';
-    contours.forEach(line => { line.visible = line.userData.side === (visibleSide === 'front' ? 1 : -1); });
     markerGroups.forEach((group, i) => {
       group.visible = regions[i].side === visibleSide;
       group.scale.setScalar(i === visualRegion ? (mobileFrame ? 1.58 : 1.18) : .72);
@@ -356,6 +369,7 @@ async function createMannequin(section, onHotspot, onOrbit) {
     const rail = section.querySelector('.bj-zoom-controls');
     const railTop = rail.offsetTop;
     const railWidth = rail.offsetWidth;
+    const railOnLeft = rail.offsetLeft < host.clientWidth / 2;
     tags.forEach((tag, i) => {
       tag.hidden = !markerGroups[i].visible;
       tag.classList.toggle('is-active', i === visualRegion);
@@ -368,11 +382,12 @@ async function createMannequin(section, onHotspot, onOrbit) {
       const labelWidth = tag.offsetWidth;
       const labelHeight = tag.offsetHeight;
       const nearRail = y + labelHeight / 2 >= railTop - 8;
-      const rightLimit = host.clientWidth - (nearRail ? railWidth + 10 : 8);
-      const labelOnLeft = x + labelWidth + 14 > rightLimit;
+      const leftLimit = nearRail && railOnLeft ? rail.offsetLeft + railWidth + 12 : 8;
+      const rightLimit = host.clientWidth - (nearRail && !railOnLeft ? railWidth + 10 : 8);
+      const labelOnLeft = x + labelWidth + 14 > rightLimit && x - labelWidth - 10 >= leftLimit;
       const safeX = labelOnLeft
-        ? Math.max(labelWidth + 18, Math.min(host.clientWidth - 8, x))
-        : Math.min(rightLimit - labelWidth - 14, Math.max(8, x));
+        ? Math.max(leftLimit + labelWidth + 10, Math.min(rightLimit, x))
+        : Math.min(rightLimit - labelWidth - 14, Math.max(leftLimit, x));
       tag.style.left = `${safeX}px`;
       tag.style.top = `${Math.max(labelHeight / 2 + 8, Math.min(host.clientHeight - labelHeight / 2 - 8, y))}px`;
       tag.style.transform = labelOnLeft ? 'translate(calc(-100% - 10px), -50%)' : 'translate(10px, -50%)';
@@ -438,6 +453,12 @@ async function createMannequin(section, onHotspot, onOrbit) {
       latestProgress = targetProgress;
       onOrbit(target, true);
       render(targetProgress, target);
+    } else {
+      const index = pick(event);
+      if (index !== undefined) {
+        suppressClickUntil = performance.now() + 250;
+        onHotspot(index, renderer.domElement);
+      }
     }
     if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
     drag = null;

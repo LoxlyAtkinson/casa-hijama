@@ -1,0 +1,497 @@
+[
+  {
+    "route": "/",
+    "state": "hero-start",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:07.147Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Opened home at start of pinned hero",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Cup visible with headline, booking and eyebrow",
+    "result": "PASS",
+    "screenshot": "desktop-hero-start"
+  },
+  {
+    "route": "/",
+    "state": "hero-room",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:09.671Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled hero to room beat",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Room visual replaces cup with legible editorial copy",
+    "result": "PASS",
+    "screenshot": "desktop-hero-room"
+  },
+  {
+    "route": "/",
+    "state": "body-front",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:14.292Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled to neck and shoulders",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Continuous cyan 3D front with coral shoulder focus",
+    "result": "PASS",
+    "screenshot": "desktop-body-front"
+  },
+  {
+    "route": "/",
+    "state": "body-turn-to-back",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:21.206Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Dragged front 3D figure to rear view",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Full mouse turn reveals back and synchronizes upper-back guidance",
+    "result": "PASS",
+    "screenshot": "desktop-body-turn-to-back"
+  },
+  {
+    "route": "/",
+    "state": "body-drag-then-scroll-forward",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:21.967Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Released back-view drag, then scrolled forward normally",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Aligned scroll chapter 0.50 advanced to lower back",
+    "result": "PASS",
+    "screenshot": "desktop-body-drag-then-scroll-forward"
+  },
+  {
+    "route": "/",
+    "state": "body-drag-then-scroll-reverse",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:22.855Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled backwards normally after mouse turn",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Neck/front chapter and 3D view returned",
+    "result": "PASS",
+    "screenshot": "desktop-body-drag-then-scroll-reverse"
+  },
+  {
+    "route": "/",
+    "state": "body-full-turn",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:36.303Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Continued mouse rotation through 360 degrees",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Body returns to front with front guidance after full turn",
+    "result": "PASS",
+    "screenshot": "desktop-body-full-turn"
+  },
+  {
+    "route": "/",
+    "state": "body-neck-zoom",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:37.535Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Zoomed selected neck area to 200%",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Readable NECK / SHOULDERS; label inside stage and away from zoom rail",
+    "result": "PASS",
+    "screenshot": "desktop-body-neck-zoom"
+  },
+  {
+    "route": "/",
+    "state": "body-upper",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:39.960Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled to upper back region",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "3D back view; upper coral focus",
+    "result": "PASS",
+    "screenshot": "desktop-body-upper"
+  },
+  {
+    "route": "/",
+    "state": "body-lower",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:42.852Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled to lower back region",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "3D back view; lower coral focus",
+    "result": "PASS",
+    "screenshot": "desktop-body-lower"
+  },
+  {
+    "route": "/",
+    "state": "body-reverse-scroll",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:45.129Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Reversed scroll from lower back to neck",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Front figure, shoulder marker and neck guidance return",
+    "result": "PASS",
+    "screenshot": "desktop-body-reverse-scroll"
+  },
+  {
+    "route": "/",
+    "state": "body-lower-zoom",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:48.189Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Zoomed selected lower back to 200%",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Lower-back spatial detail and guidance visible",
+    "result": "PASS",
+    "screenshot": "desktop-body-lower-zoom"
+  },
+  {
+    "route": "/",
+    "state": "body-mouse-drag",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:52.987Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Dragged WebGL figure with mouse from center toward right",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Visible 3D angle changed without opening a marker dialog",
+    "result": "PASS",
+    "screenshot": "desktop-body-mouse-drag"
+  },
+  {
+    "route": "/",
+    "state": "body-keyboard-intake",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:55.475Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Focused lower-back region and pressed Enter",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Accessible four-question intake opens with the named area",
+    "result": "PASS",
+    "screenshot": "desktop-body-keyboard-intake"
+  },
+  {
+    "route": "/",
+    "state": "body-dark",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-17T16:15:56.266Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Switched body guide to dark mode",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Dark header and legible clinical body/story remain",
+    "result": "PASS",
+    "screenshot": "desktop-body-dark"
+  },
+  {
+    "route": "/",
+    "state": "hero-start",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:15:59.151Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Opened home at start of pinned hero",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Cup visible with headline, booking and eyebrow",
+    "result": "PASS",
+    "screenshot": "mobile-hero-start"
+  },
+  {
+    "route": "/",
+    "state": "hero-room",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:00.553Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled hero to room beat",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Room visual replaces cup with legible editorial copy",
+    "result": "PASS",
+    "screenshot": "mobile-hero-room"
+  },
+  {
+    "route": "/",
+    "state": "body-front",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:04.537Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled to neck and shoulders",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Continuous cyan 3D front with coral shoulder focus",
+    "result": "PASS",
+    "screenshot": "mobile-body-front"
+  },
+  {
+    "route": "/",
+    "state": "body-turn-to-back",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:10.524Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Dragged front 3D figure to rear view",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Full mouse turn reveals back and synchronizes upper-back guidance",
+    "result": "PASS",
+    "screenshot": "mobile-body-turn-to-back"
+  },
+  {
+    "route": "/",
+    "state": "body-drag-then-scroll-forward",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:11.019Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Released back-view drag, then scrolled forward normally",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Aligned scroll chapter 0.50 advanced to lower back",
+    "result": "PASS",
+    "screenshot": "mobile-body-drag-then-scroll-forward"
+  },
+  {
+    "route": "/",
+    "state": "body-drag-then-scroll-reverse",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:11.508Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled backwards normally after mouse turn",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Neck/front chapter and 3D view returned",
+    "result": "PASS",
+    "screenshot": "mobile-body-drag-then-scroll-reverse"
+  },
+  {
+    "route": "/",
+    "state": "body-full-turn",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:24.401Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Continued mouse rotation through 360 degrees",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Body returns to front with front guidance after full turn",
+    "result": "PASS",
+    "screenshot": "mobile-body-full-turn"
+  },
+  {
+    "route": "/",
+    "state": "body-neck-zoom",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:25.425Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Zoomed selected neck area to 200%",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Readable NECK / SHOULDERS; label inside stage and away from zoom rail",
+    "result": "PASS",
+    "screenshot": "mobile-body-neck-zoom"
+  },
+  {
+    "route": "/",
+    "state": "body-upper",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:27.666Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled to upper back region",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "3D back view; upper coral focus",
+    "result": "PASS",
+    "screenshot": "mobile-body-upper"
+  },
+  {
+    "route": "/",
+    "state": "body-lower",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:29.516Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Scrolled to lower back region",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "3D back view; lower coral focus",
+    "result": "PASS",
+    "screenshot": "mobile-body-lower"
+  },
+  {
+    "route": "/",
+    "state": "body-reverse-scroll",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:31.617Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Reversed scroll from lower back to neck",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Front figure, shoulder marker and neck guidance return",
+    "result": "PASS",
+    "screenshot": "mobile-body-reverse-scroll"
+  },
+  {
+    "route": "/",
+    "state": "body-lower-zoom",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:34.490Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Zoomed selected lower back to 200%",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Lower-back spatial detail and guidance visible",
+    "result": "PASS",
+    "screenshot": "mobile-body-lower-zoom"
+  },
+  {
+    "route": "/",
+    "state": "body-mouse-drag",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:38.634Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Dragged WebGL figure with mouse from center toward right",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Visible 3D angle changed without opening a marker dialog",
+    "result": "PASS",
+    "screenshot": "mobile-body-mouse-drag"
+  },
+  {
+    "route": "/",
+    "state": "body-keyboard-intake",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:40.792Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Focused lower-back region and pressed Enter",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Accessible four-question intake opens with the named area",
+    "result": "PASS",
+    "screenshot": "mobile-body-keyboard-intake"
+  },
+  {
+    "route": "/",
+    "state": "body-dark",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:41.221Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Switched body guide to dark mode",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Dark header and legible clinical body/story remain",
+    "result": "PASS",
+    "screenshot": "mobile-body-dark"
+  },
+  {
+    "route": "/",
+    "state": "body-reduced",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:44.856Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Opened body with reduced-motion preference",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Three guidance panels in reading order with static figure",
+    "result": "PASS",
+    "screenshot": "mobile-body-reduced"
+  },
+  {
+    "route": "/",
+    "state": "body-fallback",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:47.513Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Blocked WebGL and waited for fallback image",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Front clinical still and named region controls visible",
+    "result": "PASS",
+    "screenshot": "mobile-body-fallback"
+  },
+  {
+    "route": "/",
+    "state": "body-fallback-back",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-17T16:16:47.998Z",
+    "sourceRevision": "6728fc82271075914ac94b8e5ac244b278862c45390cc9cabde8fa6908f41a72",
+    "action": "Selected upper back with WebGL blocked",
+    "expected": "Complete legible scene, responsive controls and the intended 3D focus",
+    "actual": "Back anatomical still matches the Back View label and guidance",
+    "result": "PASS",
+    "screenshot": "mobile-body-fallback-back"
+  }
+]
