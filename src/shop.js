@@ -9,12 +9,17 @@ const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character =>
 const money = value => `R${value.toLocaleString('en-ZA')}`;
 const bagKey = 'casa-hijama-bag';
 const heroProduct = products.find(product => product.id === 23);
+const collectionChapters = {
+  6: { number: '02', title: 'Rooted in the everyday.', copy: 'Explore the botanicals and pantry staples in the Casa collection, one product at a time.', product: products.find(product => product.id === 8), action: 'Explore Organic Moringa', tone: 'botanical' },
+  15: { number: '03', title: 'A moment for yourself.', copy: 'Make space for a care ritual with the skin and oil collection.', product: products.find(product => product.id === 17), action: 'Explore Healing Moisturizer', tone: 'care' },
+  24: { number: '04', title: 'Carry the ritual home.', copy: 'Discover soaps, ZamZam water and practical essentials for your own routine.', product: products.find(product => product.id === 27), action: 'Explore ZamZam Water', tone: 'essentials' },
+};
 // Original catalog art is a mix of photos and vendor flyers. These crop windows
 // show the photographed item instead of embedding each full promotional flyer.
-function productStage(product, className = '') {
+function productStage(product, className = '', loading = 'lazy') {
   const crop = stageCrops[product.id];
   const style = `--crop-img-w:${100 / crop.w}%;--crop-img-h:${100 / crop.h}%;--crop-left:${-100 * crop.x / crop.w}%;--crop-top:${-100 * crop.y / crop.h}%;--crop-aspect:${crop.aspect}`;
-  return `<div class="shop-product-stage ${className}" data-product-id="${product.id}"><div class="shop-product-cutout" style="${style}"><img src="${image(product)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.closest('.shop-product-stage').classList.add('image-unavailable');this.remove()"></div><span class="image-unavailable-label">Image unavailable</span></div>`;
+  return `<div class="shop-product-stage ${className}" data-product-id="${product.id}"><div class="shop-product-cutout" style="${style}"><img src="${image(product)}" alt="${escapeHtml(product.name)}" loading="${loading}" onerror="this.closest('.shop-product-stage').classList.add('image-unavailable');this.remove()"></div><span class="image-unavailable-label">Image unavailable</span></div>`;
 }
 
 function readBag() {
@@ -59,9 +64,12 @@ export function initShop() {
     return matching;
   };
   const card = product => `<article class="product-card" style="--shop-index:${Math.min(7, products.indexOf(product))}"><div class="shop-card-stage"><button type="button" class="product-open" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${productStage(product)}</button><span class="shop-card-pill">CASA EDIT</span><button type="button" class="shop-card-add" data-shop-add="${product.id}" aria-label="Add ${escapeHtml(product.name)} to enquiry bag">Add to enquiry bag <span aria-hidden="true">+</span></button></div><div class="shop-card-info"><span class="product-category">${labels[product.cat]}</span><h3><button type="button" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${escapeHtml(product.name)}</button></h3><p>${escapeHtml(product.desc)}</p><div class="product-footer"><strong>${escapeHtml(product.priceLabel)}</strong><span aria-hidden="true">↗</span></div></div></article>`;
+  const chapter = ({ number, title, copy, product, action, tone }) => `<aside class="shop-collection-chapter shop-collection-chapter--${tone}" aria-label="Collection edit ${number}"><div class="shop-chapter-copy"><span class="eyebrow">THE CASA EDIT / ${number}</span><h3>${title}</h3><p>${copy}</p><button type="button" class="shop-chapter-link" data-shop-open="${product.id}">${action} <span aria-hidden="true">↗</span></button></div><button type="button" class="shop-chapter-product" data-shop-open="${product.id}" aria-label="View ${escapeHtml(product.name)} details">${productStage(product, 'shop-chapter-stage', 'eager')}<span class="shop-chapter-label">${escapeHtml(product.name)} · ${escapeHtml(product.priceLabel)}</span></button></aside>`;
   const renderProducts = () => {
     const matching = filterProducts();
-    grid.innerHTML = matching.map(card).join('');
+    const curated = category === 'all' && !search.value.trim() && sort === 'default';
+    grid.classList.toggle('has-chapters', curated);
+    grid.innerHTML = matching.map((product, index) => card(product) + (curated && collectionChapters[index + 1] ? chapter(collectionChapters[index + 1]) : '')).join('');
     document.querySelector('.result-count').textContent = `${matching.length} ${matching.length === 1 ? 'product' : 'products'} ${search.value.trim() || category !== 'all' ? 'found' : 'in the collection'}`;
     document.querySelector('.shop-empty').hidden = matching.length !== 0;
     document.querySelector('.shop-clear').hidden = !search.value.trim() && category === 'all';

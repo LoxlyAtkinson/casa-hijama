@@ -254,3 +254,28 @@
 .shop-product-cutout{mix-blend-mode:multiply}
 .shop-product-stage .shop-product-cutout img,.shop-spotlight .shop-spotlight-stage .shop-product-cutout img,.shop-product-dialog .shop-detail-stage .shop-product-cutout img{mix-blend-mode:normal!important}
 .shop-product-dialog .shop-detail-stage[data-product-id="23"] .shop-product-cutout{width:min(89%,calc(94% * var(--crop-aspect)))}
+
+/* Three editorial pauses give the full 30-item browse a readable cadence.
+   Search and sorted views stay plain grids, so scanning results stays fast. */
+.shop-collection-chapter{grid-column:1/-1;min-width:0;min-height:370px;margin:30px 0 35px;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);overflow:hidden;border-radius:23px;background:#dce7db;color:#193d37;position:relative;isolation:isolate}
+.shop-collection-chapter--care{background:#e9e7da}
+.shop-collection-chapter--essentials{background:#d5e4e3}
+.shop-collection-chapter:before{content:'';position:absolute;width:58%;aspect-ratio:1;border:1px solid #ffffff8a;border-radius:50%;right:-7%;top:-66%;pointer-events:none}
+.shop-chapter-copy{padding:clamp(35px,5vw,70px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;position:relative;z-index:1}
+.shop-chapter-copy .eyebrow{color:#35766f;font-size:.65rem;letter-spacing:.18em}
+.shop-chapter-copy h3{max-width:540px;margin:24px 0 14px;font-size:clamp(2.65rem,4.8vw,5.1rem);line-height:.99;letter-spacing:-.06em;font-weight:600}
+.shop-chapter-copy p{max-width:380px;margin:0 0 23px;color:#3c5e56;line-height:1.55;font-size:.91rem}
+.shop-chapter-link{display:inline-flex;align-items:center;gap:16px;padding:0 0 7px;border:0;border-bottom:1px solid currentColor;background:none;color:#215f59;font-size:.82rem;font-weight:800;cursor:pointer;text-align:left}
+.shop-chapter-link:hover,.shop-chapter-link:focus-visible{color:#0d3a38}
+.shop-chapter-product{position:relative;display:flex;justify-content:center;align-items:center;min-width:0;min-height:370px;padding:22px 38px 35px;border:0;background:transparent;cursor:pointer;color:#193d37}
+.shop-chapter-stage{width:min(74%,250px);height:290px;border-radius:15px;box-shadow:18px 28px 48px #1c47303a;transform:rotate(4deg);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s}
+.shop-collection-chapter--care .shop-chapter-stage{transform:rotate(-4deg)}
+.shop-chapter-product:hover .shop-chapter-stage,.shop-chapter-product:focus-visible .shop-chapter-stage{transform:rotate(0) translateY(-9px);box-shadow:18px 38px 54px #1c473044}
+.shop-chapter-label{position:absolute;right:24px;bottom:24px;max-width:75%;padding:10px 13px;background:#fffefa;color:#23423b;border-radius:3px;font-size:.69rem;font-weight:700;box-shadow:0 6px 22px #1c47301b;text-align:left}
+:root[data-theme=dark] .shop-collection-chapter{background:#29493d;color:#f2f4e9}
+:root[data-theme=dark] .shop-collection-chapter--care{background:#4a4639}
+:root[data-theme=dark] .shop-collection-chapter--essentials{background:#274b4e}
+:root[data-theme=dark] .shop-chapter-copy .eyebrow,:root[data-theme=dark] .shop-chapter-link{color:#9cddd2}
+:root[data-theme=dark] .shop-chapter-copy p{color:#d3e4da}
+@media(max-width:700px){.shop-collection-chapter{grid-template-columns:1fr;margin:20px 0 27px}.shop-chapter-copy{padding:36px 31px 9px}.shop-chapter-copy h3{margin:16px 0 10px;font-size:clamp(2.5rem,10vw,4rem)}.shop-chapter-product{min-height:260px;padding:3px 20px 36px}.shop-chapter-stage{width:min(62%,185px);height:212px}.shop-chapter-label{right:18px;bottom:16px}}
+@media(prefers-reduced-motion:reduce){.shop-chapter-stage{transition:none}.shop-chapter-product:hover .shop-chapter-stage,.shop-chapter-product:focus-visible .shop-chapter-stage{transform:none}}

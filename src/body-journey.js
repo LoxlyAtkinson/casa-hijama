@@ -103,9 +103,9 @@ async function createMannequin(section, onHotspot) {
   const body = new THREE.Group();
   scene.add(body);
   const skin = new THREE.MeshPhysicalMaterial({
-    color: 0x78aa99, metalness: .11, roughness: .43,
-    clearcoat: .52, clearcoatRoughness: .28,
-    emissive: 0x254b40, emissiveIntensity: .1
+    color: 0x93bba7, metalness: .06, roughness: .58,
+    clearcoat: .35, clearcoatRoughness: .4,
+    emissive: 0x5f9d7b, emissiveIntensity: .22
   });
   // A single implicit surface blends torso, limbs and head into one clinical silhouette.
   const ellipsoid = (x,y,z,cx,cy,cz,sx,sy,sz) => (Math.hypot((x-cx)/sx,(y-cy)/sy,(z-cz)/sz)-1)*Math.min(sx,sy,sz);
@@ -185,6 +185,24 @@ async function createMannequin(section, onHotspot) {
   bodyGeometry.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));
   bodyGeometry.setIndex(faces);
   body.add(new THREE.Mesh(bodyGeometry,skin));
+  // The second, continuously rendered surface gives the model the luminous
+  // edge and quiet scan texture of a clinical body map at every rotation.
+  const clinicalLayer = new THREE.ShaderMaterial({
+    uniforms: { uDetail: { value: 0 } },
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `varying vec3 vNormal; varying vec3 vPosition;
+      void main() { vNormal = normalize(normalMatrix * normal); vPosition = position;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position * 1.008, 1.0); }`,
+    fragmentShader: `varying vec3 vNormal; varying vec3 vPosition; uniform float uDetail;
+      void main() {
+        float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0,0.0,1.0))), 2.1);
+        float scan = pow(max(0.0, sin(vPosition.y * 47.0)), 18.0) * (0.035 + uDetail * 0.06);
+        float axial = exp(-pow(vPosition.x * 12.0, 2.0)) * step(-1.6, vPosition.y) * step(vPosition.y, 1.45) * 0.055;
+        float alpha = min(0.38, edge * 0.26 + scan + axial);
+        gl_FragColor = vec4(0.58, 0.94, 0.72, alpha);
+      }`
+  });
+  body.add(new THREE.Mesh(bodyGeometry, clinicalLayer));
   function surfaceZ(x,y,side) {
     let low=0,high=.65;
     for(let n=0;n<18;n++) {
@@ -200,8 +218,20 @@ async function createMannequin(section, onHotspot) {
     const material=new THREE.LineBasicMaterial({color:0xd1f1ce,transparent:true,opacity,depthWrite:false});
     body.add(new THREE.Line(geometry,material));
   }
-  contour([[-.3,1.34],[-.22,1.3],[-.12,1.27],[0,1.25],[.12,1.27],[.22,1.3],[.3,1.34]],1,.27);
-  contour(Array.from({length:18},(_,i)=>[0,1.34-i*.09]),-1,.32);
+  contour([[-.41,1.32],[-.3,1.37],[-.17,1.32],[0,1.26],[.17,1.32],[.3,1.37],[.41,1.32]],1,.51);
+  contour(Array.from({length:20},(_,i)=>[0,1.31-i*.105]),1,.22);
+  contour(Array.from({length:27},(_,i)=>[0,1.49-i*.09]),-1,.53);
+  for (const side of [-1,1]) {
+    contour(Array.from({length:11},(_,i)=>[side*(.05+i*.035),1.2-Math.sin(i/10*Math.PI)*.1]),1,.3);
+    contour(Array.from({length:13},(_,i)=>[side*(.06+i*.029),1.13-i*.048]),-1,.31);
+    for (let row=0; row<5; row++) {
+      const y=1.02-row*.18;
+      contour(Array.from({length:10},(_,i)=>[side*(.045+i*.038),y-.05*Math.sin(i/9*Math.PI)]),1,.22);
+      contour(Array.from({length:10},(_,i)=>[side*(.045+i*.038),y-.035*Math.sin(i/9*Math.PI)]),-1,.2);
+    }
+    contour(Array.from({length:17},(_,i)=>[side*(.09+i*.018),-.05-i*.046]),1,.19);
+    contour(Array.from({length:21},(_,i)=>[side*(.25+i*.003),-.39-i*.075]),1,.16);
+  }
   const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x9ac59f, transparent: true, opacity: .22, depthWrite: false });
   for (const radius of [1.0, 1.35]) {
     const orbit = new THREE.Mesh(new THREE.TorusGeometry(radius, .006, 6, 72), orbitMaterial);
@@ -248,6 +278,7 @@ async function createMannequin(section, onHotspot) {
   function render(progress = latestProgress, region = latestRegion) {
     latestProgress = progress;
     latestRegion = region;
+    clinicalLayer.uniforms.uDetail.value = Math.max(0, (zoom - 1) / .15);
     const turning = ease(.22, .49, progress);
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);

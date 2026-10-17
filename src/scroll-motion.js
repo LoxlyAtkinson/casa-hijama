@@ -15,7 +15,10 @@ export function initScrollMotion() {
   const freeze = root.querySelector('.film-freeze');
   const control = root.querySelector('.film-control');
   if (!film || !freeze || !control || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  control.hidden = false;
+  const syncFilmControl = () => { control.hidden = !film.classList.contains('sc-has-clip'); };
+  const filmObserver = new MutationObserver(syncFilmControl);
+  filmObserver.observe(film, { attributes: true, attributeFilter: ['class'] });
+  syncFilmControl();
   control.addEventListener('click', () => {
     const isPaused = control.getAttribute('aria-pressed') === 'true';
     if (isPaused) {
