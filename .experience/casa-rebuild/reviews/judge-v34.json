@@ -1,0 +1,1418 @@
+{
+  "reviewer": "/root/acceptance_judge_v34",
+  "authored_by": "/root/acceptance_judge_v34",
+  "builders": [
+    "/root",
+    "/root/mobile_body_layout_v28",
+    "/root/anatomy_focus",
+    "earlier licensed-anatomy builder",
+    "earlier pointer-interaction builder"
+  ],
+  "run_id": "casa-hijama-c28f148-acceptance-v34-2026-10-18",
+  "contract": {
+    "path": "../contract-v6.md",
+    "sha256": "52d195c6d85dd6e323c84256fb65794dc3523ac86febb16c962d30bcda6bf490"
+  },
+  "sources": [
+    {
+      "path": "../../../ATTRIBUTION.md",
+      "sha256": "e5ef6acb6b5efe7f9439bbd8304da436d83ca207e01d386098f6f3c6b2881aef"
+    },
+    {
+      "path": "../../../index.html",
+      "sha256": "020b52b7edf09cc2e49254f9e184e76505fe820ee8fb5e92152e2ea70b7f83a3"
+    },
+    {
+      "path": "../../../products.json",
+      "sha256": "1f7a13005fb4fd06a5197a66956369321204120520426ea7095f903dad01a8a0"
+    },
+    {
+      "path": "../../../public/assets/body-bp3d-anatomy.glb",
+      "sha256": "83297ab2cd080757d9dfbf75778df50c73091aaeee7ad3526bd7f6a2a9d6b857"
+    },
+    {
+      "path": "../../../public/assets/body-hubmap-pelvis.glb",
+      "sha256": "06349b8c70a019b3fd36d4e059e02efed915bf305cf15f8e32547732c6865b09"
+    },
+    {
+      "path": "../../../public/assets/body-hubmap-skin.glb",
+      "sha256": "8cab299d04323e6364938a271647df5671138a2177f412e741a0d6bd4536ee1c"
+    },
+    {
+      "path": "../../../public/assets/body-map-desktop-back.webp",
+      "sha256": "32178c125a0a3bab19e343a847818c2d49ac82e95ba239815c14cbc22ed108b5"
+    },
+    {
+      "path": "../../../public/assets/body-map-desktop-front.webp",
+      "sha256": "d1a0dfbc4400e7d579f0cb4e5e642cc44013ec7707b0feef614bbcf99dd07c17"
+    },
+    {
+      "path": "../../../public/assets/body-map-mobile-back.webp",
+      "sha256": "7600bc8063b95f7f069a3f76fdbcf159dce9fa38161562a220f56bfd9cfc87fb"
+    },
+    {
+      "path": "../../../public/assets/body-map-mobile-front.webp",
+      "sha256": "acdcbc50028efa5fe9c7a0a716ebbf278d56e1f9c325e46f29603a4e5de814e7"
+    },
+    {
+      "path": "../../../scripts/capture-body-fallback-v30.cjs",
+      "sha256": "713f4e4526c5087d862ff0adad5c0aa6ea154af9982acda5ec0c77db9aaa7a6c"
+    },
+    {
+      "path": "../../../scripts/capture-body-handoff-v30.cjs",
+      "sha256": "2c59ff9de65cb3647348567d32369e73839d903bd20304eb9c87e767fb088077"
+    },
+    {
+      "path": "../../../scripts/verify-body-continuity-v6.cjs",
+      "sha256": "abc8c13dcf9cb560edcdef67f10c5f2c701c7e1f2a31ffaca617b86319feca37"
+    },
+    {
+      "path": "../../../scripts/verify-experience-v6.cjs",
+      "sha256": "14a307a48023ebcae9cb032db498bac4964b49b1915468a0facffeb213728940"
+    },
+    {
+      "path": "../../../scripts/verify-live-v6.cjs",
+      "sha256": "2b63746f924e6354e479904b8b5d8f5e35cc12c4f2b059eaaf014450c012e209"
+    },
+    {
+      "path": "../../../scripts/verify-reference-v6.cjs",
+      "sha256": "d30e30e1a7e99bd9ce566bc390423880a87870a99ba4af77b2a480a77871ec5f"
+    },
+    {
+      "path": "../../../scrollcraft/builds/casa-hijama/scrollcraft.css",
+      "sha256": "519e254c1877a50eb724153d483ccff5b3b434fbaf3baf9c5bc1179ec28b075a"
+    },
+    {
+      "path": "../../../scrollcraft/builds/casa-hijama/scrollcraft.js",
+      "sha256": "62f3c69e1d958cf8d650f73e2dca398b156a2cf0be7abc7f8b3b7da57c6f56e8"
+    },
+    {
+      "path": "../../../src/body-journey.css",
+      "sha256": "584c40e5fd6c14cd34fc15d93a640c256e2da12a0dcd21261df957dfbffb945c"
+    },
+    {
+      "path": "../../../src/body-journey.js",
+      "sha256": "866030ee63f394bb429415fcd8b18dd442edc7862e91845b291ef6c8f62b093c"
+    },
+    {
+      "path": "../../../src/main.js",
+      "sha256": "44a7e666317c2da1aa9ba029d68b91cf7b4110b1305e8640998815b69db862f2"
+    },
+    {
+      "path": "../../../src/scroll-motion.css",
+      "sha256": "2f3efcbeae055ad1c39471a2934a4eaf195ae2698e1ea5c00e18fab9974c5a52"
+    },
+    {
+      "path": "../../../src/scroll-motion.js",
+      "sha256": "4060b04b5abfad799ae5bc866bb15947a5fe722c0bdc5bd296a27983d389c895"
+    },
+    {
+      "path": "../../../src/shop-crops.json",
+      "sha256": "c1d75af88e56e5691ab5a71feddd91757083cb0d607b4181d425147e22851582"
+    },
+    {
+      "path": "../../../src/shop.css",
+      "sha256": "70d055fd4f0996d46871ecb5760b3c6d72b4189d96b46137b8e847a474280663"
+    },
+    {
+      "path": "../../../src/shop.js",
+      "sha256": "117b345b13768f38ab8dc58d5345cb1fd5207a01df162d8736affc24a29a5a3c"
+    },
+    {
+      "path": "../../../src/styles.css",
+      "sha256": "3e3a324c75dff9a8e0a7c80d374aeabbe90b470db5b7c29918e95b1d2bca70e2"
+    }
+  ],
+  "artifacts": {
+    "target_log": {
+      "path": "../evidence/v6/browser-log-v6.json",
+      "sha256": "902d770101e2bf5863db43d1e425054781edbf03b635b1ad2f075e977cf44622",
+      "kind": "browser_log"
+    },
+    "desktop-hero-start": {
+      "path": "../evidence/v6/desktop-hero-start.png",
+      "sha256": "52a7bc3b79f7dfdcbc4b777e92d2f414bcf316a93230786a7d056c9c25349fd0",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "hero-start",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:08.942Z"
+    },
+    "desktop-hero-room": {
+      "path": "../evidence/v6/desktop-hero-room.png",
+      "sha256": "264da70fc7d6499817a934638c185a194444b66d7e9372f5468ee17d84a47f69",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "hero-room",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:11.944Z"
+    },
+    "desktop-body-front": {
+      "path": "../evidence/v6/desktop-body-front.png",
+      "sha256": "d0b6d5625f5b5f9ef5197bfd1d792703f477ac10ae350297af754c5d6260e0ae",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-front",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:21.675Z"
+    },
+    "desktop-body-turn-to-back": {
+      "path": "../evidence/v6/desktop-body-turn-to-back.png",
+      "sha256": "a97eef68e9dfd22797763cdfefe77da4aa013084aa59769331b1ec43f8e18793",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-turn-to-back",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:37.859Z"
+    },
+    "desktop-body-drag-then-scroll-forward": {
+      "path": "../evidence/v6/desktop-body-drag-then-scroll-forward.png",
+      "sha256": "2542cbba064886dcea6123e0f2fb7a707afe0533cc29b639278acf4daca84350",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-drag-then-scroll-forward",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:39.909Z"
+    },
+    "desktop-body-drag-then-scroll-reverse": {
+      "path": "../evidence/v6/desktop-body-drag-then-scroll-reverse.png",
+      "sha256": "7f7ecd0e1edff35031c611628187e3afe043d813e95a80b8d4c84198c6f2d7c6",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-drag-then-scroll-reverse",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:41.508Z"
+    },
+    "desktop-body-full-turn": {
+      "path": "../evidence/v6/desktop-body-full-turn.png",
+      "sha256": "6e4cd19f4a46ee2dddc13470c5b91a6917dd046c7f8e32615566b03d7ec3c146",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-full-turn",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:11.169Z"
+    },
+    "desktop-body-neck-zoom": {
+      "path": "../evidence/v6/desktop-body-neck-zoom.png",
+      "sha256": "8f768dfc54dbf59a074d4a668d341f85e3c88ea4d0d8619b9e56d69166d34eb0",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-neck-zoom",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:13.793Z"
+    },
+    "desktop-body-upper": {
+      "path": "../evidence/v6/desktop-body-upper.png",
+      "sha256": "788ab4a014ae5f5a281deef6e85746d4548e9a2925d910a12110b347802a252d",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-upper",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:17.775Z"
+    },
+    "desktop-body-lower": {
+      "path": "../evidence/v6/desktop-body-lower.png",
+      "sha256": "1961591f3bae38eec142d3450476319cc96c94f187754b1a0e49c2dc8028b5cc",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-lower",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:20.407Z"
+    },
+    "desktop-body-reverse-scroll": {
+      "path": "../evidence/v6/desktop-body-reverse-scroll.png",
+      "sha256": "508f5b12cec95a51bf179a2903d9caa4a604f10294eae5304c54034887c6c349",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-reverse-scroll",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:23.415Z"
+    },
+    "desktop-body-lower-zoom": {
+      "path": "../evidence/v6/desktop-body-lower-zoom.png",
+      "sha256": "31a96279f5189db1c1acd647b63a53423ec6a601791bacf24e26b021f232e891",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-lower-zoom",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:32.828Z"
+    },
+    "desktop-body-mouse-drag": {
+      "path": "../evidence/v6/desktop-body-mouse-drag.png",
+      "sha256": "289c1f0e606aa3f894ede5357215ca2679dcaf341b044f30936049317e2949a2",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-mouse-drag",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:44.628Z"
+    },
+    "desktop-body-keyboard-intake": {
+      "path": "../evidence/v6/desktop-body-keyboard-intake.png",
+      "sha256": "5970dc286939acfabe491c0f38392406246e7544fdea5678a4e264ff5325d7d2",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-keyboard-intake",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:48.510Z"
+    },
+    "desktop-body-dark": {
+      "path": "../evidence/v6/desktop-body-dark.png",
+      "sha256": "01602b71a6d9d8c41f7d43ac6dd0bff9f24ca5bab7d77458444055056b7b131e",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-dark",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:36:49.964Z"
+    },
+    "mobile-hero-start": {
+      "path": "../evidence/v6/mobile-hero-start.png",
+      "sha256": "e8999c3a7eefc6968dc3d14c36f9b5b6595b89b3d1d00b9e5830795bbbb0671b",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "hero-start",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:36:52.600Z"
+    },
+    "mobile-hero-room": {
+      "path": "../evidence/v6/mobile-hero-room.png",
+      "sha256": "858ec2e7e6669561bc0da236c61c996aefcad7718a39424a1a51ec06bf5638ba",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "hero-room",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:36:54.071Z"
+    },
+    "mobile-body-front": {
+      "path": "../evidence/v6/mobile-body-front.png",
+      "sha256": "1d7e6df4fb403b4daf2a3367cd30eaac5ca72bb700f35ac9ba2fc895a39ab66f",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-front",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:36:59.769Z"
+    },
+    "mobile-body-turn-to-back": {
+      "path": "../evidence/v6/mobile-body-turn-to-back.png",
+      "sha256": "69d646d9f721abf39c0fe3da8c91f66830c7e16d2fc23a47bf882187eb1977e4",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-turn-to-back",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:14.500Z"
+    },
+    "mobile-body-drag-then-scroll-forward": {
+      "path": "../evidence/v6/mobile-body-drag-then-scroll-forward.png",
+      "sha256": "4f23516d796873bb70fcdef5e5d9633abfa59300d93afe07e5eb5b12b41093f7",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-drag-then-scroll-forward",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:15.734Z"
+    },
+    "mobile-body-drag-then-scroll-reverse": {
+      "path": "../evidence/v6/mobile-body-drag-then-scroll-reverse.png",
+      "sha256": "1c8654a749ec4afc8400fc63705634b89f0654c25d27856f47e7df780319b7e1",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-drag-then-scroll-reverse",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:16.897Z"
+    },
+    "mobile-body-full-turn": {
+      "path": "../evidence/v6/mobile-body-full-turn.png",
+      "sha256": "ebc768fd1299a5921c45c2d2558c313b7c94bfe9da89508569cd63e3a36fb777",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-full-turn",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:46.046Z"
+    },
+    "mobile-body-neck-zoom": {
+      "path": "../evidence/v6/mobile-body-neck-zoom.png",
+      "sha256": "532d134f79b80191dd9a39eabcd30621d3358c0961037da38e91ec2625f6d760",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-neck-zoom",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:47.959Z"
+    },
+    "mobile-body-upper": {
+      "path": "../evidence/v6/mobile-body-upper.png",
+      "sha256": "ce72d3a8ee373ebea9b3c57b431fff01b8aabc2dcec3be9cf8929a5af12a432c",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-upper",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:51.250Z"
+    },
+    "mobile-body-lower": {
+      "path": "../evidence/v6/mobile-body-lower.png",
+      "sha256": "456e319ae3a847aaf82991597bb9fabeb07b922012899a98fd0a3775a86b8e14",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-lower",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:53.673Z"
+    },
+    "mobile-body-reverse-scroll": {
+      "path": "../evidence/v6/mobile-body-reverse-scroll.png",
+      "sha256": "c059e45ade4ca16714adc97313e497358c801fd63393dd531b507aebb0e28a65",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-reverse-scroll",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:37:56.563Z"
+    },
+    "mobile-body-lower-zoom": {
+      "path": "../evidence/v6/mobile-body-lower-zoom.png",
+      "sha256": "7bd66c229e829899a140698bc410706f8f15e3d1a29d04d6dd7252086dac1587",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-lower-zoom",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:38:01.127Z"
+    },
+    "mobile-body-mouse-drag": {
+      "path": "../evidence/v6/mobile-body-mouse-drag.png",
+      "sha256": "9a0dddd0f0997c1dd04ca158da345029dfb05ffbbcb0d6e0e63849c7c88b25ee",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-mouse-drag",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:38:11.272Z"
+    },
+    "mobile-body-keyboard-intake": {
+      "path": "../evidence/v6/mobile-body-keyboard-intake.png",
+      "sha256": "04c06ba123f5733564a61f5dc72f92a01d0ada3e21ee7c4c70ba4fadd85c70a4",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-keyboard-intake",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:38:15.354Z"
+    },
+    "mobile-body-dark": {
+      "path": "../evidence/v6/mobile-body-dark.png",
+      "sha256": "6f7dcddda24851a14334ba6358e3f152d0e365e18667ac6936322a787e26d216",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-dark",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:38:16.429Z"
+    },
+    "mobile-body-reduced": {
+      "path": "../evidence/v6/mobile-body-reduced.png",
+      "sha256": "eaecadc63591753cab727a15fe032f66cfa299f8862f0aab39f137fc2275622f",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-reduced",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:38:17.890Z"
+    },
+    "mobile-body-fallback": {
+      "path": "../evidence/v6/mobile-body-fallback.png",
+      "sha256": "88fff0e4498f2a242ebf26c3e88079eb1486bfa432f3159a5dde09dd070563a2",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-fallback",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:38:20.334Z"
+    },
+    "mobile-body-fallback-back": {
+      "path": "../evidence/v6/mobile-body-fallback-back.png",
+      "sha256": "acf8c34997fabf28e8eda88e4c9d715fc1561c7a50d1b46875508313f3ad4572",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-fallback-back",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:38:20.747Z"
+    },
+    "site_log": {
+      "path": "../evidence/v6-site/browser-log.json",
+      "sha256": "6c76dd02f5e0cac7a31c0c1d3143fcae2100e95699343b6d45c9da90e0e08391",
+      "kind": "browser_log"
+    },
+    "desktop-light-home-full": {
+      "path": "../evidence/v6-site/desktop-light-home-full.png",
+      "sha256": "5b10c66ca4a07e6ad409176066544ead85e5341150cb49854c4ccdb2a3e6ce86",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-light-home-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:38:56.064Z"
+    },
+    "desktop-light-treatments-full": {
+      "path": "../evidence/v6-site/desktop-light-treatments-full.png",
+      "sha256": "49da176de98cf43063d156ac933c80f8771a68c3a478d40e1bf53bbafaf6d07d",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "desktop-light-treatments-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:38:58.169Z"
+    },
+    "desktop-light-products-full": {
+      "path": "../evidence/v6-site/desktop-light-products-full.png",
+      "sha256": "897acebd8a1598586003dc3d40cceb80a3b820eb2eda158e9a02e8f7c5cbebd9",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "desktop-light-products-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:03.332Z"
+    },
+    "desktop-light-information-full": {
+      "path": "../evidence/v6-site/desktop-light-information-full.png",
+      "sha256": "1dbd81eb505db72b700a27fbcf91815d9b3254a2b2af946ae65e0b62deaff2fa",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "desktop-light-information-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:04.804Z"
+    },
+    "mobile-light-home-full": {
+      "path": "../evidence/v6-site/mobile-light-home-full.png",
+      "sha256": "b04b91acae5e402d2a2d63a9a0dac7dba0676e9d5f32b2cb3d176abae5d4e064",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-light-home-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:08.468Z"
+    },
+    "mobile-light-treatments-full": {
+      "path": "../evidence/v6-site/mobile-light-treatments-full.png",
+      "sha256": "1b9536fa919a39c613fdd83e00edc0f2df90cd41959845cbacc3484b76e6b61f",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "mobile-light-treatments-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:10.234Z"
+    },
+    "mobile-light-products-full": {
+      "path": "../evidence/v6-site/mobile-light-products-full.png",
+      "sha256": "b4f3dffcb01f0da3f32f7584adb5c1e1c247de3f46050c1f4a1be5dc34054bc0",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "mobile-light-products-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:14.474Z"
+    },
+    "mobile-light-information-full": {
+      "path": "../evidence/v6-site/mobile-light-information-full.png",
+      "sha256": "18e3ba8f64c53db19a54365e6adb7e666377388321e7a7c399f5f3af3f182caf",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "mobile-light-information-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:15.910Z"
+    },
+    "desktop-dark-home-full": {
+      "path": "../evidence/v6-site/desktop-dark-home-full.png",
+      "sha256": "aadd8bbb43f637446dad55f181abfb051b0b83f538042f679b0ed4872c453048",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-dark-home-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:22.077Z"
+    },
+    "desktop-dark-treatments-full": {
+      "path": "../evidence/v6-site/desktop-dark-treatments-full.png",
+      "sha256": "08cb9da3344424c823f6966af6a8bc376e91752c0c1d04b6dddf67eb47d0bd32",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "desktop-dark-treatments-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:24.389Z"
+    },
+    "desktop-dark-products-full": {
+      "path": "../evidence/v6-site/desktop-dark-products-full.png",
+      "sha256": "35decae3ee7d246e9ae9a0ad13c7c53362dd35099da44ee72aa955d16075d729",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "desktop-dark-products-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:30.583Z"
+    },
+    "desktop-dark-information-full": {
+      "path": "../evidence/v6-site/desktop-dark-information-full.png",
+      "sha256": "4f72282928f1e7aa782548eda96577fcb91d17de5215d513d658de0174509308",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "desktop-dark-information-full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:32.252Z"
+    },
+    "mobile-dark-home-full": {
+      "path": "../evidence/v6-site/mobile-dark-home-full.png",
+      "sha256": "8c6817aed39f047ee428a9b8ba75998830fed035ddb5085bf5f5a4306b063289",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-dark-home-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:36.729Z"
+    },
+    "mobile-dark-treatments-full": {
+      "path": "../evidence/v6-site/mobile-dark-treatments-full.png",
+      "sha256": "c83c0e540b780354de112803d96a27b833ba21422e0fbba98f41d2719b792053",
+      "kind": "screenshot",
+      "route": "/cupping-therapy",
+      "state": "mobile-dark-treatments-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:38.116Z"
+    },
+    "mobile-dark-products-full": {
+      "path": "../evidence/v6-site/mobile-dark-products-full.png",
+      "sha256": "7e3aae8603f9667b7ac1b5c1846d6f7fb4150a68934a0e3dd30121e4c8c0b48d",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "mobile-dark-products-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:41.218Z"
+    },
+    "mobile-dark-information-full": {
+      "path": "../evidence/v6-site/mobile-dark-information-full.png",
+      "sha256": "a00a1a1e589366f87cbd21254b17cb12f5e6c900fa999cdb459446c3e3a51cce",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "mobile-dark-information-full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:42.539Z"
+    },
+    "desktop-light-soaps": {
+      "path": "../evidence/v6-site/desktop-light-soaps.png",
+      "sha256": "88b03ca8c1d6ad6b86b761bd8988f8ac2760dee4bd988ea970de6c527342e23f",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "soaps-filter",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:44.080Z"
+    },
+    "desktop-light-soap-24-dialog": {
+      "path": "../evidence/v6-site/desktop-light-soap-24-dialog.png",
+      "sha256": "684a5b0ac0cf47dc88de27035a8ab9d0f02af8aff6cca2053d28dc8093b29d62",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "soap-24-dialog",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:44.674Z"
+    },
+    "desktop-light-soap-25-dialog": {
+      "path": "../evidence/v6-site/desktop-light-soap-25-dialog.png",
+      "sha256": "84a9b21599f44f44ab852d72cf7fd4ae03fbd635b6ea87c6e36c958cd3be9299",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "soap-25-dialog",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:45.199Z"
+    },
+    "desktop-light-shop-empty": {
+      "path": "../evidence/v6-site/desktop-light-shop-empty.png",
+      "sha256": "2201e212e266c184393f71cd8656943ba90093ad3e631eafa12172aa8eabdb1c",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "shop-empty",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:45.642Z"
+    },
+    "desktop-light-products-sorted": {
+      "path": "../evidence/v6-site/desktop-light-products-sorted.png",
+      "sha256": "64bba30020a96a938361b3b9456c1b09a61cb8ffcc7a8e43b35b865b593af26b",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "products-sorted",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:46.291Z"
+    },
+    "desktop-light-dialog-keyboard-return": {
+      "path": "../evidence/v6-site/desktop-light-dialog-keyboard-return.png",
+      "sha256": "569489887614c509ad41ab536ca1f7b49be46028b711b8cd2062fc0a70429121",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "dialog-keyboard-return",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:46.832Z"
+    },
+    "desktop-light-shop-bag-empty": {
+      "path": "../evidence/v6-site/desktop-light-shop-bag-empty.png",
+      "sha256": "4d98e45668ea39da234d339c0046061a01ae9fd769539c3ba9d27a3dfe134a85",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "shop-bag-empty",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:47.267Z"
+    },
+    "desktop-light-shop-bag-populated": {
+      "path": "../evidence/v6-site/desktop-light-shop-bag-populated.png",
+      "sha256": "524539eba1496fee53cb0bb49788b77c757f3703629713ce7273a463b8d45d2a",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "shop-bag-populated",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:47.985Z"
+    },
+    "desktop-light-faq-keyboard-open": {
+      "path": "../evidence/v6-site/desktop-light-faq-keyboard-open.png",
+      "sha256": "09b4fcae2b4f3a6adc0d2167af164cdef93c653c336a4234957ce55aa83dca90",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "faq-keyboard-open",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:49.069Z"
+    },
+    "desktop-light-booking-invalid": {
+      "path": "../evidence/v6-site/desktop-light-booking-invalid.png",
+      "sha256": "eb17a3af9be12801f2e1a4156628c189b2acf5c8ea0ed5110c8e3bcb5893935d",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-invalid",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:50.000Z"
+    },
+    "desktop-light-booking-ready-final": {
+      "path": "../evidence/v6-site/desktop-light-booking-ready-final.png",
+      "sha256": "481e24b9220d24f131d4d497d708d533fd88cc86c57423bed4188d8939622b98",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-ready-final",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:50.422Z"
+    },
+    "desktop-light-booking-fallback": {
+      "path": "../evidence/v6-site/desktop-light-booking-fallback.png",
+      "sha256": "8f05c54ae7af36c448e0c56360a7c17058739cb36c7725b3af4184ec726b59f5",
+      "kind": "screenshot",
+      "route": "/#book",
+      "state": "booking-fallback",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:50.904Z"
+    },
+    "desktop-light-map-fallback": {
+      "path": "../evidence/v6-site/desktop-light-map-fallback.png",
+      "sha256": "f8760a50904d19519204ea6c8b655fda0e2df930cbf01594ff0093208185a574",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "map-fallback",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:51.314Z"
+    },
+    "desktop-light-body-zoom": {
+      "path": "../evidence/v6-site/desktop-light-body-zoom.png",
+      "sha256": "ff90257c378bb9a7f805c7e7b2e2de9d1001bdca33f24a6feee116c2326f7ea8",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-zoom",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:59.818Z"
+    },
+    "desktop-light-body-neck-shoulders": {
+      "path": "../evidence/v6-site/desktop-light-body-neck-shoulders.png",
+      "sha256": "15bda65ecb0e6c6a1f7f4404d30362fc9f95b2b5ad78bd30ec2a8984c861f28e",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-neck-shoulders",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:03.666Z"
+    },
+    "desktop-light-body-upper-back": {
+      "path": "../evidence/v6-site/desktop-light-body-upper-back.png",
+      "sha256": "58d2bb9fc8cd8226bf9e4f7512f8f7c4ccab041d3433a2db544db3d731ecf563",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-upper-back",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:07.301Z"
+    },
+    "desktop-light-body-lower-back": {
+      "path": "../evidence/v6-site/desktop-light-body-lower-back.png",
+      "sha256": "8047c61deecf06fa7ec2fd41a7bf5c2f6f214d2369448d62d5010521124eac89",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-lower-back",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:10.751Z"
+    },
+    "desktop-light-body-intake-notes": {
+      "path": "../evidence/v6-site/desktop-light-body-intake-notes.png",
+      "sha256": "62a00b91a732f84fa4eece73873c0e81ce32c54e979a10155ea8875e4e035260",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-intake-notes",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:13.203Z"
+    },
+    "desktop-light-body-reverse": {
+      "path": "../evidence/v6-site/desktop-light-body-reverse.png",
+      "sha256": "15bda65ecb0e6c6a1f7f4404d30362fc9f95b2b5ad78bd30ec2a8984c861f28e",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-reverse",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:16.844Z"
+    },
+    "desktop-light-film-scrub": {
+      "path": "../evidence/v6-site/desktop-light-film-scrub.png",
+      "sha256": "7017141b03e2f231b33840750ac794983549acb6415067fc8dfe92e37370bb5d",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "film-scrub",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:29.825Z"
+    },
+    "desktop-light-film-paused": {
+      "path": "../evidence/v6-site/desktop-light-film-paused.png",
+      "sha256": "260f7ea67ae636652024ccb1da7b630de37632194ffc9e9cec34e15a210d685a",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "film-paused",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:31.587Z"
+    },
+    "desktop-light-film-fallback": {
+      "path": "../evidence/v6-site/desktop-light-film-fallback.png",
+      "sha256": "1d8a98dfd945dd15579f11bce4001e8ec6eeb1203dd63a5ed00b9984b07550b8",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "film-fallback",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:40:37.986Z"
+    },
+    "mobile-light-body-reduced": {
+      "path": "../evidence/v6-site/mobile-light-body-reduced.png",
+      "sha256": "49e240c06db332bf8b934d449eab95c7f99e6fed1f64b80d72ca053fc6a7db45",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "body-reduced-motion",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:40:40.072Z"
+    },
+    "mobile-light-film-still": {
+      "path": "../evidence/v6-site/mobile-light-film-still.png",
+      "sha256": "69bf001deccfb73b187de28389430abf3b40df8ebbaabf2bf011b6f5ef4bc5a5",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "film-still-reduced-motion",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:40:40.542Z"
+    },
+    "mobile-light-menu-open": {
+      "path": "../evidence/v6-site/mobile-light-menu-open.png",
+      "sha256": "b4975dc65f7cefd713fa021280683917fca7206b56328b4f377a484a832e0cd8",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-menu-open",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:40:40.928Z"
+    },
+    "mobile-light-soap-dialog": {
+      "path": "../evidence/v6-site/mobile-light-soap-dialog.png",
+      "sha256": "11d4bf328a7253e3a879c09880a066002fbc266b2d9c438f4f7f3f88dc63a270",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "mobile-soap-dialog",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:40:42.039Z"
+    },
+    "mobile-light-shop-bag": {
+      "path": "../evidence/v6-site/mobile-light-shop-bag.png",
+      "sha256": "e6961b3c9cf08f4ddc33311667ab19fe66a3d9e39a8a63f0ab02b729a30070da",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "mobile-bag",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:40:42.449Z"
+    },
+    "mobile-theme-persisted-information": {
+      "path": "../evidence/v6-site/mobile-theme-persisted-information.png",
+      "sha256": "ea04826a575aa9c42124728f2c843980bff9d9246648717ba4563e579bdef021",
+      "kind": "screenshot",
+      "route": "/more-information",
+      "state": "theme-persisted-information",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:40:44.126Z"
+    },
+    "mobile-shop-no-javascript": {
+      "path": "../evidence/v6-site/mobile-shop-no-javascript.png",
+      "sha256": "de0094b8965a2554ab76270b0adf1bdf5898a53f49b95b0c70a6f7523e539d9c",
+      "kind": "screenshot",
+      "route": "/products",
+      "state": "no-javascript",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:40:45.111Z"
+    },
+    "live_log": {
+      "path": "../evidence/v6-live/live-browser-log.json",
+      "sha256": "5cb427f2e7990f7e7e1cf96acb77400b9e533ac559dd1e6790e1f28f4d80f097",
+      "kind": "browser_log"
+    },
+    "live-desktop-home": {
+      "path": "../evidence/v6-live/live-desktop-home.png",
+      "sha256": "bcc0204a0e1a0b97fc212c8c50968dbe842ef320cfd73ddc07e6c37527cbf794",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "live-desktop-home",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:48:48.890Z"
+    },
+    "live-desktop-treatments": {
+      "path": "../evidence/v6-live/live-desktop-treatments.png",
+      "sha256": "1592e021ed8c33035859b78a7f2697735cbe516425db3429bae76aeeb9676786",
+      "kind": "screenshot",
+      "route": "/cupping-therapy/",
+      "state": "live-desktop-treatments",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:48:50.154Z"
+    },
+    "live-desktop-products": {
+      "path": "../evidence/v6-live/live-desktop-products.png",
+      "sha256": "f715bbf780684196a04778ad4ef01e306abd2f698bd33921184c01093e48df9e",
+      "kind": "screenshot",
+      "route": "/products/",
+      "state": "live-desktop-products",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:48:51.389Z"
+    },
+    "live-desktop-information": {
+      "path": "../evidence/v6-live/live-desktop-information.png",
+      "sha256": "2eedab0ddcb73f36986659be0bfc866c712e3fca3507b573fc802f042ad18024",
+      "kind": "screenshot",
+      "route": "/more-information/",
+      "state": "live-desktop-information",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:48:52.116Z"
+    },
+    "live-mobile-home": {
+      "path": "../evidence/v6-live/live-mobile-home.png",
+      "sha256": "95fad9ec04ac5228056edd8306bcecb1abdd2da5246acf65cc8e3f2eab148bc8",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "live-mobile-home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:49:02.721Z"
+    },
+    "live-mobile-treatments": {
+      "path": "../evidence/v6-live/live-mobile-treatments.png",
+      "sha256": "7e0934143dc856d561e663a80764bbc5a1e1727c03a1528e136d57adb4f971b8",
+      "kind": "screenshot",
+      "route": "/cupping-therapy/",
+      "state": "live-mobile-treatments",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:49:03.623Z"
+    },
+    "live-mobile-products": {
+      "path": "../evidence/v6-live/live-mobile-products.png",
+      "sha256": "aa1ef6dba2b630165e0bf9ef00bde96cd79dbe5af480c7651763b60e46e2296d",
+      "kind": "screenshot",
+      "route": "/products/",
+      "state": "live-mobile-products",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:49:04.787Z"
+    },
+    "live-mobile-information": {
+      "path": "../evidence/v6-live/live-mobile-information.png",
+      "sha256": "2a521e3ea52af8054c56e780138dd3ef366aa81d2a9cfea274b20020a152137e",
+      "kind": "screenshot",
+      "route": "/more-information/",
+      "state": "live-mobile-information",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:49:05.668Z"
+    },
+    "trace_continuity-log_json": {
+      "path": "../evidence/v6-state-continuity/continuity-log.json",
+      "sha256": "210e8e82f538672a6935292d7091ac11f31728063da6e59cb3f0e932109e5352",
+      "kind": "trace"
+    },
+    "trace_desktop-handoff-sampled-keyframes_json": {
+      "path": "../evidence/v6-state-continuity/desktop-handoff-sampled-keyframes.json",
+      "sha256": "7c127b0a7dc9eee274a6373f2ce4b91c4d573fb5023dafb3c246ff2ff8280faa",
+      "kind": "trace"
+    },
+    "trace_handoff-mid-v30-log_json": {
+      "path": "../evidence/v6-state-continuity/handoff-mid-v30-log.json",
+      "sha256": "d8aedc5963944275e47f3c07f3b762194b898d4df738c5a6663e49557906c90c",
+      "kind": "trace"
+    },
+    "trace_bounds-log_json": {
+      "path": "../evidence/v6-action-bounds/bounds-log.json",
+      "sha256": "a412f97c0d6bcad772017a5dde59162958323f9f2747a04f42a4023629d9e65d",
+      "kind": "trace"
+    },
+    "desktop-handoff-mid-v30": {
+      "path": "../evidence/v6-state-continuity/desktop-handoff-mid-v30.png",
+      "sha256": "eeeaeb398ca5cdcc93e476b4ef138e3b38eece50ca5d1cf765f126d080e7f380",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-handoff-mid-v30",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:39:30.284Z"
+    },
+    "mobile-handoff-mid-v30": {
+      "path": "../evidence/v6-state-continuity/mobile-handoff-mid-v30.png",
+      "sha256": "64d5fe47f6be64f31dd4d20c8adc24af54528be7416ef9e34ba3c3a1d4b030fc",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-handoff-mid-v30",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:39:35.110Z"
+    },
+    "continuity_desktop-transition-live": {
+      "path": "../evidence/v6-state-continuity/desktop-transition-live.png",
+      "sha256": "6ece2a2503824259d8efb5a38afd81c9f67fcb0b7ff161912c37b261c2c7ba50",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-transition-live",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:16.463Z"
+    },
+    "continuity_desktop-reduced": {
+      "path": "../evidence/v6-state-continuity/desktop-reduced.png",
+      "sha256": "c81774afde708df27cae6d058597ea454bea790dce214720f50f7e9d3e2549f8",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-reduced",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:23.005Z"
+    },
+    "continuity_desktop-fallback-front": {
+      "path": "../evidence/v6-state-continuity/desktop-fallback-front.png",
+      "sha256": "3da73873932558536c451934f26837f8f895f75caa1a6c9947459f1a43df05de",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-fallback-front",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:38.835Z"
+    },
+    "continuity_desktop-fallback-back": {
+      "path": "../evidence/v6-state-continuity/desktop-fallback-back.png",
+      "sha256": "4d4262be95428b4cae1e9b4fb3a5f2f072ecc4a3b1b04ea9102bc43535b649d5",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "desktop-fallback-back",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timestamp": "2026-10-18T04:35:41.517Z"
+    },
+    "continuity_mobile-reduced": {
+      "path": "../evidence/v6-state-continuity/mobile-reduced.png",
+      "sha256": "a66eded6fa3fb7453c9c0711e38fc48a21fdcdffc3dead9c65bb10810aa9bda7",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-reduced",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:36:10.717Z"
+    },
+    "continuity_mobile-fallback-front": {
+      "path": "../evidence/v6-state-continuity/mobile-fallback-front.png",
+      "sha256": "b6c78655f51f3ab0f041b364b403c8c4f7026bc7c4034c00e6ff4c5575c061f3",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-fallback-front",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:36:16.221Z"
+    },
+    "continuity_mobile-fallback-back": {
+      "path": "../evidence/v6-state-continuity/mobile-fallback-back.png",
+      "sha256": "0567c2fef30f3f1567d1e5cd3409158d8778183105bdfb313d7ac4b604c44c58",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-fallback-back",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:36:16.956Z"
+    },
+    "continuity_mobile-dark-insets": {
+      "path": "../evidence/v6-state-continuity/mobile-dark-insets.png",
+      "sha256": "af9e33633cffbd0e558fb239d77f2eeacfd507edddc60dff38578c31ce5e5f6f",
+      "kind": "screenshot",
+      "route": "/",
+      "state": "mobile-dark-insets",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timestamp": "2026-10-18T04:36:43.990Z"
+    },
+    "judge_raw": {
+      "path": "judge-v34.md",
+      "sha256": "66bb9bb4ecbe1a47a5530008c095e85cd12b55c94cd019571d8222aeb4a2ada8",
+      "kind": "raw_review"
+    }
+  },
+  "criteria": {
+    "C1": "PASS",
+    "C2": "PASS",
+    "C3": "PASS",
+    "C4": "PASS",
+    "C5": "PASS",
+    "C6": "PASS",
+    "C7": "PASS",
+    "C8": "PASS",
+    "C9": "PASS",
+    "C10": "PASS",
+    "C11": "PASS",
+    "C12": "PASS",
+    "C13": "PASS",
+    "C14": "PASS",
+    "C15": "PASS",
+    "C16": "PASS",
+    "C17": "PASS",
+    "C18": "PASS",
+    "C19": "PASS",
+    "C20": "PASS",
+    "C21": "PASS",
+    "C22": "PASS",
+    "C23": "PASS",
+    "C24": "PASS",
+    "C25": "PASS",
+    "C26": "PASS",
+    "C27": "PASS",
+    "C28": "PASS",
+    "C29": "PASS"
+  },
+  "gates": {
+    "coverage": {
+      "status": "PASS",
+      "evidence": [
+        "site_log",
+        "mobile-light-home-full",
+        "desktop-light-products-full"
+      ]
+    },
+    "composition": {
+      "status": "PASS",
+      "evidence": [
+        "desktop-hero-start",
+        "desktop-body-front",
+        "mobile-body-lower-zoom",
+        "desktop-light-shop-bag-populated"
+      ]
+    },
+    "behaviour": {
+      "status": "PASS",
+      "evidence": [
+        "target_log",
+        "site_log",
+        "live_log",
+        "trace_bounds-log_json"
+      ]
+    },
+    "evidence": {
+      "status": "PASS",
+      "evidence": [
+        "target_log",
+        "site_log",
+        "live_log",
+        "desktop-handoff-mid-v30",
+        "mobile-handoff-mid-v30"
+      ]
+    },
+    "independence": {
+      "status": "PASS",
+      "evidence": [
+        "judge_raw",
+        "target_log",
+        "site_log"
+      ]
+    },
+    "repair_loop": {
+      "status": "PASS",
+      "evidence": [
+        "judge_raw",
+        "target_log",
+        "site_log",
+        "trace_handoff-mid-v30-log_json"
+      ]
+    },
+    "completion": {
+      "status": "PASS",
+      "evidence": [
+        "judge_raw",
+        "live_log",
+        "live-mobile-home"
+      ]
+    }
+  },
+  "score": 100,
+  "verdict": "PASS",
+  "unresolved": [],
+  "unverified": []
+}

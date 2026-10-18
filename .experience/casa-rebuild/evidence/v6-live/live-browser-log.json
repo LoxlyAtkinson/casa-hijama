@@ -6,7 +6,7 @@
       "width": 1440,
       "height": 900
     },
-    "timestamp": "2026-10-17T16:25:31.405Z",
+    "timestamp": "2026-10-18T04:48:48.890Z",
     "action": "Opened deployed home route at desktop viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/; macro asset and WebGL body loaded",
@@ -20,7 +20,7 @@
       "width": 1440,
       "height": 900
     },
-    "timestamp": "2026-10-17T16:25:36.776Z",
+    "timestamp": "2026-10-18T04:48:50.154Z",
     "action": "Opened deployed treatments route at desktop viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/cupping-therapy/; main visible",
@@ -34,7 +34,7 @@
       "width": 1440,
       "height": 900
     },
-    "timestamp": "2026-10-17T16:25:39.722Z",
+    "timestamp": "2026-10-18T04:48:51.389Z",
     "action": "Opened deployed products route at desktop viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/products/; 30 products",
@@ -48,7 +48,7 @@
       "width": 1440,
       "height": 900
     },
-    "timestamp": "2026-10-17T16:25:43.036Z",
+    "timestamp": "2026-10-18T04:48:52.116Z",
     "action": "Opened deployed information route at desktop viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/more-information/; main visible",
@@ -62,7 +62,7 @@
       "width": 390,
       "height": 844
     },
-    "timestamp": "2026-10-17T16:25:55.841Z",
+    "timestamp": "2026-10-18T04:49:02.721Z",
     "action": "Opened deployed home route at mobile viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/; macro asset and WebGL body loaded",
@@ -76,7 +76,7 @@
       "width": 390,
       "height": 844
     },
-    "timestamp": "2026-10-17T16:25:58.624Z",
+    "timestamp": "2026-10-18T04:49:03.623Z",
     "action": "Opened deployed treatments route at mobile viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/cupping-therapy/; main visible",
@@ -90,7 +90,7 @@
       "width": 390,
       "height": 844
     },
-    "timestamp": "2026-10-17T16:26:01.218Z",
+    "timestamp": "2026-10-18T04:49:04.787Z",
     "action": "Opened deployed products route at mobile viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/products/; 30 products",
@@ -104,7 +104,7 @@
       "width": 390,
       "height": 844
     },
-    "timestamp": "2026-10-17T16:26:02.681Z",
+    "timestamp": "2026-10-18T04:49:05.668Z",
     "action": "Opened deployed information route at mobile viewport",
     "expected": "HTTP 200, page content and current revision loaded without overflow",
     "actual": "HTTP 200; path /casa-hijama/more-information/; main visible",
