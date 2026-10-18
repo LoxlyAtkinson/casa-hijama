@@ -24,17 +24,31 @@ async function atBody(page) {
   try {
     const transition = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await transition.route('**/assets/body-hubmap-skin.glb', async route => {
-      await new Promise(resolve => setTimeout(resolve, 1300));
+      await new Promise(resolve => setTimeout(resolve, 3500));
       await route.continue();
     });
     await transition.goto(base, { waitUntil: 'domcontentloaded' });
     await transition.locator('.bj').waitFor();
     await transition.evaluate(() => {
       window.__bodyHandoffFrames = [];
+      window.__bodyHandoffSamples = [];
       const section = document.querySelector('.bj');
       const observer = new MutationObserver(() => {
         if (!section.classList.contains('bj--handoff')) return;
         observer.disconnect();
+        const host = section.querySelector('.bj-webgl-host');
+        const reveal = host.getAnimations().find(animation => animation.animationName === 'bj-live-reveal');
+        if (reveal) {
+          reveal.pause();
+          for (const fraction of [0, .25, .5, .75, 1]) {
+            reveal.currentTime = 560 * fraction;
+            window.__bodyHandoffSamples.push({ fraction,
+              clip: getComputedStyle(host).clipPath,
+              still: Number(getComputedStyle(section.querySelector('.bj-figure')).opacity),
+              live: Number(getComputedStyle(host.querySelector('canvas')).opacity) });
+          }
+          reveal.play();
+        }
         const start = performance.now();
         const frame = () => {
           const canvas = document.querySelector('.bj-webgl-host canvas');
@@ -43,7 +57,8 @@ async function atBody(page) {
             handoff: section.classList.contains('bj--handoff'),
             webgl: section.classList.contains('bj--webgl'),
             still: Number(getComputedStyle(document.querySelector('.bj-figure')).opacity),
-            live: canvas ? Number(getComputedStyle(canvas).opacity) : 0
+            live: canvas ? Number(getComputedStyle(canvas).opacity) : 0,
+            clip: getComputedStyle(document.querySelector('.bj-webgl-host')).clipPath
           });
           if (performance.now() - start < 1000) requestAnimationFrame(frame);
         };
@@ -53,19 +68,26 @@ async function atBody(page) {
     });
     await atBody(transition);
     await transition.locator('.bj-figure img').first().waitFor({ state: 'visible' });
-    await transition.screenshot({ path: path.join(out, 'desktop-loading-still.png') });
-    await transition.locator('.bj--webgl canvas').waitFor({ timeout: 30000 });
+    // Avoid a full-page capture while measuring animation frames; Chromium's
+    // screenshot pipeline stalls WebGL requestAnimationFrame on this machine.
+    await transition.locator('.bj--webgl .bj-webgl-host canvas').waitFor({ timeout: 30000 });
     await transition.waitForFunction(() => Number(getComputedStyle(document.querySelector('.bj-webgl-host canvas')).opacity) > .95, null, { timeout: 5000 });
     const frames = await transition.evaluate(() => window.__bodyHandoffFrames);
-    const overlapping = frames.filter(frame => frame.still > .05 && frame.live > .05);
-    if (!frames.some(frame => frame.handoff && frame.still > .5 && frame.live === 0) ||
-        overlapping.length) {
-      throw new Error(`Incomplete or doubled body handoff: ${JSON.stringify({ frames: frames.length, overlapping: overlapping.length, first: frames[0], last: frames.at(-1) })}`);
+    const samples = await transition.evaluate(() => window.__bodyHandoffSamples);
+    const revealFrames = frames.filter(frame => frame.handoff && frame.still > .95 && frame.live > .95 && frame.clip.startsWith('inset('));
+    const rightInsets = samples.map(sample => Number(sample.clip.match(/inset\([^ ]+ ([\d.]+)%/)?.[1]));
+    if (samples.length !== 5 ||
+        rightInsets.some((value, i) => !Number.isFinite(value) || (i && value > rightInsets[i - 1])) ||
+        rightInsets[0] < 99 || rightInsets.at(-1) > 1 ||
+        samples.some(sample => sample.still < .95 || sample.live < .95) ||
+        frames.some(frame => frame.handoff && frame.still < .95 && frame.live < .95)) {
+      throw new Error(`Incomplete scan reveal: ${JSON.stringify({ frames: frames.length, samples, first: frames[0], last: frames.at(-1) })}`);
     }
     fs.writeFileSync(path.join(out, 'desktop-handoff-frames.json'), JSON.stringify(frames, null, 2));
+    fs.writeFileSync(path.join(out, 'desktop-handoff-sampled-keyframes.json'), JSON.stringify(samples, null, 2));
     const finalOpacity = await transition.evaluate(() => ({ still: Number(getComputedStyle(document.querySelector('.bj-figure')).opacity), live: Number(getComputedStyle(document.querySelector('.bj-webgl-host canvas')).opacity) }));
     if (finalOpacity.still > .05 || finalOpacity.live < .95) throw new Error(`Live finish missing: ${JSON.stringify(finalOpacity)}`);
-    const done = { stillOpacity: finalOpacity.still, canvasOpacity: finalOpacity.live, overlapFrames: overlapping.length, frames: frames.length };
+    const done = { stillOpacity: finalOpacity.still, canvasOpacity: finalOpacity.live, revealFrames: revealFrames.length, sampledKeyframes: samples.length, frames: frames.length };
     log.push({ state: 'desktop-transition-live', viewport: { width: 1440, height: 900 }, sourceRevision, timestamp: new Date().toISOString(), metrics: done });
     await transition.screenshot({ path: path.join(out, 'desktop-transition-live.png') });
     await transition.close();
@@ -76,7 +98,7 @@ async function atBody(page) {
       await reducedPage.goto(base, { waitUntil: 'domcontentloaded' });
       await atBody(reducedPage);
       await reducedPage.waitForTimeout(350);
-      const reducedState = { cards: await reducedPage.locator('.bj-panel:visible').count(), canvas: await reducedPage.locator('.bj--webgl canvas').count() };
+      const reducedState = { cards: await reducedPage.locator('.bj-panel:visible').count(), canvas: await reducedPage.locator('.bj--webgl .bj-webgl-host canvas').count() };
       if (reducedState.cards !== 3 || reducedState.canvas !== 0) throw new Error(`${name} reduced ${JSON.stringify(reducedState)}`);
       await reducedPage.screenshot({ path: path.join(out, `${name}-reduced.png`) });
       log.push({ state: `${name}-reduced`, viewport, sourceRevision, timestamp: new Date().toISOString(), metrics: reducedState });
@@ -92,13 +114,13 @@ async function atBody(page) {
       await atBody(fallbackPage);
       await fallbackPage.waitForFunction(() => [...document.querySelectorAll('.bj-figure img')].every(img => img.complete && img.naturalWidth > 0));
       await fallbackPage.waitForTimeout(400);
-      const front = { canvas: await fallbackPage.locator('.bj--webgl canvas').count(), side: await fallbackPage.locator('.bj').getAttribute('data-side') };
+      const front = { canvas: await fallbackPage.locator('.bj--webgl .bj-webgl-host canvas').count(), side: await fallbackPage.locator('.bj').getAttribute('data-side') };
       if (front.canvas !== 0 || front.side !== 'front') throw new Error(`${name} fallback ${JSON.stringify(front)}`);
       await fallbackPage.screenshot({ path: path.join(out, `${name}-fallback-front.png`) });
       log.push({ state: `${name}-fallback-front`, viewport, sourceRevision, timestamp: new Date().toISOString(), metrics: front });
       await fallbackPage.locator('.bj-region-button[data-region="1"]').click();
       await fallbackPage.locator('.bj-dialog-close').click();
-      const back = { canvas: await fallbackPage.locator('.bj--webgl canvas').count(), side: await fallbackPage.locator('.bj').getAttribute('data-side') };
+      const back = { canvas: await fallbackPage.locator('.bj--webgl .bj-webgl-host canvas').count(), side: await fallbackPage.locator('.bj').getAttribute('data-side') };
       if (back.canvas !== 0 || back.side !== 'back') throw new Error(`${name} fallback back ${JSON.stringify(back)}`);
       await fallbackPage.screenshot({ path: path.join(out, `${name}-fallback-back.png`) });
       log.push({ state: `${name}-fallback-back`, viewport, sourceRevision, timestamp: new Date().toISOString(), metrics: back });
@@ -108,7 +130,7 @@ async function atBody(page) {
     const dark = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
     await dark.goto(base, { waitUntil: 'domcontentloaded' });
     await atBody(dark);
-    await dark.locator('.bj--webgl canvas').waitFor({ timeout: 30000 });
+    await dark.locator('.bj--webgl .bj-webgl-host canvas').waitFor({ timeout: 30000 });
     await dark.locator('.bj-region-button[data-region="2"]').click();
     await dark.locator('.bj-dialog-close').click();
     await dark.locator('.theme-toggle').click();

@@ -1,0 +1,15 @@
+# Design Loop v28 — fresh craft review
+
+**Scope:** Visual craft only, judged against `bar-v3.md`, the rendered v6 captures, the live local page, [Apple Watch Series 12](https://www.apple.com/apple-watch-series-12/), and the supplied `3d human body.jpg`. No implementation source, earlier verdicts, design system, or builder rationale was used. The reviewer shares the project filesystem with the builder; this is procedural blinding, not runtime isolation.
+
+## Home: PASS
+
+The opening gives one oversized cupping vessel clear priority against a dark field, with a short white headline and an unobscured booking action. The next captured hero state changes the subject to a warm treatment room; mobile gives both images a legible reading order. These are convincing applications of the bar's macro subject, scene change, sparse controls, and light/dark editorial rhythm. Apple's macro imagery and motion polish remain a higher production benchmark, but the visible Casa home clears the specific mechanisms in `bar-v3.md` for this piece. Live `http://127.0.0.1:4173/` confirmed the opening scene visually; the supplied v6 captures supplied the mobile and second-scene views.
+
+## Live 3D body: FAIL
+
+The figure has the requested cyan translucency, brighter contours, internal ribs/spine, and a single warm active focus. The front/back states show a coherent continuous body, and the 200% states change scale around the selected area. Yet the selected region still reads mainly as a small pink dot and label on a soft mannequin. The reference uses a sharply localized red/pink anatomical light and distinct detail insets; the inspected `v6-state-continuity/mobile-dark-insets.png` has no visible inset or equivalent connected close-detail view. At 200%, the neck and lower-back captures enlarge the same shell and internal bones, with limb/head cropping and fade, rather than revealing a meaningful new anatomical detail. The supplied reference wins this side-by-side on the clinical scan and selected-area mechanism.
+
+**Single biggest fixable pixel gap:** Make each selected region visually resolve into a precise anatomical close-detail treatment connected to the continuous figure, with a concentrated warm focus at the relevant tissue/joint. The 200% state should reveal detail instead of simply magnifying and fading the same shell. This one change would address `bar-v3.md` mechanisms 5–7 most directly.
+
+**Evidence inspected:** Live Apple Watch Series 12 opening viewport; `evidence/v6/desktop-hero-start.png`, `desktop-hero-room.png`, `mobile-hero-start.png`, `mobile-hero-room.png`; desktop/mobile body front, back, upper, lower at 100%; desktop/mobile neck and lower at 200%; `evidence/v6-state-continuity/mobile-dark-insets.png`; live local opening. The live in-app browser showed a blank cream viewport after scrolling toward the body, so the live body visual was not verified in that browser session. This verdict rests on the supplied rendered body captures and does not claim a successful live body recheck.

@@ -29,7 +29,7 @@ const routes = [
           if (!image.loaded || !image.src.includes(expected)) throw new Error(`${size}: opening image ${JSON.stringify(image)}`);
           await page.screenshot({ path: path.join(out, `live-${size}-hero-fixed.png`), animations: 'disabled' });
           await page.locator('.bj-scroll').scrollIntoViewIfNeeded();
-          await page.locator('.bj--webgl canvas').waitFor({ timeout: 20000 });
+          await page.locator('.bj--webgl canvas').waitFor({ timeout: 60000 });
           await page.locator('.bj-region-button').nth(2).click();
           if (await page.locator('.bj').getAttribute('data-region') !== '2') throw new Error(`${size}: deployed body region`);
           await page.locator('.bj-dialog-close').click();

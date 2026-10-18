@@ -37,12 +37,12 @@ export function bodyJourney() {
           <div class="bj-zoom-controls" role="group" aria-label="Body figure zoom"><span>ZOOM</span><button type="button" data-zoom="out" aria-label="Zoom out body figure">−</button><output class="bj-zoom-level" aria-live="polite">100%</output><button type="button" data-zoom="in" aria-label="Zoom in body figure">+</button><button type="button" data-zoom="reset" aria-label="Reset body figure zoom">↺</button></div>
           <div class="bj-figure">
             <div class="bj-face bj-front" aria-hidden="false">
-              <img src="${import.meta.env.BASE_URL}assets/body-map-front.webp" alt="" loading="lazy" width="1024" height="1536">
+              <picture><source media="(max-width: 680px)" srcset="${import.meta.env.BASE_URL}assets/body-map-mobile-front.webp"><img src="${import.meta.env.BASE_URL}assets/body-map-desktop-front.webp" alt="" loading="lazy" width="820" height="1230"></picture>
               <button type="button" class="bj-hotspot bj-hotspot-0 is-active" data-region="0" aria-label="Explore neck and shoulders"><i aria-hidden="true"></i></button>
               <span class="bj-locator bj-locator-0">NECK / SHOULDERS</span>
             </div>
             <div class="bj-face bj-back" aria-hidden="true">
-              <img src="${import.meta.env.BASE_URL}assets/body-map-back.webp" alt="" loading="lazy" width="1024" height="1536">
+              <picture><source media="(max-width: 680px)" srcset="${import.meta.env.BASE_URL}assets/body-map-mobile-back.webp"><img src="${import.meta.env.BASE_URL}assets/body-map-desktop-back.webp" alt="" loading="lazy" width="820" height="1230"></picture>
               <button type="button" class="bj-hotspot bj-hotspot-1" data-region="1" tabindex="-1" aria-label="Explore upper back"><i aria-hidden="true"></i></button>
               <button type="button" class="bj-hotspot bj-hotspot-2" data-region="2" tabindex="-1" aria-label="Explore lower back"><i aria-hidden="true"></i></button>
               <span class="bj-locator bj-locator-1">UPPER BACK</span><span class="bj-locator bj-locator-2">LOWER BACK</span>
@@ -55,11 +55,11 @@ export function bodyJourney() {
         <div class="bj-counter"><span class="bj-current">01</span><span class="bj-counter-line"></span><span>03</span></div>
         <div class="bj-panels" aria-live="polite">${regions.map((region, index) => `<article class="bj-panel${index === 0 ? ' is-active' : ''}" data-region="${index}"><span class="bj-region-label">${region.label}</span><h3>${region.title}</h3><p>${region.text}</p></article>`).join('')}</div>
         <div class="bj-region-controls" role="group" aria-label="Choose a body area">${regions.map((region, index) => `<button class="bj-region-button${index === 0 ? ' is-active' : ''}" type="button" data-region="${index}" aria-pressed="${index === 0}"><span class="bj-button-index">${region.number}</span>${region.label}</button>`).join('')}</div>
-        <button class="bj-checkin-trigger" type="button">Explore this area <span aria-hidden="true">↗</span></button>
+        <button class="bj-checkin-trigger" type="button"><span class="bj-checkin-label">Explore this area</span><span aria-hidden="true">↗</span></button>
         <a class="bj-treatment-link" href="${import.meta.env.BASE_URL}cupping-therapy">Explore treatments <span aria-hidden="true">↗</span></a>
       </div>
     </div></div></div>
-    <div class="bj-care wrap"><div><span class="bj-care-label">The evidence &amp; your safety</span><p>Cupping may reduce pain, but the evidence is not strong. Temporary skin marks are common; burns, scars and infection can occur. Speak with a clinician about persistent or worsening pain, and tell your therapist about your health before treatment.</p><a class="bj-model-credit" href="https://hubmapconsortium.github.io/ccf/pages/ccf-3d-reference-library.html" target="_blank" rel="noopener noreferrer">3D body: HuBMAP CCF · CC BY 4.0 ↗</a></div><a href="https://www.nccih.nih.gov/health/cupping" target="_blank" rel="noopener noreferrer">Read the NIH cupping guide <span aria-hidden="true">↗</span></a></div>
+    <div class="bj-care wrap"><div><span class="bj-care-label">The evidence &amp; your safety</span><p>Cupping may reduce pain, but the evidence is not strong. Temporary skin marks are common; burns, scars and infection can occur. Speak with a clinician about persistent or worsening pain, and tell your therapist about your health before treatment.</p><a class="bj-model-credit" href="https://github.com/LoxlyAtkinson/casa-hijama/blob/main/ATTRIBUTION.md" target="_blank" rel="noopener noreferrer">3D body: HuBMAP CCF + BodyParts3D · CC BY 4.0 ↗</a></div><a href="https://www.nccih.nih.gov/health/cupping" target="_blank" rel="noopener noreferrer">Read the NIH cupping guide <span aria-hidden="true">↗</span></a></div>
     <dialog class="bj-dialog" aria-labelledby="bj-dialog-title"><div class="bj-dialog-inner"><button class="bj-dialog-close" type="button" aria-label="Close body area check-in">×</button><span class="bj-dialog-eyebrow">PRIVATE, ON-PAGE CHECK-IN · <span class="bj-dialog-region">NECK &amp; SHOULDERS</span></span><h3 id="bj-dialog-title">Prepare for a conversation.</h3><p class="bj-dialog-intro">Four short questions can help you describe what you want to discuss. Answers stay on this page and are not used to diagnose or recommend treatment.</p>
       <form class="bj-intake-form">
         ${question('duration', '01 / How long have you been noticing this?', [['Under a week','Under a week'],['1–4 weeks','1–4 weeks'],['Longer than a month','Longer than a month'],['Prefer not to say','Prefer not to say']])}
@@ -86,11 +86,15 @@ async function createMannequin(section, onHotspot, onOrbit) {
   }
   // The companion sacrum shares the exterior's coordinate system. A failed
   // detail fetch must never prevent the main figure or its controls loading.
-  const pelvis = await new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}assets/body-hubmap-pelvis.glb`).catch(() => null);
+  const loader = new GLTFLoader();
+  const [pelvis, structural] = await Promise.all([
+    loader.loadAsync(`${import.meta.env.BASE_URL}assets/body-hubmap-pelvis.glb`).catch(() => null),
+    loader.loadAsync(`${import.meta.env.BASE_URL}assets/body-bp3d-anatomy.glb`).catch(() => null)
+  ]);
   const host = section.querySelector('.bj-webgl-host');
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true, powerPreference: 'low-power' });
   } catch {
     return null;
   }
@@ -139,108 +143,21 @@ async function createMannequin(section, onHotspot, onOrbit) {
         float grid = max(mix(alongX, alongZ, abs(vObjectNormal.x)), across);
         float gridMask = smoothstep(-1.5,-.95,vPosition.y) * (1.0 - smoothstep(1.55,1.76,vPosition.y));
         colour = mix(colour, vec3(0.78,1.0,1.0), grid * gridMask * .62);
-        // Fine, low-contrast cross sections and curved torso ribs suggest a
-        // luminous scan. All coordinates are local to the turning 3D surface.
-        float torso = smoothstep(.57,.72,vPosition.y) * (1.0 - smoothstep(1.42,1.57,vPosition.y));
-        float side = smoothstep(.02,.11,abs(vPosition.x)) * (1.0 - smoothstep(.37,.49,abs(vPosition.x)));
-        float faceMask = smoothstep(.13,.25,abs(vPosition.z));
-        float ribPhase = (vPosition.y + .12 * abs(vPosition.x) + .025 * sin(vPosition.x * 13.0)) * 39.0;
-        float ribs = pow(1.0 - abs(sin(ribPhase)), 36.0) * torso * side * faceMask;
-        float sternum = (1.0 - smoothstep(.008,.034,abs(vPosition.x)))
-          * smoothstep(.80,.96,vPosition.y) * (1.0 - smoothstep(1.39,1.52,vPosition.y))
-          * smoothstep(.15,.27,vPosition.z);
-        float fine = pow(1.0 - abs(sin(vPosition.y * 71.0)), 66.0)
-          * (1.0 - smoothstep(1.68,1.85,vPosition.y)) * .13;
-        float vertebrae = pow(1.0 - abs(sin(vPosition.y * 27.0)), 18.0)
-          * (1.0 - smoothstep(.035,.11,abs(vPosition.x)))
-          * smoothstep(-.10,.06,vPosition.y) * (1.0 - smoothstep(1.36,1.52,vPosition.y));
-        // A radiographic inner layer is shaded on the continuous skin mesh.
-        // Soft cavities supply depth; narrow bones and broader halos make the
-        // close view reveal anatomy rather than merely enlarging the shell.
-        float x = abs(vPosition.x);
-        float frontFace = smoothstep(.10,.24,vPosition.z);
-        float rearFace = smoothstep(.08,.22,-vPosition.z);
-        float thorax = smoothstep(.65,.84,vPosition.y) * (1.0-smoothstep(1.42,1.55,vPosition.y));
-        float innerChest = exp(-pow((x-.21)/.22,2.0)-pow((vPosition.y-1.08)/.37,2.0));
-        colour = mix(colour, vec3(.025,.22,.34), innerChest * frontFace * .34);
-        float ribHalo = 0.0;
-        float ribCore = 0.0;
-        for (int i=0; i<6; i++) {
-          float row = float(i);
-          float arch = 1.36 - row*.112 + .10*smoothstep(.06,.40,x) - .015*sin(x*9.0+row);
-          float d = abs(vPosition.y-arch);
-          float reach = smoothstep(.045,.11,x) * (1.0-smoothstep(.38,.53,x));
-          ribHalo = max(ribHalo, exp(-pow(d/.041,2.0))*reach);
-          ribCore = max(ribCore, exp(-pow(d/.012,2.0))*reach);
-        }
-        float clavicleY = 1.47 - .21*smoothstep(.02,.43,x);
-        float clavicle = exp(-pow((vPosition.y-clavicleY)/.015,2.0))
-          * smoothstep(.015,.07,x) * (1.0-smoothstep(.38,.48,x)) * frontFace;
-        float spinalCord = exp(-pow(vPosition.x/.026,2.0))
-          * smoothstep(-.18,.02,vPosition.y) * (1.0-smoothstep(1.36,1.52,vPosition.y));
-        float vertebralBodies = spinalCord * (.44 + .56*pow(.5+.5*cos(vPosition.y*47.0),5.0));
-        float scapulaPlate = exp(-pow((x-.28)/.145,2.0)-pow((vPosition.y-1.03)/.28,2.0));
-        float scapulaEdge = exp(-pow((sqrt(pow((x-.28)/.16,2.0)+pow((vPosition.y-1.03)/.32,2.0))-.82)/.16,2.0));
-        float lumbar = smoothstep(-.16,.02,vPosition.y) * (1.0-smoothstep(.58,.76,vPosition.y));
-        float muscleColumn = exp(-pow((x-.17)/.085,2.0)) * lumbar;
-        float muscleFiber = exp(-pow((x-(.14+.025*sin(vPosition.y*4.0)))/.021,2.0)) * lumbar;
-        float lumbarFacet = exp(-pow((x-.066)/.035,2.0))
-          * pow(.5+.5*cos(vPosition.y*43.0),8.0) * lumbar;
-        float sacralFan = exp(-pow((x-(.10+.28*max(0.0,-vPosition.y)))/.05,2.0))
-          * smoothstep(-.38,-.22,vPosition.y) * (1.0-smoothstep(.06,.18,vPosition.y));
-        // A second scan plate resolves only in the close view: the shoulder
-        // socket and tendon sweep in front, lumbar bodies and lateral facets
-        // behind. These are calculated on the turning mesh, not screen decals.
-        float shoulderRadius = length(vec2((x-.435)/.092,(vPosition.y-1.275)/.105));
-        float shoulderSocket = exp(-pow((shoulderRadius-.78)/.16,2.0)) * frontFace;
-        float shoulderDepth = exp(-pow(shoulderRadius/.92,2.0)) * frontFace;
-        float tendon = exp(-pow((vPosition.y-(1.38-.50*(x-.30)))/.018,2.0))
-          * smoothstep(.27,.34,x) * (1.0-smoothstep(.49,.57,x)) * frontFace;
-        float lumbarBodies = 0.0;
-        float lumbarProcesses = 0.0;
-        for (int i=0; i<5; i++) {
-          float cy = .49 - float(i)*.115;
-          float bodyOval = length(vec2(vPosition.x/.087,(vPosition.y-cy)/.041));
-          lumbarBodies = max(lumbarBodies,exp(-pow((bodyOval-.82)/.20,2.0)));
-          float branch = abs(vPosition.y-(cy-.015-.07*smoothstep(.07,.28,x)));
-          lumbarProcesses = max(lumbarProcesses,exp(-pow(branch/.014,2.0))
-            * smoothstep(.07,.11,x) * (1.0-smoothstep(.23,.32,x)));
-        }
-        float cervicalBodies = 0.0;
-        for (int i=0; i<5; i++) {
-          float cy = 1.50 + float(i)*.062;
-          float bodyOval = length(vec2(vPosition.x/.073,(vPosition.y-cy)/.025));
-          cervicalBodies = max(cervicalBodies,exp(-pow((bodyOval-.79)/.21,2.0)));
-        }
-        cervicalBodies *= frontFace * smoothstep(1.44,1.50,vPosition.y)
-          * (1.0-smoothstep(1.80,1.88,vPosition.y));
-        float focusLens = exp(-dot((vPosition-uRegion)/vec3(.49,.43,.50),
-          (vPosition-uRegion)/vec3(.49,.43,.50))*.85);
-        float focusDepth = uFocus * focusLens * (shoulderDepth*.28
-          + rearFace * (muscleColumn*.20+lumbarBodies*.20));
-        colour = mix(colour, vec3(.012,.16,.27), min(.30,focusDepth));
-        float deepAnatomy = thorax * frontFace * (ribHalo*.22+innerChest*.15)
-          + rearFace * (scapulaPlate*.23+vertebralBodies*.20+muscleColumn*.29);
-        colour = mix(colour, vec3(.015,.25,.40), clamp(deepAnatomy,0.0,.42));
-        float bone = frontFace * thorax * (ribCore*.56+ribHalo*.17+clavicle*.71+sternum*.18)
-          + rearFace * (scapulaEdge*.36+vertebralBodies*.40
-            + muscleFiber*.22+lumbarFacet*.18+sacralFan*.24);
-        float scanDetail = clamp(bone + fine*.20 + ribs*.18, 0.0, .76);
-        colour = mix(colour, vec3(.77,1.0,1.0), scanDetail);
-        vec3 fromFocus = (vPosition - uRegion) / vec3(0.28,0.28,0.35);
-        float warmth = exp(-dot(fromFocus,fromFocus) * 1.35);
-         colour = mix(colour, vec3(1.0,0.12,0.30), warmth * (0.58 + 0.07*uFocus));
-         float focusBones = uFocus * focusLens * (
-           frontFace * (shoulderSocket*.78+tendon*.53+clavicle*.36+cervicalBodies*.58)
-           + rearFace * (lumbarBodies*.71+lumbarProcesses*.49+lumbarFacet*.16));
-         colour = mix(colour, vec3(.83,1.0,1.0), min(.82,focusBones));
-         // A broad, feathered pelvic shadow keeps the scan comfortable at every angle.
-         vec3 pelvic = (vPosition - vec3(0.0,-0.48,0.10)) / vec3(0.38,0.45,0.48);
-         float veil = exp(-dot(pelvic,pelvic) * 1.25);
-         colour = mix(colour, vec3(0.015,0.22,0.32), veil * 0.72);
-         float alpha = 0.28 + 0.12 * diffuse + rim * (0.51 + .13*uFocus) + grid * gridMask * 0.10 + warmth * 0.12 + scanDetail * .34 + focusBones * .28;
-         alpha *= 1.0 - veil * 0.40;
-         gl_FragColor = vec4(colour, min(0.94, alpha));
+        // The actual clavicles, scapulae, ribs and vertebrae are separate 3D
+        // meshes inside this shell. Its scan shading now stays quiet enough to
+        // reveal their silhouettes instead of painting bone shapes on skin.
+        vec3 fromFocus = (vPosition - uRegion) / vec3(.24,.22,.27);
+        float warmth = exp(-dot(fromFocus,fromFocus) * 1.15);
+        float hotCore = exp(-dot(fromFocus,fromFocus) * 5.8);
+        colour = mix(colour, vec3(1.0,.21,.35), warmth * (.58 + .12*uFocus));
+        colour = mix(colour, vec3(1.0,.46,.54), hotCore * (.60 + .15*uFocus));
+        vec3 pelvic = (vPosition - vec3(0.0,-0.48,0.10)) / vec3(.38,.45,.48);
+        float veil = exp(-dot(pelvic,pelvic) * 1.25);
+        colour = mix(colour, vec3(.015,.22,.32), veil * .72);
+        float alpha = .20 + .08*diffuse + rim*(.56 + .11*uFocus)
+          + grid*gridMask*.10 + warmth*.18 + hotCore*.16;
+        alpha *= 1.0 - veil*.40;
+        gl_FragColor = vec4(colour, min(.88, alpha));
       }`
   });
   // HuBMAP v1.2 Visible Human male skin. Its original metre-scale Y-up mesh is
@@ -287,30 +204,71 @@ async function createMannequin(section, onHotspot, onOrbit) {
   outlineSurface.scale.setScalar(1.009);
   outlineSurface.renderOrder = 2;
   body.add(depthSurface, scanSurface, outlineSurface);
-  // Quiet depth cues, kept behind the real exterior and intentionally restrained.
+  // This compact bundle contains selected BodyParts3D 4.0 bone meshes,
+  // registered to the HuBMAP exterior at the sacrum and shoulder landmarks.
+  // A failed optional fetch leaves the original complete body and controls.
   const anatomy = new THREE.Group();
   body.add(anatomy);
-  const anatomyViews = { front: new THREE.Group(), back: new THREE.Group() };
-  anatomy.add(anatomyViews.front, anatomyViews.back);
   const regionalDetails = [];
-  function anatomyCurve(view, region, points, radius = .012) {
-    const material = new THREE.MeshBasicMaterial({ color: 0x9cebf6, transparent: true, opacity: .1, depthWrite: false, depthTest: false });
-    const path = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)));
-    const mesh = new THREE.Mesh(new THREE.TubeGeometry(path, 32, radius, 7, false), material);
-    mesh.renderOrder = 4;
-    anatomyViews[view].add(mesh);
-    regionalDetails.push({ material, region });
+  // A second camera shows the actual selected bone meshes in a compact scan
+  // window when visitors zoom in. It is a live rendering of the same model,
+  // never a flat replacement frame.
+  const detailScene = new THREE.Scene();
+  detailScene.background = new THREE.Color(0x082533);
+  detailScene.add(new THREE.HemisphereLight(0xa6eaff, 0x17465b, 2.1));
+  const detailLight = new THREE.DirectionalLight(0xbceffc, 2.2);
+  detailLight.position.set(-2, 3, 5);
+  detailScene.add(detailLight);
+  const detailBody = new THREE.Group();
+  detailScene.add(detailBody);
+  const detailCamera = new THREE.PerspectiveCamera(32, 1, .05, 20);
+  const detailMeshes = [];
+  const detailTarget = new THREE.WebGLRenderTarget(256, 256, { depthBuffer: true });
+  const overlayScene = new THREE.Scene();
+  const overlayCamera = new THREE.OrthographicCamera(0, 1, 1, 0, .01, 4);
+  overlayCamera.position.z = 2;
+  const overlayMaterial = new THREE.ShaderMaterial({
+    uniforms: { uImage: { value: detailTarget.texture } },
+    transparent: true, depthTest: false, depthWrite: false,
+    vertexShader: `varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+    fragmentShader: `uniform sampler2D uImage; varying vec2 vUv;
+      void main(){vec4 scan=texture2D(uImage,vUv);float r=length(vUv-vec2(.5));
+        float edge=1.0-smoothstep(.455,.50,r);
+        float ring=(smoothstep(.445,.468,r)-smoothstep(.477,.494,r))*.45;
+        gl_FragColor=vec4(mix(scan.rgb,vec3(.53,.90,.95),ring),edge);}`
+  });
+  const overlayDisc = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), overlayMaterial);
+  overlayScene.add(overlayDisc);
+  if (structural) {
+    structural.scene.updateMatrixWorld(true);
+    structural.scene.traverse(object => {
+      if (!object.isMesh) return;
+      const name = object.name.toLowerCase();
+      const geometry = object.geometry.clone();
+      geometry.applyMatrix4(object.matrixWorld);
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x91dce9, emissive: 0x144357, emissiveIntensity: .18,
+        metalness: .05, roughness: .62, transparent: true, opacity: .08,
+        depthWrite: false, depthTest: false, side: THREE.DoubleSide
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.renderOrder = 4;
+      anatomy.add(mesh);
+      const focusRegion = /clavicle|manubrium|first_rib|second_rib/.test(name) ? 0
+        : /scapula|thoracic|third_rib|fourth_rib|fifth_rib|sixth_rib|sternum/.test(name) ? 1 : 2;
+      regionalDetails.push({
+        material,
+        region: focusRegion,
+        sharedThorax: /rib|sternum/.test(name)
+      });
+      const closeMesh = mesh.clone();
+      closeMesh.material = material.clone();
+      closeMesh.material.depthTest = true;
+      closeMesh.renderOrder = 2;
+      detailBody.add(closeMesh);
+      detailMeshes.push({ mesh: closeMesh, region: focusRegion, name });
+    });
   }
-  for (const side of [-1, 1]) {
-    anatomyCurve('front', 0, [[side*.06,1.73,.17],[side*.11,1.60,.20],[side*.21,1.45,.27],[side*.35,1.34,.32]], .004);
-    anatomyCurve('front', 0, [[0,1.36,.25],[side*.15,1.40,.32],[side*.34,1.34,.34],[side*.48,1.20,.29]], .006);
-    anatomyCurve('front', 0, [[side*.03,1.31,.25],[side*.18,1.34,.30],[side*.34,1.28,.32],[side*.45,1.18,.28]], .004);
-    anatomyCurve('front', 0, [[side*.41,1.35,.27],[side*.50,1.28,.28],[side*.51,1.17,.26],[side*.46,1.10,.29]], .005);
-    anatomyCurve('back', 1, [[side*.14,1.23,-.29],[side*.40,1.23,-.32],[side*.52,1.05,-.28],[side*.32,.72,-.27],[side*.14,1.23,-.29]], .005);
-    anatomyCurve('back', 1, [[side*.1,.49,-.27],[side*.20,.47,-.28],[side*.24,.39,-.26]], .006);
-    anatomyCurve('back', 2, [[side*.34,.57,-.27],[side*.27,.40,-.30],[side*.25,.19,-.31],[side*.32,.02,-.28]], .004);
-  }
-  anatomyCurve('back', 2, [[0,.53,-.29],[.01,.36,-.32],[0,.19,-.33],[0,.03,-.33],[0,-.11,-.31]], .004);
   if (pelvis) {
     pelvis.scene.updateMatrixWorld(true);
     let sacrum;
@@ -320,34 +278,21 @@ async function createMannequin(section, onHotspot, onOrbit) {
       geometry.applyMatrix4(sacrum.matrixWorld);
       geometry.scale(2.75, 2.75, 2.75);
       geometry.translate(0, -.23, 0);
-      const material = new THREE.MeshStandardMaterial({ color: 0x77cfe1, emissive: 0x123d52, metalness: .08, roughness: .42, transparent: true, opacity: .05, depthWrite: false, depthTest: false, side: THREE.FrontSide });
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x83d4e6, emissive: 0x123d52, emissiveIntensity: .18,
+        metalness: .05, roughness: .62, transparent: true, opacity: .08,
+        depthWrite: false, depthTest: false, side: THREE.DoubleSide
+      });
       const mesh = new THREE.Mesh(geometry, material);
       mesh.renderOrder = 4;
-      anatomyViews.back.add(mesh);
-      regionalDetails.push({ material, region: 2, sacrum: true });
-    }
-  }
-  const innerLineMaterial = new THREE.LineBasicMaterial({
-    color: 0x9ce6f2, transparent: true, opacity: .20, depthWrite: false, depthTest: false
-  });
-  function strand(view, points) {
-    const path = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)));
-    const line = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints(path.getPoints(28)), innerLineMaterial
-    );
-    line.renderOrder = 4;
-    anatomyViews[view].add(line);
-  }
-  for (const [view, sign] of [['front', 1], ['back', -1]]) {
-    strand(view, Array.from({ length: 14 }, (_, i) =>
-      [.009 * Math.sin(i * .4), 1.48 - i * .105, sign * .10]));
-    for (const side of [-1, 1]) {
-      for (let row = 0; row < 5; row++) {
-        const y = 1.22 - row * .13;
-        strand(view, [[side * .025,y,sign * .10],
-          [side * .18,y + .015,sign * .16],
-          [side * .34,y - .04,sign * .13]]);
-      }
+      anatomy.add(mesh);
+      regionalDetails.push({ material, region: 2 });
+      const closeMesh = mesh.clone();
+      closeMesh.material = material.clone();
+      closeMesh.material.depthTest = true;
+      closeMesh.renderOrder = 2;
+      detailBody.add(closeMesh);
+      detailMeshes.push({ mesh: closeMesh, region: 2 });
     }
   }
   const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0x40b7d6, transparent: true, opacity: .17, depthWrite: false });
@@ -363,6 +308,24 @@ async function createMannequin(section, onHotspot, onOrbit) {
     new THREE.Vector3(.03, .93, -.39),
     new THREE.Vector3(.03, .16, -.37)
   ];
+  const detailSkinMaterial = skin.clone();
+  detailSkinMaterial.fragmentShader = detailSkinMaterial.fragmentShader
+    .replace('min(.88, alpha)', 'min(.46, alpha*.75)');
+  const detailSkin = new THREE.Mesh(bodyGeometry, detailSkinMaterial);
+  detailSkin.renderOrder = 1;
+  detailBody.add(detailSkin);
+  const detailFocus = new THREE.Mesh(new THREE.SphereGeometry(.025, 18, 12),
+    new THREE.MeshBasicMaterial({ color: 0xff5379, transparent: true, opacity: .92, depthWrite: false }));
+  detailFocus.renderOrder = 3;
+  const detailWarmLight = new THREE.PointLight(0xff315d, .35, .58);
+  detailBody.add(detailFocus, detailWarmLight);
+  const detailConnector = document.createElement('div');
+  Object.assign(detailConnector.style, {
+    position: 'absolute', zIndex: '5', height: '1.5px', display: 'none',
+    background: 'linear-gradient(90deg, rgba(255,100,140,.88), rgba(138,230,238,.62))',
+    boxShadow: '0 0 7px rgba(255,92,130,.35)', pointerEvents: 'none', transformOrigin: '0 50%'
+  });
+  section.querySelector('.bj-visual').append(detailConnector);
   const markerGroups = [];
   const pickMeshes = [];
   markers.forEach((point, index) => {
@@ -415,23 +378,36 @@ async function createMannequin(section, onHotspot, onOrbit) {
     latestRegion = visualRegion;
     if (visualRegion !== region) onOrbit(visualRegion, false);
     const detail = THREE.MathUtils.clamp((zoom - 1) / .5, 0, 1);
-    // These guide strands are laid just under the frontal/rear shell. From an
-    // oblique camera angle they can project beyond the silhouette; let the
-    // real 3D surface carry the profile while restoring detail face-on.
-    const anatomyFacing = ease(.55, .87, Math.abs(Math.cos(angle)));
     skin.uniforms.uRegion.value.copy(markers[visualRegion]);
     skin.uniforms.uFocus.value = detail;
-    regionalDetails.forEach(({ material, region: detailRegion, sacrum }) => {
-      material.opacity = (detailRegion === visualRegion ? (sacrum ? .06 + detail * .10 : .29 + detail * .25) : .035) * anatomyFacing;
+    // Bone volumes are genuine geometry inside the scan shell. At the side
+    // silhouette they would otherwise draw through the skin and appear to
+    // float outside it, so reduce their visibility as the figure turns.
+    const boneFacing = ease(.15, .58, Math.abs(Math.cos(angle)));
+    regionalDetails.forEach(({ material, region: detailRegion, sharedThorax }) => {
+      const active = detailRegion === visualRegion;
+      const supporting = sharedThorax && visualRegion < 2;
+      const focusedOpacity = active ? .40 + detail * .38 : supporting ? .18 - detail * .10 : .075 - detail * .045;
+      material.opacity = focusedOpacity * (.12 + .88 * boneFacing);
+      material.color.setHex(active ? 0xa5ecf3 : 0x76b4c6);
+      material.emissive.setHex(active ? 0x265f72 : 0x0e3041);
+      material.emissiveIntensity = active ? .22 + detail * .36 : .11;
     });
-    innerLineMaterial.opacity = .20 * anatomyFacing;
+    detailMeshes.forEach(({ mesh, region: detailRegion, name }) => {
+      mesh.visible = detailRegion === visualRegion && (visualRegion !== 0 || /clavicle|manubrium|first_rib|second_rib/.test(name))
+        || visualRegion === 0 && /scapula/.test(name);
+      mesh.material.opacity = .70;
+      mesh.material.color.setHex(0x77c3d5);
+      mesh.material.emissive.setHex(0x174b60);
+      mesh.material.emissiveIntensity = .18;
+    });
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
     section.classList.toggle('bj--chapter-focus', upper > .08);
     body.rotation.y = angle;
     body.rotation.x = orbitPitch;
     const mobileFrame = host.clientWidth < 330;
-    const framingDistance = mobileFrame ? 9.6 : 10.1;
+    const framingDistance = mobileFrame ? 9.35 : 10.1;
     const baseFocus = mobileFrame
       ? -.14 - .04 * upper - .02 * lower
       : .20 * upper - .43 * lower;
@@ -447,8 +423,6 @@ async function createMannequin(section, onHotspot, onOrbit) {
       : framingDistance - 1.20 * upper - .62 * lower;
     camera.position.set(0, verticalFocus, chapterDistance / zoom);
     camera.lookAt(0, verticalFocus, 0);
-    anatomyViews.front.visible = visibleSide === 'front';
-    anatomyViews.back.visible = visibleSide === 'back';
     markerGroups.forEach((group, i) => {
       group.visible = regions[i].side === visibleSide;
       group.scale.setScalar(i === visualRegion ? (mobileFrame ? 1.58 : 1.18) : .72);
@@ -490,7 +464,68 @@ async function createMannequin(section, onHotspot, onOrbit) {
       tag.style.top = `${Math.max(labelHeight / 2 + 8, Math.min(host.clientHeight - labelHeight / 2 - 8, tagY))}px`;
       tag.style.transform = labelOnLeft ? 'translate(calc(-100% - 10px), -50%)' : 'translate(10px, -50%)';
     });
+    const showDetail = detail > .55 && detailMeshes.length > 0;
+    const lensSize = mobileFrame ? 112 : 120;
+    const insetRight = mobileFrame ? 8 : visualRegion === 2 ? 62 : 8;
+    const insetTop = mobileFrame
+      ? visualRegion === 2 ? Math.max(60, host.clientHeight - lensSize - 52) : 36
+      : visualRegion === 2 ? Math.max(120, host.clientHeight - lensSize - 132) : 145;
+    if (showDetail) {
+      // Keep the main figure softly feathered while showing the circular scan.
+      host.style.maskImage = host.style.webkitMaskImage = 'none';
+      const mask = `radial-gradient(ellipse 58% 55% at 50% 50%,#000 44%,transparent 84%) center / 100% 100% no-repeat, radial-gradient(circle,#000 67%,transparent 75%) right ${insetRight}px top ${insetTop}px / ${lensSize}px ${lensSize}px no-repeat`;
+      renderer.domElement.style.mask = mask;
+      renderer.domElement.style.webkitMask = mask;
+      detailBody.rotation.set(orbitPitch * .25, angle + (visualRegion === 0 ? -.32 : 0), 0);
+      detailFocus.position.copy([
+        new THREE.Vector3(.15, 1.23, .18),
+        new THREE.Vector3(.10, .94, -.20),
+        new THREE.Vector3(.03, .22, -.18)
+      ][visualRegion]);
+      detailWarmLight.position.copy(detailFocus.position);
+      detailSkinMaterial.uniforms.uRegion.value.copy(markers[visualRegion]);
+      detailSkinMaterial.uniforms.uFocus.value = 1;
+      const focalY = [1.23,.94,.22][visualRegion];
+      const focalX = visualRegion === 0 ? .18 : 0;
+      const distance = [1.65,1.58,1.28][visualRegion];
+      detailCamera.position.set(focalX, focalY, distance);
+      detailCamera.lookAt(focalX, focalY, 0);
+      detailCamera.updateMatrixWorld(true);
+      markerGroups[visualRegion].getWorldPosition(projected).project(camera);
+      const pointX = (projected.x + 1) * host.clientWidth / 2;
+      const pointY = (1 - projected.y) * host.clientHeight / 2;
+      const centerX = host.clientWidth - lensSize / 2 - insetRight;
+      const centerY = insetTop + lensSize / 2;
+      const dx = centerX - pointX, dy = centerY - pointY;
+      const length = Math.hypot(dx, dy);
+      detailConnector.style.display = length > lensSize * .5 ? 'block' : 'none';
+      detailConnector.style.left = `${pointX}px`;
+      detailConnector.style.top = `${pointY}px`;
+      detailConnector.style.width = `${Math.max(0, length - lensSize * .48)}px`;
+      detailConnector.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
+    } else {
+      host.style.maskImage = host.style.webkitMaskImage = '';
+      renderer.domElement.style.mask = renderer.domElement.style.webkitMask = '';
+      detailConnector.style.display = 'none';
+    }
     renderer.render(scene, camera);
+    if (showDetail) {
+      const x = host.clientWidth - lensSize - insetRight;
+      renderer.setRenderTarget(detailTarget);
+      renderer.render(detailScene, detailCamera);
+      renderer.setRenderTarget(null);
+      renderer.setViewport(0, 0, host.clientWidth, host.clientHeight);
+      overlayCamera.left = 0;
+      overlayCamera.right = host.clientWidth;
+      overlayCamera.top = host.clientHeight;
+      overlayCamera.bottom = 0;
+      overlayCamera.updateProjectionMatrix();
+      overlayDisc.position.set(x + lensSize / 2, host.clientHeight - insetTop - lensSize / 2, 0);
+      overlayDisc.scale.set(lensSize, lensSize, 1);
+      renderer.autoClear = false;
+      renderer.render(overlayScene, overlayCamera);
+      renderer.autoClear = true;
+    }
   }
   function resize() {
     const width = Math.max(1, host.clientWidth);
@@ -597,11 +632,12 @@ async function createMannequin(section, onHotspot, onOrbit) {
   const observer = new ResizeObserver(resize);
   observer.observe(host);
   resize();
-  // Paint one complete WebGL frame beneath the still before starting the
-  // handoff. The still must clear completely before the new silhouette shows.
+  // Paint a complete WebGL frame, then reveal it through a narrow moving
+  // boundary. The still remains visible until the reveal finishes, so there
+  // is no empty frame or doubled silhouette while the two renders differ.
   await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   section.classList.add('bj--handoff');
-  await new Promise(resolve => setTimeout(resolve, 280));
+  await new Promise(resolve => setTimeout(resolve, 620));
   section.classList.add('bj--webgl');
   section.classList.remove('bj--handoff');
   return {
@@ -622,6 +658,16 @@ async function createMannequin(section, onHotspot, onOrbit) {
       });
       renderer.dispose();
       renderer.domElement.remove();
+      detailScene.traverse(object => {
+        object.geometry?.dispose();
+        if (object.material && !Array.isArray(object.material)) object.material.dispose();
+      });
+      overlayScene.traverse(object => {
+        object.geometry?.dispose();
+        if (object.material && !Array.isArray(object.material)) object.material.dispose();
+      });
+      detailTarget.dispose();
+      detailConnector.remove();
       section.classList.remove('bj--webgl');
     }
   };

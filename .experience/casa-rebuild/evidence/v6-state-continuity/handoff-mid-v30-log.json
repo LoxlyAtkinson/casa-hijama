@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/",
+    "state": "desktop-handoff-mid-v30",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "timestamp": "2026-10-18T04:39:30.284Z",
+    "sourceRevision": "a23198d7a61f035516211dd0aa6c2a1f9750cb9d83cdb9b667042b4537938cb4",
+    "action": "Pause scan reveal at 50% with the app handoff timer extended for capture",
+    "expected": "Both still and live drawn on opposite sides of the moving boundary",
+    "actual": {
+      "clip": "inset(0px 22.4439% 0px 0px)",
+      "stillOpacity": 1,
+      "liveOpacity": 1,
+      "handoff": true
+    },
+    "result": "PASS",
+    "screenshot": "desktop-handoff-mid-v30.png"
+  },
+  {
+    "route": "/",
+    "state": "mobile-handoff-mid-v30",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "timestamp": "2026-10-18T04:39:35.110Z",
+    "sourceRevision": "a23198d7a61f035516211dd0aa6c2a1f9750cb9d83cdb9b667042b4537938cb4",
+    "action": "Pause scan reveal at 50% with the app handoff timer extended for capture",
+    "expected": "Both still and live drawn on opposite sides of the moving boundary",
+    "actual": {
+      "clip": "inset(0px 22.4439% 0px 0px)",
+      "stillOpacity": 1,
+      "liveOpacity": 1,
+      "handoff": true
+    },
+    "result": "PASS",
+    "screenshot": "mobile-handoff-mid-v30.png"
+  }
+]

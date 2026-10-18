@@ -145,6 +145,8 @@
 
 /* The still path follows the same scan palette when motion or WebGL is unavailable. */
 .bj:not(.bj--webgl) .bj-face img{filter:hue-rotate(76deg) saturate(1.3) brightness(.8) contrast(1.12)}
+.bj:not(.bj--webgl) .bj-face img{filter:none}
+.bj:not(.bj--webgl):not([data-region="2"]) .bj-focus{display:none}
 .bj:not(.bj--webgl) .bj-focus{background:#ff54732b;box-shadow:0 0 38px 14px #ff426e2b}
 .bj:not(.bj--webgl) .bj-hotspot{border-color:#ff9bb57d;background:#ff526d32}
 .bj:not(.bj--webgl) .bj-hotspot i{background:#ffa5bb}
@@ -166,13 +168,18 @@
 .bj--webgl.bj--chapter-focus .bj-webgl-host canvas{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 10%,#000 90%,transparent)}
 .bj--webgl.bj--zoomed .bj-webgl-host canvas{-webkit-mask-image:radial-gradient(ellipse 58% 55% at 50% 50%,#000 44%,transparent 84%);mask-image:radial-gradient(ellipse 58% 55% at 50% 50%,#000 44%,transparent 84%)}
 .bj--webgl.bj--zoomed .bj-webgl-host{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 88%,transparent)}
-.bj-figure{opacity:1;transition:opacity .24s ease}
-.bj-webgl-host canvas{opacity:0;transition:opacity .36s ease}
-.bj--handoff .bj-figure{opacity:0;visibility:hidden;transition:opacity .24s ease,visibility 0s .24s}
+.bj-figure{opacity:1}
+.bj-webgl-host canvas{opacity:0}
+/* A moving scan boundary replaces the still with the live render. Both sides
+   stay painted throughout, without an empty or doubled full-body frame. */
+.bj--handoff .bj-webgl-host{animation:bj-live-reveal .56s cubic-bezier(.4,0,.2,1) both}
+.bj--handoff .bj-webgl-host canvas{opacity:1}
 .bj--handoff .bj-focus{visibility:hidden}
-.bj--webgl .bj-figure{opacity:0;visibility:hidden;transition:none}
+.bj--handoff .bj-hotspot{visibility:hidden}
+.bj--webgl .bj-figure{opacity:0;visibility:hidden}
 .bj--webgl .bj-webgl-host canvas{opacity:1}
-@media(prefers-reduced-motion:reduce){.bj-figure,.bj-webgl-host canvas,.bj--webgl .bj-figure{transition:none}}
+@keyframes bj-live-reveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@media(prefers-reduced-motion:reduce){.bj--handoff .bj-webgl-host{animation:none}}
 @media(max-width:680px){.bj-drag-hint{display:none}}
 .bj-3d-tags span{font-size:.62rem;letter-spacing:.075em;color:#c7ebef}
 .bj-3d-tags span.is-active{color:#ffd1dc}
@@ -204,4 +211,40 @@
   .bj-zoom-controls{left:-47px;right:auto;top:49%;bottom:auto;transform:translateY(-50%)}
   .bj-view-controls{position:relative;left:auto;right:auto;bottom:auto;margin:0;padding-top:4px}
   .bj-3d-tags span:not(.is-active){opacity:0}
+}
+
+/* The phone chapter is one composed frame: context, dominant scan, then an
+   actionable reading panel. Scrolling still drives the back and lumbar beats. */
+@media(max-width:680px) and (prefers-reduced-motion:no-preference){
+  .bj--enhanced .bj-shell{padding-top:0;padding-bottom:4px;align-content:center}
+  .bj-intro h2{font-size:2.28rem;line-height:1.02;margin:4px 0 4px}
+  .bj-intro p{font-size:.68rem;line-height:1.35;max-width:355px}
+  .bj-eyebrow{font-size:.51rem}
+  .bj-visual-wrap{width:min(82vw,320px);margin:-8px auto 0}
+  .bj-visual{aspect-ratio:.75}
+  .bj-view-controls{padding-top:0;font-size:.52rem}
+  .bj-rotate{padding:4px 9px}
+  .bj-content{position:relative;gap:0}
+  .bj-counter{font-size:.55rem;line-height:1.1}
+  .bj-current{font-size:.85rem}
+  .bj-region-controls{min-height:32px;margin:1px 0 0}
+  .bj-region-button{min-height:32px;padding:3px 1px;font-size:.62rem}
+  .bj-panels,.bj--enhanced .bj-panels{height:94px;margin-top:3px}
+  .bj-panel{display:grid;grid-template-columns:36% 1fr;column-gap:8px;align-items:start}
+  .bj-panel .bj-region-label{grid-column:1;grid-row:1}
+  .bj-panel h3{grid-column:1;grid-row:2;font-size:1.03rem;line-height:1.05;margin:3px 0 0}
+  .bj-panel p{grid-column:2;grid-row:1/span 2;font-size:.75rem;line-height:1.25}
+  .bj-region-label{font-size:.48rem}
+  .bj-checkin-trigger,.bj--ready .bj-checkin-trigger{position:relative;z-index:8;min-height:36px;font-size:12px;margin:2px 0 0;padding:7px 13px;white-space:nowrap;isolation:isolate}
+  .bj-checkin-label{position:relative;z-index:1;display:inline-block;transform:translateZ(0);font:800 12px Manrope,sans-serif;color:#082a31}
+  .bj-checkin-trigger>span{font-size:12px}
+  .bj-treatment-link{display:inline-flex;order:4;align-self:center;margin:2px 0 0 10px;font-size:.75rem;white-space:nowrap}
+  .bj-content{display:grid;grid-template-columns:1fr auto}
+  .bj-counter,.bj-region-controls,.bj-panels{grid-column:1/-1}
+  .bj-region-controls{grid-row:auto}
+  .bj-panels,.bj--enhanced .bj-panels{grid-row:auto}
+  .bj-checkin-trigger,.bj--ready .bj-checkin-trigger{grid-column:1;grid-row:auto;justify-self:start}
+  .bj-treatment-link{grid-column:2;grid-row:4}
+  .bj-zoom-controls{left:-33px}
+  .bj-review{position:sticky;bottom:0;z-index:2;box-shadow:0 -10px 22px #172823}
 }

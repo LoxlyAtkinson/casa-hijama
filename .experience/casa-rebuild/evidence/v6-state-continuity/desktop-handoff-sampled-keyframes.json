@@ -1,0 +1,32 @@
+[
+  {
+    "fraction": 0,
+    "clip": "inset(0px 100% 0px 0px)",
+    "still": 1,
+    "live": 1
+  },
+  {
+    "fraction": 0.25,
+    "clip": "inset(0px 76.3413% 0px 0px)",
+    "still": 1,
+    "live": 1
+  },
+  {
+    "fraction": 0.5,
+    "clip": "inset(0px 22.4439% 0px 0px)",
+    "still": 1,
+    "live": 1
+  },
+  {
+    "fraction": 0.75,
+    "clip": "inset(0px 4.06323% 0px 0px)",
+    "still": 1,
+    "live": 1
+  },
+  {
+    "fraction": 1,
+    "clip": "inset(0px 0% 0px 0px)",
+    "still": 1,
+    "live": 1
+  }
+]

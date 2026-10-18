@@ -21,7 +21,7 @@
         "clientWidth": 142
       },
       "body": {
-        "text": "Explore this area ↗",
+        "text": "Explore this area↗",
         "box": {
           "left": 999.46875,
           "right": 1148.28125
@@ -59,7 +59,7 @@
         "clientWidth": 142
       },
       "body": {
-        "text": "Explore this area ↗",
+        "text": "Explore this area↗",
         "box": {
           "left": 999.46875,
           "right": 1148.28125
@@ -97,7 +97,7 @@
         "clientWidth": 142
       },
       "body": {
-        "text": "Explore this area ↗",
+        "text": "Explore this area↗",
         "box": {
           "left": 999.46875,
           "right": 1148.28125
@@ -135,17 +135,17 @@
         "clientWidth": 0
       },
       "body": {
-        "text": "Explore this area ↗",
+        "text": "Explore this area↗",
         "box": {
           "left": 20,
-          "right": 158.8125
+          "right": 165.1875
         },
         "content": {
-          "left": 33,
-          "right": 145.8125
+          "left": 34,
+          "right": 151.1875
         },
-        "scrollWidth": 137,
-        "clientWidth": 137
+        "scrollWidth": 143,
+        "clientWidth": 143
       },
       "documentWidth": 390
     },
@@ -173,17 +173,17 @@
         "clientWidth": 0
       },
       "body": {
-        "text": "Explore this area ↗",
+        "text": "Explore this area↗",
         "box": {
           "left": 20,
-          "right": 158.8125
+          "right": 165.1875
         },
         "content": {
-          "left": 33,
-          "right": 145.8125
+          "left": 34,
+          "right": 151.1875
         },
-        "scrollWidth": 137,
-        "clientWidth": 137
+        "scrollWidth": 143,
+        "clientWidth": 143
       },
       "documentWidth": 390
     },
@@ -211,17 +211,17 @@
         "clientWidth": 0
       },
       "body": {
-        "text": "Explore this area ↗",
+        "text": "Explore this area↗",
         "box": {
           "left": 20,
-          "right": 158.8125
+          "right": 165.1875
         },
         "content": {
-          "left": 33,
-          "right": 145.8125
+          "left": 34,
+          "right": 151.1875
         },
-        "scrollWidth": 137,
-        "clientWidth": 137
+        "scrollWidth": 143,
+        "clientWidth": 143
       },
       "documentWidth": 390
     },

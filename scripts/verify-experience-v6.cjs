@@ -60,6 +60,8 @@ async function open(context, route, viewport) {
           if (name === 'products') assert(await page.locator('.product-card').count() === 30, 'Catalog missing products');
           await scrollWholePage(page);
           if (name === 'products') {
+            await page.locator('.product-card img').evaluateAll(images => images.forEach(image => { image.loading = 'eager'; }));
+            await page.waitForFunction(() => [...document.querySelectorAll('.product-card img')].every(image => image.complete), null, { timeout: 15000 });
             const broken = await page.locator('.product-card img').evaluateAll(images => images.filter(i => !i.complete || !i.naturalWidth).map(i => i.src));
             assert(broken.length === 0, `Broken catalog images: ${broken.join(', ')}`);
           }

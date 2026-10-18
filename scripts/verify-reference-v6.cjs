@@ -163,11 +163,11 @@ async function loaded(page) {
     await fallbackPage.evaluate(() => scrollTo(0, document.querySelector('.bj').getBoundingClientRect().top + scrollY));
     await fallbackPage.waitForFunction(() => [...document.querySelectorAll('.bj-figure img')].every(img => img.complete && img.naturalWidth > 0));
     check(await fallbackPage.locator('.bj--webgl canvas').count() === 0, 'WebGL fallback canvas remains');
-    check((await fallbackPage.locator('.bj-front img').getAttribute('src')).includes('body-map-front'), 'Front fallback still missing');
+    check((await fallbackPage.locator('.bj-front img').evaluate(img => img.currentSrc)).includes('body-map-mobile-front'), 'Front fallback still missing');
     await capture(fallbackPage, 'mobile', 'body-fallback', 'Blocked WebGL and waited for fallback image', 'Front clinical still and named region controls visible');
     await fallbackPage.locator('.bj-region-button[data-region="1"]').click();
     check(await fallbackPage.locator('.bj').getAttribute('data-side') === 'back', 'Back fallback did not change side');
-    check((await fallbackPage.locator('.bj-back img').getAttribute('src')).includes('body-map-back'), 'Back fallback still missing');
+    check((await fallbackPage.locator('.bj-back img').evaluate(img => img.currentSrc)).includes('body-map-mobile-back'), 'Back fallback still missing');
     await fallbackPage.locator('.bj-dialog-close').click();
     await capture(fallbackPage, 'mobile', 'body-fallback-back', 'Selected upper back with WebGL blocked', 'Back anatomical still matches the Back View label and guidance');
     await fallback.close();
