@@ -1,0 +1,12 @@
+# Design Loop v23 — brief critic (raw verdict)
+
+Reviewer: fresh brief critic, 2026-10-18. Scope: the stated home and body journeys only. I judged rendered output and interaction evidence, not implementation source, builder rationale, earlier reviews, or visual taste. Active contract: `../contract-and-section-map.md`; progress record: `../progress.md`.
+
+| Journey | Verdict | Outcome evidence |
+| --- | --- | --- |
+| Hero and home | **PASS** | Desktop and 390 × 844 mobile frames show the opening cup scene, a distinct room beat reached by page scroll, clear treatment entry, and the remaining home sequence through care, prices, products, booking, and location. The full-page mobile frame has the sections in a usable reading order. |
+| Interactive body | **PASS** | The first neck state presents a draggable body. The supplied before/after frames show a direct turn to the back and synchronized upper-back marker, heading, and selected region; lower-back frames show the next aligned state at **100% zoom** on both desktop and mobile. The browser observation log records an ordinary forward wheel after the drag reaching lower back, reverse wheel returning to the front/neck, and a continued full turn returning to front guidance. Named markers open a four-question conversation aid with a local notes outcome. Reduced-motion and WebGL-blocked frames show readable static front/back states and controls. |
+
+Evidence inspected directly: `../evidence/v6/desktop-hero-start.png`, `desktop-hero-room.png`, `mobile-hero-start.png`, `mobile-hero-room.png`, the desktop/mobile body front, turn-to-back, lower, intake, reduced-motion, and fallback-back captures in `../evidence/v6/`; `../evidence/v6-state-continuity/` sequence and handoff frames; `../evidence/v6-site/mobile-light-home-full.png` and `desktop-light-body-intake-notes.png`. I also opened `http://127.0.0.1:4173/` and observed its live accessibility state change to selected lower back after page scrolling. The in-app browser screenshot capture was blank after that scroll, so the rendered visual judgment uses the supplied PNG frames; I did not independently repeat the 390px mouse/scroll interactions live. These limits do not contradict the observed frames and recorded action sequence.
+
+Largest actionable gap: none against this brief. This is a scoped outcome verdict, not an acceptance verdict for the full site or its separate experience gates.

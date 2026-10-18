@@ -1,0 +1,135 @@
+[
+  {
+    "ms": 13.700000017881393,
+    "handoff": true,
+    "webgl": false,
+    "still": 1,
+    "live": 0
+  },
+  {
+    "ms": 29.30000001192093,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.94677,
+    "live": 0
+  },
+  {
+    "ms": 46.5,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.836852,
+    "live": 0
+  },
+  {
+    "ms": 62.80000001192093,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.686356,
+    "live": 0
+  },
+  {
+    "ms": 79.7000000178814,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.532067,
+    "live": 0
+  },
+  {
+    "ms": 95.90000000596046,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.399929,
+    "live": 0
+  },
+  {
+    "ms": 113.10000002384186,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.29421,
+    "live": 0
+  },
+  {
+    "ms": 129.40000000596046,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.211915,
+    "live": 0
+  },
+  {
+    "ms": 146.80000001192093,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.147722,
+    "live": 0
+  },
+  {
+    "ms": 163.60000002384186,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.0985505,
+    "live": 0
+  },
+  {
+    "ms": 179.30000001192093,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.0616048,
+    "live": 0
+  },
+  {
+    "ms": 196.5,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.034899,
+    "live": 0
+  },
+  {
+    "ms": 213.40000000596046,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.0164979,
+    "live": 0
+  },
+  {
+    "ms": 230,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.00533131,
+    "live": 0
+  },
+  {
+    "ms": 247.10000002384186,
+    "handoff": true,
+    "webgl": false,
+    "still": 0.000418796,
+    "live": 0
+  },
+  {
+    "ms": 262.90000000596046,
+    "handoff": true,
+    "webgl": false,
+    "still": 0,
+    "live": 0
+  },
+  {
+    "ms": 279.80000001192093,
+    "handoff": true,
+    "webgl": false,
+    "still": 0,
+    "live": 0
+  },
+  {
+    "ms": 296.80000001192093,
+    "handoff": false,
+    "webgl": true,
+    "still": 0,
+    "live": 0
+  },
+  {
+    "ms": 2049.9000000059605,
+    "handoff": false,
+    "webgl": true,
+    "still": 0,
+    "live": 0
+  }
+]

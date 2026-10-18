@@ -1,0 +1,15 @@
+# Independent CRAFT review v22
+
+Verdict: **FAIL**
+
+Single biggest remaining gap: the narrow dark body state visibly loses the left edge of its explanatory content. In `evidence/v6-state-continuity/mobile-dark-insets.png` (390 × 844), the counter shows only the trailing `3`, the first region item loses its `01`, the lower-back heading begins partway through `Care`, and the paragraph loses leading letters on multiple lines. The figure and header remain correctly centered. This is a meaningful reading defect on the selected region, not an aesthetic preference.
+
+I inspected `continuity-log.json`: its mobile-dark-insets entry reports document width 390 and left=20 for the counter, first region control, heading and paragraph, with heading/paragraph right=370. Those measurements rule out a simple oversized document explanation; they do not establish that glyphs are painted completely. The original-resolution screenshot still fails. Do not use the DOM inset values alone to waive the visible discrepancy. Establish whether this is actual painting/clipping or capture corruption, then supply a fresh settled original-resolution capture showing complete text. If capture corruption is established, the evidence gate still requires replacement evidence.
+
+Reference comparison: the desktop and mobile opening cup images have strong subject priority, deliberately separated copy and a clear booking action. The room scene changes the subject meaningfully. The body uses a continuous cyan silhouette, internal linework, a single stronger warm region and useful close framing, broadly applying bar-v3 mechanisms. The 200% focus images preserve usable orientation and surrounding text. These strengths do not excuse missing text in the mobile dark state.
+
+Inspected original-resolution evidence: v6 desktop/mobile hero start and room; desktop/mobile body front, upper and lower; desktop dark; v6-action-bounds desktop neck zoom and mobile lower zoom; v6-craft-side-test desktop yaw-70 and mobile yaw-105; v6-state-continuity mobile dark insets, reduced and fallback back; desktop/mobile handoff still and final live, plus mobile still-fading and live-starting. Timed handoff stills also show substantial silhouette and luminance changes; I am not assigning a second blocker from isolated timing samples without playback. The fallback-back capture contains overlapping explanatory text and should likewise be checked in a settled state before it is accepted as final evidence.
+
+Reference inputs: bar.md, bar-v2.md and bar-v3.md; original `C:/Users/loxly/Desktop/3d human body.jpg`; live https://www.apple.com/apple-watch-series-12/ retrieved through web on this review. Live Apple document structure was inspected; a new browser-rendered Apple screenshot was not captured in this review, so I do not claim a fresh pixel comparison with that page.
+
+Independence: fresh delegated critic; no implementation source, progress files or prior reviews read. Shared filesystem and supplied capture provenance are procedural limits. No product edits. This is a scoped craft review, not a claim that all behaviour or project acceptance gates pass.

@@ -1,0 +1,72 @@
+[
+  {
+    "name": "desktop",
+    "frames": 109,
+    "handoffFrames": 17,
+    "handoffMs": 264.5,
+    "maxStillLiveProduct": 0,
+    "handoffFirst": {
+      "t": 3436.0999999940395,
+      "handoff": true,
+      "webgl": false,
+      "still": 1,
+      "live": 0
+    },
+    "handoffLast": {
+      "t": 3700.5999999940395,
+      "handoff": true,
+      "webgl": false,
+      "still": 0,
+      "live": 0
+    },
+    "liveFirst": {
+      "t": 3717.7000000178814,
+      "handoff": false,
+      "webgl": true,
+      "still": 0,
+      "live": 0
+    },
+    "liveLast": {
+      "t": 3717.7000000178814,
+      "handoff": false,
+      "webgl": true,
+      "still": 0,
+      "live": 0
+    }
+  },
+  {
+    "name": "mobile",
+    "frames": 111,
+    "handoffFrames": 17,
+    "handoffMs": 261.5,
+    "maxStillLiveProduct": 0,
+    "handoffFirst": {
+      "t": 2926.800000011921,
+      "handoff": true,
+      "webgl": false,
+      "still": 1,
+      "live": 0
+    },
+    "handoffLast": {
+      "t": 3188.300000011921,
+      "handoff": true,
+      "webgl": false,
+      "still": 0,
+      "live": 0
+    },
+    "liveFirst": {
+      "t": 3214.800000011921,
+      "handoff": false,
+      "webgl": true,
+      "still": 0,
+      "live": 0
+    },
+    "liveLast": {
+      "t": 3214.800000011921,
+      "handoff": false,
+      "webgl": true,
+      "still": 0,
+      "live": 0
+    }
+  }
+]

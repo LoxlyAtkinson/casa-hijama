@@ -127,11 +127,11 @@ async function createMannequin(section, onHotspot, onOrbit) {
         float facing = abs(dot(normalize(vNormal), normalize(vEye)));
         float rim = pow(1.0 - facing, 1.45);
         float diffuse = max(0.0, dot(normalize(vNormal), normalize(vec3(-0.55,0.7,0.7))));
-        float coolDepth = 0.46 + 0.54 * diffuse;
+        float coolDepth = 0.35 + 0.65 * diffuse;
         float breath = 0.5 + 0.5 * sin(vPosition.y * 2.6 + vPosition.x * 4.0);
-        vec3 blue = mix(vec3(0.20,0.77,0.94), vec3(0.45,0.97,1.0), coolDepth);
+        vec3 blue = mix(vec3(0.045,0.39,0.55), vec3(0.46,0.89,0.98), coolDepth);
         blue += vec3(0.012,0.025,0.035) * breath;
-        vec3 colour = mix(blue, vec3(0.85,1.0,1.0), rim * 0.94);
+        vec3 colour = mix(blue, vec3(0.83,1.0,1.0), rim * (0.98 + .16*uFocus));
         // Fine scan contours follow the actual 3D surface through rotation.
         float alongX = pow(1.0 - abs(sin(vPosition.x * 12.0)), 44.0);
         float alongZ = pow(1.0 - abs(sin(vPosition.z * 12.0)), 44.0);
@@ -151,18 +151,96 @@ async function createMannequin(section, onHotspot, onOrbit) {
           * smoothstep(.15,.27,vPosition.z);
         float fine = pow(1.0 - abs(sin(vPosition.y * 71.0)), 66.0)
           * (1.0 - smoothstep(1.68,1.85,vPosition.y)) * .13;
-        float scanDetail = clamp(ribs * .32 + sternum * .20 + fine, 0.0, .42);
-        colour = mix(colour, vec3(.78,1.0,1.0), scanDetail);
+        float vertebrae = pow(1.0 - abs(sin(vPosition.y * 27.0)), 18.0)
+          * (1.0 - smoothstep(.035,.11,abs(vPosition.x)))
+          * smoothstep(-.10,.06,vPosition.y) * (1.0 - smoothstep(1.36,1.52,vPosition.y));
+        // A radiographic inner layer is shaded on the continuous skin mesh.
+        // Soft cavities supply depth; narrow bones and broader halos make the
+        // close view reveal anatomy rather than merely enlarging the shell.
+        float x = abs(vPosition.x);
+        float frontFace = smoothstep(.10,.24,vPosition.z);
+        float rearFace = smoothstep(.08,.22,-vPosition.z);
+        float thorax = smoothstep(.65,.84,vPosition.y) * (1.0-smoothstep(1.42,1.55,vPosition.y));
+        float innerChest = exp(-pow((x-.21)/.22,2.0)-pow((vPosition.y-1.08)/.37,2.0));
+        colour = mix(colour, vec3(.025,.22,.34), innerChest * frontFace * .34);
+        float ribHalo = 0.0;
+        float ribCore = 0.0;
+        for (int i=0; i<6; i++) {
+          float row = float(i);
+          float arch = 1.36 - row*.112 + .10*smoothstep(.06,.40,x) - .015*sin(x*9.0+row);
+          float d = abs(vPosition.y-arch);
+          float reach = smoothstep(.045,.11,x) * (1.0-smoothstep(.38,.53,x));
+          ribHalo = max(ribHalo, exp(-pow(d/.041,2.0))*reach);
+          ribCore = max(ribCore, exp(-pow(d/.012,2.0))*reach);
+        }
+        float clavicleY = 1.47 - .21*smoothstep(.02,.43,x);
+        float clavicle = exp(-pow((vPosition.y-clavicleY)/.015,2.0))
+          * smoothstep(.015,.07,x) * (1.0-smoothstep(.38,.48,x)) * frontFace;
+        float spinalCord = exp(-pow(vPosition.x/.026,2.0))
+          * smoothstep(-.18,.02,vPosition.y) * (1.0-smoothstep(1.36,1.52,vPosition.y));
+        float vertebralBodies = spinalCord * (.44 + .56*pow(.5+.5*cos(vPosition.y*47.0),5.0));
+        float scapulaPlate = exp(-pow((x-.28)/.145,2.0)-pow((vPosition.y-1.03)/.28,2.0));
+        float scapulaEdge = exp(-pow((sqrt(pow((x-.28)/.16,2.0)+pow((vPosition.y-1.03)/.32,2.0))-.82)/.16,2.0));
+        float lumbar = smoothstep(-.16,.02,vPosition.y) * (1.0-smoothstep(.58,.76,vPosition.y));
+        float muscleColumn = exp(-pow((x-.17)/.085,2.0)) * lumbar;
+        float muscleFiber = exp(-pow((x-(.14+.025*sin(vPosition.y*4.0)))/.021,2.0)) * lumbar;
+        float lumbarFacet = exp(-pow((x-.066)/.035,2.0))
+          * pow(.5+.5*cos(vPosition.y*43.0),8.0) * lumbar;
+        float sacralFan = exp(-pow((x-(.10+.28*max(0.0,-vPosition.y)))/.05,2.0))
+          * smoothstep(-.38,-.22,vPosition.y) * (1.0-smoothstep(.06,.18,vPosition.y));
+        // A second scan plate resolves only in the close view: the shoulder
+        // socket and tendon sweep in front, lumbar bodies and lateral facets
+        // behind. These are calculated on the turning mesh, not screen decals.
+        float shoulderRadius = length(vec2((x-.435)/.092,(vPosition.y-1.275)/.105));
+        float shoulderSocket = exp(-pow((shoulderRadius-.78)/.16,2.0)) * frontFace;
+        float shoulderDepth = exp(-pow(shoulderRadius/.92,2.0)) * frontFace;
+        float tendon = exp(-pow((vPosition.y-(1.38-.50*(x-.30)))/.018,2.0))
+          * smoothstep(.27,.34,x) * (1.0-smoothstep(.49,.57,x)) * frontFace;
+        float lumbarBodies = 0.0;
+        float lumbarProcesses = 0.0;
+        for (int i=0; i<5; i++) {
+          float cy = .49 - float(i)*.115;
+          float bodyOval = length(vec2(vPosition.x/.087,(vPosition.y-cy)/.041));
+          lumbarBodies = max(lumbarBodies,exp(-pow((bodyOval-.82)/.20,2.0)));
+          float branch = abs(vPosition.y-(cy-.015-.07*smoothstep(.07,.28,x)));
+          lumbarProcesses = max(lumbarProcesses,exp(-pow(branch/.014,2.0))
+            * smoothstep(.07,.11,x) * (1.0-smoothstep(.23,.32,x)));
+        }
+        float cervicalBodies = 0.0;
+        for (int i=0; i<5; i++) {
+          float cy = 1.50 + float(i)*.062;
+          float bodyOval = length(vec2(vPosition.x/.073,(vPosition.y-cy)/.025));
+          cervicalBodies = max(cervicalBodies,exp(-pow((bodyOval-.79)/.21,2.0)));
+        }
+        cervicalBodies *= frontFace * smoothstep(1.44,1.50,vPosition.y)
+          * (1.0-smoothstep(1.80,1.88,vPosition.y));
+        float focusLens = exp(-dot((vPosition-uRegion)/vec3(.49,.43,.50),
+          (vPosition-uRegion)/vec3(.49,.43,.50))*.85);
+        float focusDepth = uFocus * focusLens * (shoulderDepth*.28
+          + rearFace * (muscleColumn*.20+lumbarBodies*.20));
+        colour = mix(colour, vec3(.012,.16,.27), min(.30,focusDepth));
+        float deepAnatomy = thorax * frontFace * (ribHalo*.22+innerChest*.15)
+          + rearFace * (scapulaPlate*.23+vertebralBodies*.20+muscleColumn*.29);
+        colour = mix(colour, vec3(.015,.25,.40), clamp(deepAnatomy,0.0,.42));
+        float bone = frontFace * thorax * (ribCore*.56+ribHalo*.17+clavicle*.71+sternum*.18)
+          + rearFace * (scapulaEdge*.36+vertebralBodies*.40
+            + muscleFiber*.22+lumbarFacet*.18+sacralFan*.24);
+        float scanDetail = clamp(bone + fine*.20 + ribs*.18, 0.0, .76);
+        colour = mix(colour, vec3(.77,1.0,1.0), scanDetail);
         vec3 fromFocus = (vPosition - uRegion) / vec3(0.28,0.28,0.35);
         float warmth = exp(-dot(fromFocus,fromFocus) * 1.35);
-         colour = mix(colour, vec3(1.0,0.12,0.30), warmth * (0.60 + 0.26*uFocus));
+         colour = mix(colour, vec3(1.0,0.12,0.30), warmth * (0.58 + 0.07*uFocus));
+         float focusBones = uFocus * focusLens * (
+           frontFace * (shoulderSocket*.78+tendon*.53+clavicle*.36+cervicalBodies*.58)
+           + rearFace * (lumbarBodies*.71+lumbarProcesses*.49+lumbarFacet*.16));
+         colour = mix(colour, vec3(.83,1.0,1.0), min(.82,focusBones));
          // A broad, feathered pelvic shadow keeps the scan comfortable at every angle.
          vec3 pelvic = (vPosition - vec3(0.0,-0.48,0.10)) / vec3(0.38,0.45,0.48);
          float veil = exp(-dot(pelvic,pelvic) * 1.25);
          colour = mix(colour, vec3(0.015,0.22,0.32), veil * 0.72);
-         float alpha = 0.53 + 0.16 * diffuse + rim * 0.30 + grid * gridMask * 0.10 + warmth * 0.12 + scanDetail * .12;
+         float alpha = 0.28 + 0.12 * diffuse + rim * (0.51 + .13*uFocus) + grid * gridMask * 0.10 + warmth * 0.12 + scanDetail * .34 + focusBones * .28;
          alpha *= 1.0 - veil * 0.40;
-         gl_FragColor = vec4(colour, min(0.93, alpha));
+         gl_FragColor = vec4(colour, min(0.94, alpha));
       }`
   });
   // HuBMAP v1.2 Visible Human male skin. Its original metre-scale Y-up mesh is
@@ -184,7 +262,9 @@ async function createMannequin(section, onHotspot, onOrbit) {
     const center = 1 - smooth(.08, .24, Math.abs(x));
     const vertical = smooth(-1.07, -.87, y) * (1 - smooth(-.35, -.23, y));
     const flatten = center * vertical;
-    if (flatten > 0 && z > .035) positions.setZ(i, THREE.MathUtils.lerp(z, .035, flatten * .97));
+    // Compress this small anterior volume without collapsing it onto a plane;
+    // a near-zero depth produced folded triangles in the three-quarter view.
+    if (flatten > 0 && z > .035) positions.setZ(i, THREE.MathUtils.lerp(z, .035, flatten * .70));
     const face = smooth(1.70,1.85,y) * (1 - smooth(2.13,2.28,y)) * (1 - smooth(.13,.28,Math.abs(x)));
     if (face > 0 && z > .13) positions.setZ(i, THREE.MathUtils.lerp(positions.getZ(i), .265, face * .84));
   }
@@ -198,11 +278,11 @@ async function createMannequin(section, onHotspot, onOrbit) {
   scanSurface.renderOrder = 1;
   const outlineSurface = new THREE.Mesh(bodyGeometry, new THREE.ShaderMaterial({
     side: THREE.FrontSide, transparent: true, blending: THREE.AdditiveBlending,
-    depthWrite: false, depthTest: false, toneMapped: false,
+    depthWrite: false, depthTest: true, toneMapped: false,
     vertexShader: `varying vec3 vNormal; varying vec3 vEye;
       void main(){vNormal=normalize(normalMatrix*normal);vec4 view=modelViewMatrix*vec4(position,1.0);vEye=normalize(-view.xyz);gl_Position=projectionMatrix*view;}`,
     fragmentShader: `varying vec3 vNormal; varying vec3 vEye;
-      void main(){float edge=pow(1.0-abs(dot(normalize(vNormal),normalize(vEye))),2.2);gl_FragColor=vec4(.58,.96,1.0,edge*.58);}`
+      void main(){float edge=pow(1.0-abs(dot(normalize(vNormal),normalize(vEye))),2.0);gl_FragColor=vec4(.58,.96,1.0,edge*.36);}`
   }));
   outlineSurface.scale.setScalar(1.009);
   outlineSurface.renderOrder = 2;
@@ -335,22 +415,37 @@ async function createMannequin(section, onHotspot, onOrbit) {
     latestRegion = visualRegion;
     if (visualRegion !== region) onOrbit(visualRegion, false);
     const detail = THREE.MathUtils.clamp((zoom - 1) / .5, 0, 1);
+    // These guide strands are laid just under the frontal/rear shell. From an
+    // oblique camera angle they can project beyond the silhouette; let the
+    // real 3D surface carry the profile while restoring detail face-on.
+    const anatomyFacing = ease(.55, .87, Math.abs(Math.cos(angle)));
     skin.uniforms.uRegion.value.copy(markers[visualRegion]);
     skin.uniforms.uFocus.value = detail;
     regionalDetails.forEach(({ material, region: detailRegion, sacrum }) => {
-      material.opacity = detailRegion === visualRegion ? (sacrum ? .035 + detail * .065 : .16 + detail * .22) : .015;
+      material.opacity = (detailRegion === visualRegion ? (sacrum ? .06 + detail * .10 : .29 + detail * .25) : .035) * anatomyFacing;
     });
+    innerLineMaterial.opacity = .20 * anatomyFacing;
     const upper = ease(.23, .53, progress);
     const lower = ease(.57, .85, progress);
+    section.classList.toggle('bj--chapter-focus', upper > .08);
     body.rotation.y = angle;
     body.rotation.x = orbitPitch;
     const mobileFrame = host.clientWidth < 330;
     const framingDistance = mobileFrame ? 9.6 : 10.1;
-    const baseFocus = -.08 * upper - .12 * lower - (mobileFrame ? .14 : 0);
+    const baseFocus = mobileFrame
+      ? -.14 - .04 * upper - .02 * lower
+      : .20 * upper - .43 * lower;
     const focusY = [1.26,.92,.2][visualRegion];
     const verticalFocus = THREE.MathUtils.lerp(baseFocus, focusY, detail);
     body.scale.x = mobileFrame ? 1.13 : 1.08;
-    camera.position.set(0, verticalFocus, (framingDistance - .45 * upper + .05 * lower) / zoom);
+    // The scroll chapters themselves move closer: shoulder field, then lumbar
+    // field. Direct zoom remains a separate, reversible choice at every stop.
+    // Keep the complete silhouette visible in the narrow chapter stage;
+    // the separate 200% control provides the deliberate close-up.
+    const chapterDistance = mobileFrame
+      ? framingDistance - .12 * upper - .05 * lower
+      : framingDistance - 1.20 * upper - .62 * lower;
+    camera.position.set(0, verticalFocus, chapterDistance / zoom);
     camera.lookAt(0, verticalFocus, 0);
     anatomyViews.front.visible = visibleSide === 'front';
     anatomyViews.back.visible = visibleSide === 'back';
@@ -389,7 +484,10 @@ async function createMannequin(section, onHotspot, onOrbit) {
         ? Math.max(leftLimit + labelWidth + 10, Math.min(rightLimit, x))
         : Math.min(rightLimit - labelWidth - 14, Math.max(leftLimit, x));
       tag.style.left = `${safeX}px`;
-      tag.style.top = `${Math.max(labelHeight / 2 + 8, Math.min(host.clientHeight - labelHeight / 2 - 8, y))}px`;
+      // In a close view let the scanned joint/vertebrae remain visible; the
+      // region label drops beneath the luminous focus rather than covering it.
+      const tagY = y + (i === visualRegion ? detail * 32 : 0);
+      tag.style.top = `${Math.max(labelHeight / 2 + 8, Math.min(host.clientHeight - labelHeight / 2 - 8, tagY))}px`;
       tag.style.transform = labelOnLeft ? 'translate(calc(-100% - 10px), -50%)' : 'translate(10px, -50%)';
     });
     renderer.render(scene, camera);
@@ -421,16 +519,28 @@ async function createMannequin(section, onHotspot, onOrbit) {
     });
     return nearest?.index;
   }
+  const visual = section.querySelector('.bj-visual');
   let drag = null;
   let suppressClickUntil = 0;
   function pointerDown(event) {
-    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    if (drag || !event.isPrimary || (event.pointerType !== 'touch' && event.button !== 0)) return;
+    if (event.target.closest('button') || !section.classList.contains('bj--webgl')) return;
     drag = { id: event.pointerId, startX: event.clientX, startY: event.clientY, lastX: event.clientX, lastY: event.clientY, moved: false };
-    renderer.domElement.setPointerCapture(event.pointerId);
+    // The figure is larger than the canvas's visible silhouette. Capture on
+    // its whole stage, then also listen on the document for browser runtimes
+    // that do not keep delivering captured moves after crossing an edge.
+    try { visual.setPointerCapture(event.pointerId); } catch { /* document listeners still handle the drag */ }
   }
   function pointerMove(event) {
     if (!drag || drag.id !== event.pointerId) return;
-    if (Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) > 5) drag.moved = true;
+    const distanceX = event.clientX - drag.startX;
+    const distanceY = event.clientY - drag.startY;
+    // Keep a vertical touch gesture available for the page's scroll story.
+    if (!drag.moved && Math.abs(distanceY) > 8 && Math.abs(distanceY) > Math.abs(distanceX)) {
+      drag = null;
+      return;
+    }
+    if (Math.abs(distanceX) > 5) drag.moved = true;
     if (drag.moved) {
       orbitYaw += (event.clientX - drag.lastX) * .015;
       orbitPitch = THREE.MathUtils.clamp(orbitPitch + (event.clientY - drag.lastY) * .006, -.3, .3);
@@ -444,7 +554,7 @@ async function createMannequin(section, onHotspot, onOrbit) {
   }
   function pointerEnd(event) {
     if (!drag || drag.id !== event.pointerId) return;
-    if (drag.moved) {
+    if (event.type !== 'pointercancel' && drag.moved) {
       suppressClickUntil = performance.now() + 250;
       const target = latestRegion;
       const targetProgress = (target + .5) / 3;
@@ -453,14 +563,14 @@ async function createMannequin(section, onHotspot, onOrbit) {
       latestProgress = targetProgress;
       onOrbit(target, true);
       render(targetProgress, target);
-    } else {
+    } else if (event.type !== 'pointercancel') {
       const index = pick(event);
       if (index !== undefined) {
         suppressClickUntil = performance.now() + 250;
         onHotspot(index, renderer.domElement);
       }
     }
-    if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
+    if (visual.hasPointerCapture(event.pointerId)) visual.releasePointerCapture(event.pointerId);
     drag = null;
     renderer.domElement.style.cursor = 'grab';
   }
@@ -470,7 +580,7 @@ async function createMannequin(section, onHotspot, onOrbit) {
     if (index !== undefined) onHotspot(index, renderer.domElement);
   }
   function hover(event) {
-    if (drag?.id === event.pointerId) { pointerMove(event); return; }
+    if (drag?.id === event.pointerId) return;
     renderer.domElement.style.cursor = pick(event) === undefined ? 'grab' : 'pointer';
   }
   function contextLost(event) {
@@ -478,25 +588,33 @@ async function createMannequin(section, onHotspot, onOrbit) {
     section.classList.remove('bj--webgl');
   }
   renderer.domElement.addEventListener('click', click);
-  renderer.domElement.addEventListener('pointerdown', pointerDown);
+  visual.addEventListener('pointerdown', pointerDown);
   renderer.domElement.addEventListener('pointermove', hover);
-  renderer.domElement.addEventListener('pointerup', pointerEnd);
-  renderer.domElement.addEventListener('pointercancel', pointerEnd);
+  document.addEventListener('pointermove', pointerMove);
+  document.addEventListener('pointerup', pointerEnd);
+  document.addEventListener('pointercancel', pointerEnd);
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
   const observer = new ResizeObserver(resize);
   observer.observe(host);
-  section.classList.add('bj--webgl');
   resize();
+  // Paint one complete WebGL frame beneath the still before starting the
+  // handoff. The still must clear completely before the new silhouette shows.
+  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  section.classList.add('bj--handoff');
+  await new Promise(resolve => setTimeout(resolve, 280));
+  section.classList.add('bj--webgl');
+  section.classList.remove('bj--handoff');
   return {
     render,
     setZoom(value) { zoom = value; render(); },
     dispose() {
       observer.disconnect();
       renderer.domElement.removeEventListener('click', click);
-      renderer.domElement.removeEventListener('pointerdown', pointerDown);
+      visual.removeEventListener('pointerdown', pointerDown);
       renderer.domElement.removeEventListener('pointermove', hover);
-      renderer.domElement.removeEventListener('pointerup', pointerEnd);
-      renderer.domElement.removeEventListener('pointercancel', pointerEnd);
+      document.removeEventListener('pointermove', pointerMove);
+      document.removeEventListener('pointerup', pointerEnd);
+      document.removeEventListener('pointercancel', pointerEnd);
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       scene.traverse(object => {
         object.geometry?.dispose();

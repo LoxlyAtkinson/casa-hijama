@@ -1,0 +1,134 @@
+[
+  {
+    "state": "desktop-transition-live",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:06.055Z",
+    "metrics": {
+      "stillOpacity": 0,
+      "canvasOpacity": 0.972056,
+      "overlapFrames": 0,
+      "frames": 19
+    }
+  },
+  {
+    "state": "desktop-reduced",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:08.114Z",
+    "metrics": {
+      "cards": 3,
+      "canvas": 0
+    }
+  },
+  {
+    "state": "desktop-fallback-front",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:10.716Z",
+    "metrics": {
+      "canvas": 0,
+      "side": "front"
+    }
+  },
+  {
+    "state": "desktop-fallback-back",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:12.134Z",
+    "metrics": {
+      "canvas": 0,
+      "side": "back"
+    }
+  },
+  {
+    "state": "mobile-reduced",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:13.857Z",
+    "metrics": {
+      "cards": 3,
+      "canvas": 0
+    }
+  },
+  {
+    "state": "mobile-fallback-front",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:16.002Z",
+    "metrics": {
+      "canvas": 0,
+      "side": "front"
+    }
+  },
+  {
+    "state": "mobile-fallback-back",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:16.392Z",
+    "metrics": {
+      "canvas": 0,
+      "side": "back"
+    }
+  },
+  {
+    "state": "mobile-dark-insets",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "sourceRevision": "52e8073658e6f0ed51011bf5df98370162d7f2ff97622fc6853d77601616a3c7",
+    "timestamp": "2026-10-18T03:22:24.340Z",
+    "metrics": {
+      "width": 390,
+      "documentWidth": 390,
+      "elements": [
+        {
+          "selector": ".bj-current",
+          "left": 20,
+          "right": 41.734375,
+          "text": "03"
+        },
+        {
+          "selector": ".bj-region-button[data-region=\"0\"]",
+          "left": 20,
+          "right": 130.953125,
+          "text": "01Neck & shoulders"
+        },
+        {
+          "selector": ".bj-panel[data-region=\"2\"] h3",
+          "left": 20,
+          "right": 370,
+          "text": "Care begins with a conversation."
+        },
+        {
+          "selector": ".bj-panel[data-region=\"2\"] p",
+          "left": 20,
+          "right": 370,
+          "text": "Wet cupping includes small skin punctures; dry cupping does not. Tell your therapist about ongoing lower-back pain and any health concerns before deciding on treatment."
+        }
+      ]
+    }
+  }
+]

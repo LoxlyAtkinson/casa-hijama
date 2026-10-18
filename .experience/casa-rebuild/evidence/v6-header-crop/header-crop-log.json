@@ -1,0 +1,68 @@
+[
+  {
+    "state": "lower",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 4,
+    "metrics": {
+      "label": "Book a session ↗",
+      "outer": {
+        "left": 1240.65625,
+        "right": 1382.390625
+      },
+      "text": {
+        "left": 1257.65625,
+        "right": 1365.390625
+      },
+      "scrollWidth": 142,
+      "clientWidth": 142
+    },
+    "result": "PASS"
+  },
+  {
+    "state": "neck-zoom",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 4,
+    "metrics": {
+      "label": "Book a session ↗",
+      "outer": {
+        "left": 1240.65625,
+        "right": 1382.390625
+      },
+      "text": {
+        "left": 1257.65625,
+        "right": 1365.390625
+      },
+      "scrollWidth": 142,
+      "clientWidth": 142
+    },
+    "result": "PASS"
+  },
+  {
+    "state": "lower-zoom",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 4,
+    "metrics": {
+      "label": "Book a session ↗",
+      "outer": {
+        "left": 1240.65625,
+        "right": 1382.390625
+      },
+      "text": {
+        "left": 1257.65625,
+        "right": 1365.390625
+      },
+      "scrollWidth": 142,
+      "clientWidth": 142
+    },
+    "result": "PASS"
+  }
+]
